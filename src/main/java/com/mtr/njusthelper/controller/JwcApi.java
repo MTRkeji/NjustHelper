@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 //教务处API接口
 @RestController
@@ -72,13 +73,8 @@ public class JwcApi {
         //获取cookie
         Cookie[] cookies = request.getCookies();
 
-        JSONObject jsonObject = new JSONObject();
-        List list = jwcService.GradesQuary(cookies);
-
-        //将数据存入json的grades字段中
-        for(int i = 0;i<list.size();i++){
-            jsonObject.put("grades",list);
-        }
+        JSONObject jsonObject;
+        jsonObject = jwcService.GradesQuary(cookies);
         return jsonObject;
     }
 }

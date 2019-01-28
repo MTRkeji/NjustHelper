@@ -1,8 +1,11 @@
 package com.mtr.njusthelper.service;
 
+import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
+import org.apache.commons.collections.map.HashedMap;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -153,7 +156,7 @@ public class JwcService {
      * @param cookies
      * @return
      */
-    public List GradesQuary(javax.servlet.http.Cookie[] cookies){
+    public JSONObject GradesQuary(javax.servlet.http.Cookie[] cookies){
         PrintWriter out = null;
         BufferedReader in = null;
         StringBuffer sb = new StringBuffer();
@@ -200,7 +203,7 @@ public class JwcService {
         }
 
         //检索数据
-        List list = new ArrayList<>();
+        List<Map> list = new ArrayList<>();
         Pattern pattern = Pattern.compile("<table id=\"dataList\".*?>[\\s\\S]*?<\\/table>");
         Matcher matcher = pattern.matcher(sb);
         String table = "";
@@ -218,9 +221,10 @@ public class JwcService {
             String kkxq="";
             String kcmc="";
             String cj="";
+            String jd="";
             String xf="";
             String kcsx="";
-            Map resMap = new HashMap();
+            Map<String,String> resMap = new HashMap();
             Pattern pattern2 = Pattern.compile("<td.*?>[\\s\\S]*?<\\/td>");
             Matcher matcher2 = pattern2.matcher(matcher1.group());
             for (int num=1;matcher2.find();num++){
@@ -232,6 +236,7 @@ public class JwcService {
                 }
                 if(num==5){
                     cj = matcher2.group().replace("<td style=\" \">","").replace("</td>","");
+                    jd = CaculateJd(cj);
                 }
                 if(num==7){
                     xf = matcher2.group().replace("<td>","").replace("</td>","");
@@ -245,11 +250,197 @@ public class JwcService {
             resMap.put("kkxq",kkxq);
             resMap.put("kcmc",kcmc);
             resMap.put("cj",cj);
+            resMap.put("jd",jd);
             resMap.put("xf",xf);
             resMap.put("kcsx",kcsx);
             //将map存入list列表
             list.add(resMap);
         }
-        return list;
+
+        //将成绩按学期分组,并进行数据分析
+        Map dataItem;
+        double sumAllXf=0; //全部总学分
+        double sumBxXf = 0;  //必修总学分
+        double countAll = 0;  //sum（学分×成绩） 全部
+        double countBx = 0;  //sum（学分×成绩） 必修
+        double avgAllCj = 0;  //全部平均成绩
+        double avgBxCj = 0;  //必修平均成绩
+        double countAllJd = 0;  //sum（绩点×成绩） 全部
+        double countBxJd = 0;  //sum（绩点×成绩） 必修
+        double avgAllJd = 0;  //全部GPA
+        double avgBxJd = 0;  //必修GPA
+        Map<String,List<Map>> resultMap = new HashMap<>();
+        List<String> xq = new ArrayList<>();
+        for(int i = 0;i<list.size();i++){
+            dataItem = list.get(i);
+            if(resultMap.containsKey(dataItem.get("kkxq"))){
+                resultMap.get(dataItem.get("kkxq")).add(dataItem);
+            }else{
+                List<Map> list1 = new ArrayList<>();
+                list1.add(dataItem);
+                xq.add((String)dataItem.get("kkxq"));
+                resultMap.put((String) dataItem.get("kkxq"),list1);
+            }
+            String tempCj = (String)dataItem.get("cj");
+            if(tempCj.equals("良好")){
+                tempCj = "80";
+            }
+            if(tempCj.equals("优秀")){
+                tempCj = "90";
+            }
+            if(tempCj.equals("中等")){
+                tempCj = "70";
+            }
+            if(tempCj.equals("及格")){
+                tempCj = "60";
+            }
+            if(tempCj.equals("不及格")){
+                tempCj = "0";
+            }
+            sumAllXf = sumAllXf + Double.parseDouble((String)dataItem.get("xf"));
+            countAll = countAll + Double.parseDouble((String)dataItem.get("xf"))*Double.parseDouble(tempCj);
+            countAllJd = countAllJd + Double.parseDouble((String)dataItem.get("jd"))*Double.parseDouble((String)dataItem.get("xf"));
+            if(dataItem.get("kcsx").equals("必修")){
+                sumBxXf = sumBxXf + Double.parseDouble((String)dataItem.get("xf"));
+                countBx = countBx + Double.parseDouble((String)dataItem.get("xf"))*Double.parseDouble(tempCj);
+                countBxJd = countBxJd + Double.parseDouble((String)dataItem.get("jd"))*Double.parseDouble((String)dataItem.get("xf"));
+            }
+        }
+        avgAllCj = countAll/sumAllXf;
+        avgBxCj = countBx/sumBxXf;
+        avgAllJd = countAllJd/sumAllXf;
+        avgBxJd = countBxJd/sumBxXf;
+        Map<String,String> xqZongMap = new HashedMap();
+
+        JSONObject jsonObject = new JSONObject();
+        xqZongMap.put("sumAllXf",sumAllXf+"");
+        xqZongMap.put("sumBxXf",sumBxXf+"");
+        xqZongMap.put("avgAllCj",String.format("%.2f",avgAllCj));
+        xqZongMap.put("avgBxCj",String.format("%.2f",avgBxCj));
+        xqZongMap.put("avgAllJd",String.format("%.2f",avgAllJd));
+        xqZongMap.put("avgBxJd",String.format("%.2f",avgBxJd));
+        jsonObject.put("XqZongMap",xqZongMap);
+
+
+        Map<String,Map<String,String>> xqMap = new TreeMap<>(new MapKeyComparator());
+        for(int i = 0;i<xq.size();i++){
+
+            sumAllXf = 0;
+            sumBxXf = 0;
+            countAll = 0;
+            countBx = 0;
+            avgAllCj = 0;
+            avgBxCj = 0;
+            countAllJd = 0;
+            countBxJd = 0;
+            avgAllJd = 0;
+            avgBxJd = 0;
+
+            List<Map> cacuList = resultMap.get(xq.get(i));
+            for(int j = 0;j<cacuList.size();j++){
+                String tempCj = (String)cacuList.get(j).get("cj");
+                if(tempCj.equals("良好")){
+                    tempCj = "80";
+                }
+                if(tempCj.equals("优秀")){
+                    tempCj = "90";
+                }
+                if(tempCj.equals("中等")){
+                    tempCj = "70";
+                }
+                if(tempCj.equals("及格")){
+                    tempCj = "60";
+                }
+                if(tempCj.equals("不及格")){
+                    tempCj = "0";
+                }
+                sumAllXf = sumAllXf + Double.parseDouble(String.valueOf(cacuList.get(j).get("xf")));
+                countAll = countAll + Double.parseDouble(String.valueOf(cacuList.get(j).get("xf")))*Double.parseDouble(tempCj);
+                countAllJd = countAllJd + Double.parseDouble(String.valueOf(cacuList.get(j).get("jd")))*Double.parseDouble(String.valueOf(cacuList.get(j).get("xf")));
+                if(String.valueOf(cacuList.get(j).get("kcsx")).equals("必修")){
+                    sumBxXf = sumBxXf + Double.parseDouble(String.valueOf(cacuList.get(j).get("xf")));
+                    countBx = countBx + Double.parseDouble(String.valueOf(cacuList.get(j).get("xf")))*Double.parseDouble(tempCj);
+                    countBxJd = countBxJd + Double.parseDouble(String.valueOf(cacuList.get(j).get("jd")))*Double.parseDouble(String.valueOf(cacuList.get(j).get("xf")));
+                }
+            }
+            avgAllCj = countAll/sumAllXf;
+            avgBxCj = countBx/sumBxXf;
+            avgAllJd = countAllJd/sumAllXf;
+            avgBxJd = countBxJd/sumBxXf;
+            Map<String, String> stringMap = new HashedMap();
+            stringMap.put("sumAllXf",sumAllXf+"");
+            stringMap.put("sumBxXf",sumBxXf+"");
+            stringMap.put("avgAllCj",String.format("%.2f",avgAllCj));
+            stringMap.put("avgBxCj",String.format("%.2f",avgBxCj));
+            stringMap.put("avgAllJd",String.format("%.2f",avgAllJd));
+            stringMap.put("avgBxJd",String.format("%.2f",avgBxJd));
+            xqMap.put(xq.get(i),stringMap);
+        }
+        jsonObject.put("everyXq",xqMap);
+
+
+
+        Map<String,List<Map>> sortMap = new TreeMap<>(new MapKeyComparator());
+        sortMap.putAll(resultMap);
+        jsonObject.put("All",sortMap);
+        return jsonObject;
+    }
+    //计算绩点
+    public String CaculateJd(String cj){
+        String jd="";
+        if(cj.equals("良好")){
+            cj = "80";
+        }
+        if(cj.equals("优秀")){
+            cj = "90";
+        }
+        if(cj.equals("中等")){
+            cj = "70";
+        }
+        if(cj.equals("及格")){
+            cj = "60";
+        }
+        if(cj.equals("不及格")){
+            cj = "0";
+        }
+        if(cj.compareTo("60")>=0){
+            jd = "1.0";
+        }else{
+            jd = "0.0";
+        }
+        if(cj.compareTo("64")>=0){
+            jd = "1.5";
+        }
+        if(cj.compareTo("68")>=0){
+            jd = "2.0";
+        }
+        if(cj.compareTo("72")>=0){
+            jd = "2.3";
+        }
+        if(cj.compareTo("75")>=0){
+            jd = "2.7";
+        }
+        if(cj.compareTo("78")>=0){
+            jd = "3.0";
+        }
+        if(cj.compareTo("82")>=0){
+            jd = "3.3";
+        }
+        if(cj.compareTo("85")>=0){
+            jd = "3.7";
+        }
+        if(cj.compareTo("90")>=0){
+            jd = "4.0";
+        }
+        return jd;
+    }
+
+}
+
+//比较器
+class MapKeyComparator implements Comparator<String>{
+    @Override
+    public int compare(String o1, String o2) {
+        return o2.compareTo(o1);
     }
 }
