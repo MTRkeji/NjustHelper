@@ -12,6 +12,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+//教务处API接口
 @RestController
 @RequestMapping("/api/njustjwc")
 public class JwcApi {
@@ -20,6 +21,8 @@ public class JwcApi {
     public JwcApi(JwcService jwcService){
         this.jwcService = jwcService;
     }
+
+    //测试接口
     @GetMapping("/test")
     public Object yzmtc(String username,String password){
         String cookie = jwcService.getVerification(username,password);
@@ -28,21 +31,51 @@ public class JwcApi {
         return jsonObject;
     }
 
+    /**登录接口
+     *
+     * 前端传 username，password字段
+     * 调用 jwcService.getVerification(username,password) 登录教务处获取Cookie
+     * 将Cookie传回前端。
+     *
+     * @param requestJson
+     * @return JSONObject
+     * @author MTR
+     */
     @RequestMapping("/login")
     public Object Login(@RequestBody JSONObject requestJson){
+
+        //解析前端传来的参数
         String username = requestJson.get("username").toString();
         String password = requestJson.get("password").toString();
+
+        //登录获取Cookie
         String cookie = jwcService.getVerification(username,password);
+
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("cookie",cookie);
         return jsonObject;
     }
 
+    /**成绩查询接口
+     *
+     * 前端带着Cookie访问
+     * 获取cookie之后传入 jwcService.GradesQuary(cookies) 进行访问请求，数据检索，传回成绩 list
+     * 传给前端
+     *
+     * @author MTR
+     * @param request
+     * @return JSONObject
+     */
     @RequestMapping("/cjcx")
     public Object Cjcx(HttpServletRequest request){
+
+        //获取cookie
         Cookie[] cookies = request.getCookies();
+
         JSONObject jsonObject = new JSONObject();
         List list = jwcService.GradesQuary(cookies);
+
+        //将数据存入json的grades字段中
         for(int i = 0;i<list.size();i++){
             jsonObject.put("grades",list);
         }
