@@ -82,7 +82,7 @@ public class JwcService {
         while(true){
 
             //验证码图片保存的文件
-            File imageFile = new File("F:\\BlockheadmanSu\\research_study\\njusthelper\\src\\main\\resources\\static\\yzm"+username+".png");
+            File imageFile = new File("src\\main\\resources\\static\\yzm"+username+".png");
             try{
                 imageFile.createNewFile();
             } catch (IOException e) {
