@@ -1,11 +1,16 @@
 package com.mtr.njusthelper.service;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.mtr.njusthelper.utils.MapKeyComparator;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
 import org.apache.commons.collections.map.HashedMap;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -157,55 +162,12 @@ public class JwcService {
      * @return
      */
     public JSONObject getGrade(javax.servlet.http.Cookie[] cookies){
-        PrintWriter out = null;
-        BufferedReader in = null;
-        StringBuffer sb = new StringBuffer();
-        try{
-            //建立与教务处的连接
-            URL url = new URL("http://202.119.81.112:9080/njlgdx/kscj/cjcx_list");
-            URLConnection urlConnection = url.openConnection();
-            urlConnection.setRequestProperty("accept", "*/*");
-            urlConnection.setRequestProperty("connection", "Keep-Alive");
-            urlConnection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-            urlConnection.setRequestProperty("cookie",cookies[0].getName()+"="+cookies[0].getValue()+";"+cookies[1].getName()+"="+cookies[1].getValue());
-            urlConnection.setDoInput(true);
-            urlConnection.setDoOutput(true);
-
-            //获取连接的输出流
-            out = new PrintWriter(urlConnection.getOutputStream());
-            //写入参数
-            out.write("kksj=&kcxz=&kcmc=&xsfs=max");
-
-            out.flush();
-
-            //获取返回的数据流
-            in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-            //数据处理
-            String line = "";
-            while((line = in.readLine())!=null){
-                sb.append(line);
-            }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
-            try{
-                if(out != null){
-                    out.close();
-                }
-                if(in != null){
-                    in.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
+        JSONObject jsonObject = new JSONObject();
+        String html = getHtml("http://202.119.81.112:9080/njlgdx/kscj/cjcx_list",cookies,"kksj=&kcxz=&kcmc=&xsfs=max");
         //检索数据
         List<Map> list = new ArrayList<>();
         Pattern pattern = Pattern.compile("<table id=\"dataList\".*?>[\\s\\S]*?<\\/table>");
-        Matcher matcher = pattern.matcher(sb);
+        Matcher matcher = pattern.matcher(html);
         String table = "";
         if(matcher.find()){
             table = matcher.group();
@@ -218,173 +180,69 @@ public class JwcService {
                 count=1;
                 continue;
             }
-            String kkxq="";
-            String kcmc="";
-            String cj="";
-            String jd="";
-            String xf="";
-            String kcsx="";
             Map<String,String> resMap = new HashMap();
             Pattern pattern2 = Pattern.compile("<td.*?>[\\s\\S]*?<\\/td>");
             Matcher matcher2 = pattern2.matcher(matcher1.group());
             for (int num=1;matcher2.find();num++){
                 if(num==2){
-                    kkxq = matcher2.group().replace("<td>","").replace("</td>","");
+                    resMap.put("kkxq",matcher2.group().replace("<td>","").replace("</td>",""));
                 }
                 if(num==4){
-                    kcmc = matcher2.group().replace("<td align=\"left\">","").replace("</td>","");
+                    resMap.put("kcmc",matcher2.group().replace("<td align=\"left\">","").replace("</td>",""));
                 }
                 if(num==5){
-                    cj = matcher2.group().replace("<td style=\" \">","").replace("</td>","");
-                    jd = caculateGP(cj);
+                    resMap.put("grade",matcher2.group().replace("<td style=\" \">","").replace("</td>",""));
+                    resMap.put("GP",caculateGP(resMap.get("grade")));
                 }
                 if(num==7){
-                    xf = matcher2.group().replace("<td>","").replace("</td>","");
+                    resMap.put("xf",matcher2.group().replace("<td>","").replace("</td>",""));
                 }
                 if(num==10){
-                    kcsx = matcher2.group().replace("<td>","").replace("</td>","");
+                    resMap.put("kcsz",matcher2.group().replace("<td>","").replace("</td>",""));
                 }
             }
-
-            //将数据存入map
-            resMap.put("kkxq",kkxq);
-            resMap.put("kcmc",kcmc);
-            resMap.put("cj",cj);
-            resMap.put("jd",jd);
-            resMap.put("xf",xf);
-            resMap.put("kcsx",kcsx);
             //将map存入list列表
             list.add(resMap);
+
         }
 
-        //将成绩按学期分组,并进行数据分析
-        Map dataItem;
-        double sumAllXf=0; //全部总学分
-        double sumBxXf = 0;  //必修总学分
-        double countAll = 0;  //sum（学分×成绩） 全部
-        double countBx = 0;  //sum（学分×成绩） 必修
-        double avgAllGrade = 0;  //全部平均成绩
-        double avgBxGrade = 0;  //必修平均成绩
-        double countAllGP = 0;  //sum（绩点×成绩） 全部
-        double countBxGP = 0;  //sum（绩点×成绩） 必修
-        double avgAllGP = 0;  //全部GPA
-        double avgBxGP = 0;  //必修GPA
-        Map<String,List<Map>> resultMap = new HashMap<>();
-        List<String> xq = new ArrayList<>();
-        for(int i = 0;i<list.size();i++){
-            dataItem = list.get(i);
-            if(resultMap.containsKey(dataItem.get("kkxq"))){
-                resultMap.get(dataItem.get("kkxq")).add(dataItem);
+        List<Map> resultList = new ArrayList<>();
+
+        List<List<Map>> middleList = new ArrayList<>();
+        String flag = "";
+        int index = 0;
+        for(int i = list.size()-1;i>=0;i--){
+            if(list.get(i).get("kkxq").equals(flag)){
+                middleList.get(index-1).add(list.get(i));
             }else{
-                List<Map> list1 = new ArrayList<>();
-                list1.add(dataItem);
-                xq.add((String)dataItem.get("kkxq"));
-                resultMap.put((String) dataItem.get("kkxq"),list1);
-            }
-            String tempCj = (String)dataItem.get("cj");
-            if(tempCj.equals("良好")){
-                tempCj = "80";
-            }
-            if(tempCj.equals("优秀")){
-                tempCj = "90";
-            }
-            if(tempCj.equals("中等")){
-                tempCj = "70";
-            }
-            if(tempCj.equals("及格")){
-                tempCj = "60";
-            }
-            if(tempCj.equals("不及格")){
-                tempCj = "0";
-            }
-            sumAllXf = sumAllXf + Double.parseDouble((String)dataItem.get("xf"));
-            countAll = countAll + Double.parseDouble((String)dataItem.get("xf"))*Double.parseDouble(tempCj);
-            countAllGP = countAllGP + Double.parseDouble((String)dataItem.get("jd"))*Double.parseDouble((String)dataItem.get("xf"));
-            if(dataItem.get("kcsx").equals("必修")){
-                sumBxXf = sumBxXf + Double.parseDouble((String)dataItem.get("xf"));
-                countBx = countBx + Double.parseDouble((String)dataItem.get("xf"))*Double.parseDouble(tempCj);
-                countBxGP = countBxGP + Double.parseDouble((String)dataItem.get("jd"))*Double.parseDouble((String)dataItem.get("xf"));
+                flag = (String)list.get(i).get("kkxq");
+                List<Map> tempList = new ArrayList<>();
+                tempList.add(list.get(i));
+                middleList.add(tempList);
+                index++;
             }
         }
-        avgAllGrade = countAll/sumAllXf;
-        avgBxGrade = countBx/sumBxXf;
-        avgAllGP = countAllGP/sumAllXf;
-        avgBxGP = countBxGP/sumBxXf;
-        Map<String,String> xqZongMap = new HashedMap();
 
-        JSONObject jsonObject = new JSONObject();
-        xqZongMap.put("sumAllXf",sumAllXf+"");
-        xqZongMap.put("sumBxXf",sumBxXf+"");
-        xqZongMap.put("avgAllGrade",String.format("%.2f",avgAllGrade));
-        xqZongMap.put("avgBxGrade",String.format("%.2f",avgBxGrade));
-        xqZongMap.put("avgAllGP",String.format("%.2f",avgAllGP));
-        xqZongMap.put("avgBxGP",String.format("%.2f",avgBxGP));
-        jsonObject.put("XqZongMap",xqZongMap);
-
-
-        Map<String,Map<String,String>> xqMap = new TreeMap<>(new MapKeyComparator());
-        for(int i = 0;i<xq.size();i++){
-
-            sumAllXf = 0;
-            sumBxXf = 0;
-            countAll = 0;
-            countBx = 0;
-            avgAllGrade = 0;
-            avgBxGrade = 0;
-            countAllGP = 0;
-            countBxGP = 0;
-            avgAllGP = 0;
-            avgBxGP = 0;
-
-            List<Map> cacuList = resultMap.get(xq.get(i));
-            for(int j = 0;j<cacuList.size();j++){
-                String tempCj = (String)cacuList.get(j).get("cj");
-                if(tempCj.equals("良好")){
-                    tempCj = "80";
-                }
-                if(tempCj.equals("优秀")){
-                    tempCj = "90";
-                }
-                if(tempCj.equals("中等")){
-                    tempCj = "70";
-                }
-                if(tempCj.equals("及格")){
-                    tempCj = "60";
-                }
-                if(tempCj.equals("不及格")){
-                    tempCj = "0";
-                }
-                sumAllXf = sumAllXf + Double.parseDouble(String.valueOf(cacuList.get(j).get("xf")));
-                countAll = countAll + Double.parseDouble(String.valueOf(cacuList.get(j).get("xf")))*Double.parseDouble(tempCj);
-                countAllGP = countAllGP + Double.parseDouble(String.valueOf(cacuList.get(j).get("jd")))*Double.parseDouble(String.valueOf(cacuList.get(j).get("xf")));
-                if(String.valueOf(cacuList.get(j).get("kcsx")).equals("必修")){
-                    sumBxXf = sumBxXf + Double.parseDouble(String.valueOf(cacuList.get(j).get("xf")));
-                    countBx = countBx + Double.parseDouble(String.valueOf(cacuList.get(j).get("xf")))*Double.parseDouble(tempCj);
-                    countBxGP = countBxGP + Double.parseDouble(String.valueOf(cacuList.get(j).get("jd")))*Double.parseDouble(String.valueOf(cacuList.get(j).get("xf")));
-                }
-            }
-            avgAllGrade = countAll/sumAllXf;
-            avgBxGrade = countBx/sumBxXf;
-            avgAllGP = countAllGP/sumAllXf;
-            avgBxGP = countBxGP/sumBxXf;
-            Map<String, String> stringMap = new HashedMap();
-            stringMap.put("sumAllXf",sumAllXf+"");
-            stringMap.put("sumBxXf",sumBxXf+"");
-            stringMap.put("avgAllGrade",String.format("%.2f",avgAllGrade));
-            stringMap.put("avgBxGrade",String.format("%.2f",avgBxGrade));
-            stringMap.put("avgAllGP",String.format("%.2f",avgAllGP));
-            stringMap.put("avgBxGP",String.format("%.2f",avgBxGP));
-            xqMap.put(xq.get(i),stringMap);
+        for(int i = 0;i<middleList.size();i++){
+            Map<String,Object> everyXq = new HashedMap();
+            everyXq.put("xq",middleList.get(i).get(0).get("kkxq"));
+            everyXq.put("data",middleList.get(i));
+            everyXq = summarize(middleList.get(i),everyXq);
+            resultList.add(everyXq);
         }
-        jsonObject.put("everyXq",xqMap);
+        if(resultList.isEmpty()){
+            jsonObject.put("success","0");
+        }else {
+            jsonObject.put("success", "1");
+            jsonObject.put("list", resultList);
 
-
-
-        Map<String,List<Map>> sortMap = new TreeMap<>(new MapKeyComparator());
-        sortMap.putAll(resultMap);
-        jsonObject.put("All",sortMap);
+            Map<String, Object> tempMap = new HashedMap();
+            tempMap = summarize(list, tempMap);
+            jsonObject.put("summarizing", tempMap);
+        }
         return jsonObject;
     }
+    
     //计算绩点
     public String caculateGP(String cj){
         String jd="";
@@ -435,5 +293,163 @@ public class JwcService {
         return jd;
     }
 
+
+    /**课表查询
+     *
+     * 带着cookie访问教务处课表界面，
+     * 通过jsoup解析网页获取课程信息
+     * 每个课程存至一个map
+     * 爬取课表信息，一共25周，每周7天，一天6节课
+     * 结构存储
+     *
+     *
+     */
+    public JSONObject getCourse(javax.servlet.http.Cookie[] cookies){
+        JSONObject jsonObject = new JSONObject();
+        List<Map<String,Map<String,Map<String,String>>>> everyWeek = new ArrayList<>();
+        for(int i = 0;i<25;i++){
+            String html = getHtml("http://202.119.81.112:9080/njlgdx/xskb/xskb_list.do?Ves632DSdyV=NEW_XSD_PYGL",cookies,"zc="+(i+1));
+            Document document1 = Jsoup.parse(html);
+            //#kbtable > tbody:nth-child(1) > tr:nth-child(2)
+            Elements elements1 = document1.select("#kbtable").select("tbody:nth-child(1)").select("tr");
+            Map<String,Map<String,Map<String,String>>> everyClass = new HashedMap();
+            for(int w = 1;w<elements1.size()-1;w++) {
+                Map<String,Map<String,String>> courseM = new HashedMap();
+                Elements elements2 = elements1.get(w).getElementsByAttributeValue("style","display: none;");
+                for(int j = 0;j<elements2.size();j++){
+                    Map<String,String> temp = new HashedMap();
+                    String value = elements2.get(j).text();
+                    String[] courseZip = value.split(" ");
+
+                    if(courseZip.length >1 && courseZip!=null){
+                        temp.put("name",courseZip[0]);
+                        temp.put("teacher",courseZip[1]);
+                        temp.put("week",courseZip[2]);
+                        if(courseZip.length>3){
+                            temp.put("address",courseZip[3]);
+                        }else{
+                            temp.put("address","未知");
+                        }
+                        courseM.put("weekday"+(j+1),temp);
+                    }else{
+                        courseM.put("weekday"+(j+1),null);
+                    }
+                }
+                everyClass.put("lesson"+w,courseM);
+            }
+            everyWeek.add(everyClass);
+        }
+        if(everyWeek.get(1).isEmpty()){
+            jsonObject.put("success","0");
+        }else {
+            jsonObject.put("course", everyWeek);
+            jsonObject.put("success", "1");
+        }
+        return jsonObject;
+    }
+
+
+    //获取网页源码
+    public String getHtml(String postUrl, javax.servlet.http.Cookie[] cookies, String arg){
+        PrintWriter out = null;
+        BufferedReader in = null;
+        StringBuffer sb = new StringBuffer();
+        try{
+            //建立与教务处的连接
+            URL url = new URL(postUrl);
+            URLConnection urlConnection = url.openConnection();
+            urlConnection.setRequestProperty("accept", "*/*");
+            urlConnection.setRequestProperty("connection", "Keep-Alive");
+            urlConnection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            urlConnection.setRequestProperty("cookie",cookies[0].getName()+"="+cookies[0].getValue()+";"+cookies[1].getName()+"="+cookies[1].getValue());
+            urlConnection.setDoInput(true);
+            urlConnection.setDoOutput(true);
+
+            //获取连接的输出流
+            out = new PrintWriter(urlConnection.getOutputStream());
+            //写入参数
+            if(arg!=null){
+                out.write(arg);
+            }
+
+            out.flush();
+
+            //获取返回的数据流
+            in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+            //数据处理
+            String line = "";
+            while((line = in.readLine())!=null){
+                sb.append(line);
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try{
+                if(out != null){
+                    out.close();
+                }
+                if(in != null){
+                    in.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        String result = sb.toString();
+        return result;
+    }
+
+    //汇总数据，计算学分，均分，GPA等
+    public Map<String,Object> summarize(List<Map> list,Map<String,Object> map){
+        double sumAllXf=0; //全部总学分
+        double sumBxXf = 0;  //必修总学分
+        double countAll = 0;  //sum（学分×成绩） 全部
+        double countBx = 0;  //sum（学分×成绩） 必修
+        double avgAllGrade = 0;  //全部平均成绩
+        double avgBxGrade = 0;  //必修平均成绩
+        double countAllGP = 0;  //sum（绩点×成绩） 全部
+        double countBxGP = 0;  //sum（绩点×成绩） 必修
+        double avgAllGP = 0;  //全部GPA
+        double avgBxGP = 0;  //必修GPA
+        for(int j = 0;j<list.size();j++){
+            String tempCj = (String)list.get(j).get("grade");
+            if(tempCj.equals("良好")){
+                tempCj = "80";
+            }
+            if(tempCj.equals("优秀")){
+                tempCj = "90";
+            }
+            if(tempCj.equals("中等")){
+                tempCj = "70";
+            }
+            if(tempCj.equals("及格")){
+                tempCj = "60";
+            }
+            if(tempCj.equals("不及格")){
+                tempCj = "0";
+            }
+            sumAllXf = sumAllXf + Double.parseDouble(String.valueOf(list.get(j).get("xf")));
+            countAll = countAll + Double.parseDouble(String.valueOf(list.get(j).get("xf")))*Double.parseDouble(tempCj);
+            countAllGP = countAllGP + Double.parseDouble(String.valueOf(list.get(j).get("GP")))*Double.parseDouble(String.valueOf(list.get(j).get("xf")));
+            if(String.valueOf(list.get(j).get("kcsz")).equals("必修")){
+                sumBxXf = sumBxXf + Double.parseDouble(String.valueOf(list.get(j).get("xf")));
+                countBx = countBx + Double.parseDouble(String.valueOf(list.get(j).get("xf")))*Double.parseDouble(tempCj);
+                countBxGP = countBxGP + Double.parseDouble(String.valueOf(list.get(j).get("GP")))*Double.parseDouble(String.valueOf(list.get(j).get("xf")));
+            }
+        }
+        avgAllGrade = countAll/sumAllXf;
+        avgBxGrade = countBx/sumBxXf;
+        avgAllGP = countAllGP/sumAllXf;
+        avgBxGP = countBxGP/sumBxXf;
+        map.put("sumAllXf",sumAllXf+"");
+        map.put("sumBxXf",sumBxXf+"");
+        map.put("avgAllGrade",String.format("%.2f",avgAllGrade));
+        map.put("avgBxGrade",String.format("%.2f",avgBxGrade));
+        map.put("avgAllGP",String.format("%.2f",avgAllGP));
+        map.put("avgBxGP",String.format("%.2f",avgBxGP));
+        return map;
+    }
 }
 

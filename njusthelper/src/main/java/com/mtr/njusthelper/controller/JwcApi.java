@@ -1,5 +1,4 @@
 package com.mtr.njusthelper.controller;
-
 import com.alibaba.fastjson.JSONObject;
 import com.mtr.njusthelper.service.JwcService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Map;
 
 //教务处API接口
 @RestController
@@ -75,6 +72,16 @@ public class JwcApi {
 
         JSONObject jsonObject;
         jsonObject = jwcService.getGrade(cookies);
+        return jsonObject;
+    }
+
+    @RequestMapping("/getcourse")
+    public Object getCourse(HttpServletRequest request){
+        //获取cookie
+        Cookie[] cookies = request.getCookies();
+
+        JSONObject jsonObject;
+        jsonObject = jwcService.getCourse(cookies);
         return jsonObject;
     }
 }
