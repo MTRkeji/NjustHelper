@@ -39,10 +39,8 @@
         <view class="weui-grid__label">奥兰系统</view>
       </navigator>
       <navigator url="http://ids.njust.edu.cn/authserver/login" class="weui-grid" hover-class="weui-grid_active">
-        <web-view src="http://ids.njust.edu.cn/authserver/login">
-          <image class="weui-grid__icon" src="../images/shenfenrenzheng.png" />
-          <view class="weui-grid__label">统一身份认证</view>
-        </web-view>
+        <image class="weui-grid__icon" src="../images/shenfenrenzheng.png" />
+        <view class="weui-grid__label">统一身份认证</view>
       </navigator>
     </view>
   </view>
