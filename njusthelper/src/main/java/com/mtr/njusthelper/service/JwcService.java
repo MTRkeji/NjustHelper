@@ -99,6 +99,8 @@ public class JwcService {
 
             //获取验证码图片元素
             WebElement element = driver.findElement(By.xpath("//*[@id=\"SafeCodeImg\"]"));
+
+
             try{
                 //获取图片流
                 BufferedImage image = createElementImage(driver,element,64,28);
@@ -125,16 +127,17 @@ public class JwcService {
             driver.findElement(By.xpath("//*[@id=\"RANDOMCODE\"]")).clear();
             driver.findElement(By.xpath("//*[@id=\"RANDOMCODE\"]")).sendKeys(result);
             driver.findElement(By.xpath("//*[@id=\"btnSubmit\"]")).click();
-            WebElement ele = null;
+
             try{
                 //检验是否登录成功
-                ele = driver.findElement(By.xpath("//*[@id=\"Top1_divLoginName\"]"));
-            }catch (Exception e){
-                //不成功，则点击验证码图片，刷新验证码之后重新识别
+                String errorText = driver.findElement(By.xpath("/html/body/form/div/div/div[2]/div[1]/font")).getText();
                 driver.findElement(By.xpath("//*[@id=\"SafeCodeImg\"]")).click();
-            }
-            if(ele != null){
-                //登陆成功，则跳出循环
+                System.out.println("错误信息："+errorText);
+                if(errorText.equals("该帐号不存在或密码错误,请联系管理员!")){
+                    return "errorInput";
+                }
+            }catch (Exception e){
+                //成功
                 break;
             }
         }
@@ -242,7 +245,7 @@ public class JwcService {
         }
         return jsonObject;
     }
-    
+
     //计算绩点
     public String caculateGP(String cj){
         String jd="";

@@ -42,15 +42,22 @@ public class JwcApi {
     @RequestMapping("/login")
     public Object Login(@RequestBody JSONObject requestJson){
 
+        JSONObject jsonObject = new JSONObject();
         //解析前端传来的参数
         String username = requestJson.get("username").toString();
         String password = requestJson.get("password").toString();
 
         //登录获取Cookie
         String cookie = jwcService.getVerification(username,password);
-
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("cookie",cookie);
+        System.out.println(cookie);
+        if(cookie == "errorInput"){
+            jsonObject.put("success","0");
+        }else{
+            jsonObject.put("success","1");
+            jsonObject.put("cookie",cookie);
+            jsonObject.put("username",username);
+            jsonObject.put("password",password);
+        }
         return jsonObject;
     }
 
