@@ -1,15 +1,21 @@
 package com.mtr.njusthelper.service;
 
-import com.alibaba.fastjson.JSON;
+
 import com.alibaba.fastjson.JSONObject;
-import com.mtr.njusthelper.utils.MapKeyComparator;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
 import org.apache.commons.collections.map.HashedMap;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,7 +23,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.MalformedURLException;
@@ -64,7 +69,10 @@ public class JwcService {
     //测试cookie是否有效
     public String testLogin(String cookies){
         JSONObject jsonObject = new JSONObject();
-        String html = getHtml("http://202.119.81.112:9080/njlgdx/framework/main.jsp",cookies,null);
+        int length = cookies.length();
+        String domain = cookies.substring(length-14);
+        System.out.println(domain);
+        String html = getHtml("http://"+domain+":9080/njlgdx/framework/main.jsp",cookies,null);
 
         Pattern pattern = Pattern.compile("<div id=\"Top1_divLoginName\".*?>[\\s\\S]*?</div>");
         Matcher matcher = pattern.matcher(html);
@@ -93,7 +101,7 @@ public class JwcService {
         String result = null;
 
         //访问登录界面
-        driver.get("http://202.119.81.112:8080/");
+        driver.get("http://202.119.81.113:8080/");
 
         //配置tesseract插件
         ITesseract instance = new Tesseract();
@@ -164,7 +172,15 @@ public class JwcService {
             cookies.add(cookie);
         }
         //处理cookie之后，存入字符串，并返回
-        String cookie = cookies.get(0).getName()+"="+cookies.get(0).getValue()+";"+cookies.get(1).getName()+"="+cookies.get(1).getValue();
+        String cookie = "";
+        for(int i = 0;i<cookies.size();i++){
+            if(i < (cookies.size()-1)){
+                cookie = cookie+cookies.get(i)+";";
+            }else{
+                cookie = cookie+cookies.get(i);
+            }
+        }
+        //String cookie = cookies.get(0).getName()+"="+cookies.get(0).getValue()+";"+cookies.get(1).getName()+"="+cookies.get(1).getValue();
         return cookie;
     }
 
@@ -179,8 +195,12 @@ public class JwcService {
      */
     public JSONObject getGrade(String cookies){
         JSONObject jsonObject = new JSONObject();
-        String html = getHtml("http://202.119.81.112:9080/njlgdx/kscj/cjcx_list",cookies,"kksj=&kcxz=&kcmc=&xsfs=max");
+        int length = cookies.length();
+        String domain = cookies.substring(length-14);
+        System.out.println(domain);
+        String html = getHtml("http://"+domain+":9080/njlgdx/kscj/cjcx_list",cookies,"kksj=&kcxz=&kcmc=&xsfs=max");
         //检索数据
+        System.out.println(html);
         List<Map> list = new ArrayList<>();
         Pattern pattern = Pattern.compile("<table id=\"dataList\".*?>[\\s\\S]*?<\\/table>");
         Matcher matcher = pattern.matcher(html);
@@ -207,7 +227,16 @@ public class JwcService {
                     resMap.put("kcmc",matcher2.group().replace("<td align=\"left\">","").replace("</td>",""));
                 }
                 if(num==5){
-                    resMap.put("grade",matcher2.group().replace("<td style=\" \">","").replace("</td>",""));
+                    Pattern pattern3 = Pattern.compile("<td style=.*?>");
+                    Matcher matcher3 = pattern3.matcher(matcher2.group());
+                    if(matcher3.find()){
+                        String grade = matcher3.group();
+                        if(grade.equals("<td style=\" \">")){
+                            resMap.put("grade",matcher2.group().replace("<td style=\" \">","").replace("</td>",""));
+                        }else{
+                            resMap.put("grade",matcher2.group().replace("<td style=\" color:red;\">","").replace("</td>",""));
+                        }
+                    }
                     resMap.put("GP",caculateGP(resMap.get("grade")));
                 }
                 if(num==7){
@@ -323,8 +352,11 @@ public class JwcService {
     public JSONObject getCourse(String cookies){
         JSONObject jsonObject = new JSONObject();
         List<Map<String,Map<String,Map<String,String>>>> everyWeek = new ArrayList<>();
+        int length = cookies.length();
+        String domain = cookies.substring(length-14);
+        System.out.println(domain);
         for(int i = 0;i<25;i++){
-            String html = getHtml("http://202.119.81.112:9080/njlgdx/xskb/xskb_list.do?Ves632DSdyV=NEW_XSD_PYGL",cookies,"zc="+(i+1));
+            String html = getHtml("http://"+domain+":9080/njlgdx/xskb/xskb_list.do?Ves632DSdyV=NEW_XSD_PYGL",cookies,"zc="+(i+1));
             Document document1 = Jsoup.parse(html);
             //#kbtable > tbody:nth-child(1) > tr:nth-child(2)
             Elements elements1 = document1.select("#kbtable").select("tbody:nth-child(1)").select("tr");
@@ -367,6 +399,8 @@ public class JwcService {
 
     //获取网页源码
     public String getHtml(String postUrl, String cookies, String arg){
+
+
         PrintWriter out = null;
         BufferedReader in = null;
         StringBuffer sb = new StringBuffer();
@@ -374,10 +408,11 @@ public class JwcService {
             //建立与教务处的连接
             URL url = new URL(postUrl);
             URLConnection urlConnection = url.openConnection();
-            urlConnection.setRequestProperty("accept", "*/*");
-            urlConnection.setRequestProperty("connection", "Keep-Alive");
-            urlConnection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-            urlConnection.setRequestProperty("cookie",cookies);
+            urlConnection.setRequestProperty("Content-Type",
+                    "application/x-www-form-urlencoded");
+            urlConnection.setUseCaches(false);
+            urlConnection.setRequestProperty("Connection", "Keep-Alive");
+            urlConnection.setRequestProperty("Cookie",cookies);
             urlConnection.setDoInput(true);
             urlConnection.setDoOutput(true);
 
@@ -386,6 +421,7 @@ public class JwcService {
             //写入参数
             if(arg!=null){
                 out.write(arg);
+                System.out.println("写入数据成功");
             }
 
             out.flush();
