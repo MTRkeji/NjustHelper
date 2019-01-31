@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 //教务处API接口
 @RestController
@@ -21,6 +22,7 @@ public class JwcApi {
     }
 
     //测试接口
+    /**
     @GetMapping("/test")
     public Object yzmtc(String username,String password){
         String cookie = jwcService.getVerification(username,password);
@@ -28,6 +30,7 @@ public class JwcApi {
         jsonObject.put("cookie",cookie);
         return jsonObject;
     }
+    */
 
     /**登录接口
      *
@@ -48,19 +51,32 @@ public class JwcApi {
         String password = requestJson.get("password").toString();
 
         //登录获取Cookie
-        String cookie = jwcService.getVerification(username,password);
-        System.out.println(cookie);
-        if(cookie == "errorInput"){
+        String result = jwcService.getVerification(username,password);
+        System.out.println(result);
+        if(result.equals("errorInput")){
             jsonObject.put("success","0");
         }else{
             jsonObject.put("success","1");
-            jsonObject.put("cookie",cookie);
+            jsonObject.put("cookie",result);
             jsonObject.put("username",username);
             jsonObject.put("password",password);
         }
         return jsonObject;
     }
 
+    @RequestMapping("/testlogin")
+    public Object testLogin(@RequestBody JSONObject requestJson){
+
+        JSONObject jsonObject = new JSONObject();
+        //解析前端传来的参数
+        String cookie = requestJson.get("cookie").toString();
+
+        //登录获取Cookie
+        String result = jwcService.testLogin(cookie);
+        System.out.println(result);
+        jsonObject.put("success",result);
+        return jsonObject;
+    }
     /**成绩查询接口
      *
      * 前端带着Cookie访问
@@ -68,27 +84,25 @@ public class JwcApi {
      * 传给前端
      *
      * @author MTR
-     * @param request
+     * @param
      * @return JSONObject
      */
     @RequestMapping("/getgrade")
-    public Object getGrade(HttpServletRequest request){
+    public Object getGrade(@RequestBody JSONObject requestJson){
 
-        //获取cookie
-        Cookie[] cookies = request.getCookies();
+        String cook = (String)requestJson.get("cookie");
+
 
         JSONObject jsonObject;
-        jsonObject = jwcService.getGrade(cookies);
+        jsonObject = jwcService.getGrade(cook);
         return jsonObject;
     }
 
     @RequestMapping("/getcourse")
-    public Object getCourse(HttpServletRequest request){
-        //获取cookie
-        Cookie[] cookies = request.getCookies();
-
+    public Object getCourse(@RequestBody JSONObject requestJson){
+        String cook = (String)requestJson.get("cookie");
         JSONObject jsonObject;
-        jsonObject = jwcService.getCourse(cookies);
+        jsonObject = jwcService.getCourse(cook);
         return jsonObject;
     }
 }

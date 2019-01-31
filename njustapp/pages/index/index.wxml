@@ -10,7 +10,7 @@
         <image class="weui-grid__icon" src="../images/kechengbiao.png" />
         <view class="weui-grid__label">课程表</view>
       </navigator>
-      <navigator url="" class="weui-grid" hover-class="weui-grid_active">
+      <navigator url="../grade/grade" class="weui-grid" hover-class="weui-grid_active">
         <image class="weui-grid__icon" src="../images/chengji.png" />
         <view class="weui-grid__label">成绩</view>
       </navigator>

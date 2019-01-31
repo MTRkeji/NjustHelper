@@ -119,9 +119,7 @@ Page({
             key: 'password',
             data: res.data.password,
           })
-          console.log(res.data.password)
-          app.globalData.cookie = res.data.cookie;
-          console.log(app.globalData.cookie);
+          wx.setStorageSync("cookie", res.data.cookie);
           wx.switchTab({
             url: '../index/index',
           })

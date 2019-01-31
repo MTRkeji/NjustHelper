@@ -17,6 +17,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.MalformedURLException;
@@ -60,6 +61,18 @@ public class JwcService {
     }
 
 
+    //测试cookie是否有效
+    public String testLogin(String cookies){
+        JSONObject jsonObject = new JSONObject();
+        String html = getHtml("http://202.119.81.112:9080/njlgdx/framework/main.jsp",cookies,null);
+
+        Pattern pattern = Pattern.compile("<div id=\"Top1_divLoginName\".*?>[\\s\\S]*?</div>");
+        Matcher matcher = pattern.matcher(html);
+        if(matcher.find()){
+            return "1";
+        }
+        return "0";
+    }
     /**登录service
      *
      * 根据controller传来的参数进行登录，并返回登陆成功之后的cookie
@@ -164,7 +177,7 @@ public class JwcService {
      * @param cookies
      * @return
      */
-    public JSONObject getGrade(javax.servlet.http.Cookie[] cookies){
+    public JSONObject getGrade(String cookies){
         JSONObject jsonObject = new JSONObject();
         String html = getHtml("http://202.119.81.112:9080/njlgdx/kscj/cjcx_list",cookies,"kksj=&kcxz=&kcmc=&xsfs=max");
         //检索数据
@@ -307,7 +320,7 @@ public class JwcService {
      *
      *
      */
-    public JSONObject getCourse(javax.servlet.http.Cookie[] cookies){
+    public JSONObject getCourse(String cookies){
         JSONObject jsonObject = new JSONObject();
         List<Map<String,Map<String,Map<String,String>>>> everyWeek = new ArrayList<>();
         for(int i = 0;i<25;i++){
@@ -353,7 +366,7 @@ public class JwcService {
 
 
     //获取网页源码
-    public String getHtml(String postUrl, javax.servlet.http.Cookie[] cookies, String arg){
+    public String getHtml(String postUrl, String cookies, String arg){
         PrintWriter out = null;
         BufferedReader in = null;
         StringBuffer sb = new StringBuffer();
@@ -364,7 +377,7 @@ public class JwcService {
             urlConnection.setRequestProperty("accept", "*/*");
             urlConnection.setRequestProperty("connection", "Keep-Alive");
             urlConnection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-            urlConnection.setRequestProperty("cookie",cookies[0].getName()+"="+cookies[0].getValue()+";"+cookies[1].getName()+"="+cookies[1].getValue());
+            urlConnection.setRequestProperty("cookie",cookies);
             urlConnection.setDoInput(true);
             urlConnection.setDoOutput(true);
 
