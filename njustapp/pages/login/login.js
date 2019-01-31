@@ -88,7 +88,7 @@ Page({
   //处理login的触发事件
   login: function(e) {
     wx.showToast({
-      title: 'logging',
+      title: '正在登录...',
       icon: 'loading',
       duration: 5000
     });
@@ -108,7 +108,7 @@ Page({
         console.log("调用API成功");
         if (res.data.success == "1") {
           wx.showToast({
-            title: 'Success',
+            title: '成功',
             duration: 2000
           });
           wx.setStorage({
@@ -127,7 +127,7 @@ Page({
           })
         } else {
           wx.showModal({
-            content: 'Incorrect username or password! Please try again.',
+            content: '用户名或密码错误，请重新输入！',
             showCancel: false,
             success: function(res) {
               if (res.confirm) {

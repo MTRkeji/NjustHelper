@@ -31,7 +31,7 @@ Page({
           // Do something with return value
           console.log("成功读取缓存")
           wx.showToast({
-            title: 'Logging...',
+            title: '正在登录...',
             icon: 'loading',
             duration: 10000
           });
@@ -52,7 +52,7 @@ Page({
               console.log(res.data.message);
               if (res.data.success == "1") {
                 wx.showToast({
-                  title: 'Success',
+                  title: '成功',
                   duration: 2000
                 });
                 wx.setStorage({
@@ -69,7 +69,7 @@ Page({
                 })
               } else {
                 wx.showModal({
-                  content: 'Incorrect username or password! Please try again.',
+                  content: '用户名或密码错误，请重新输入！',
                   showCancel: false,
                   success: function (res) {
                     if (res.confirm) {

@@ -1,15 +1,15 @@
 <!--pages/login/login.wxml-->
 <view class="content">
   <view class="account">
-    <view class="title">Username</view>
-    <view class="num"><input bindinput="accountInput" placeholder="Please input Username" placeholder-style="color:#999999;"/></view>
+    <view class="title">学号</view>
+    <view class="num"><input bindinput="accountInput" placeholder="请输入学号" placeholder-style="color:#999999;"/></view>
   </view>
   <view class="hr"></view>
    <view class="account">
-    <view class="title">Password</view>
-    <view class="num"><input bindblur="pwdBlur" placeholder="Please input password" password placeholder-style="color:#999999;"/></view>
+    <view class="title">密码</view>
+    <view class="num"><input bindblur="pwdBlur" placeholder="请输入教务处密码" password placeholder-style="color:#999999;"/></view>
     
   </view>
   <view class="hr"></view>
-  <button class="btn" bindtap='login' type="primary">Login</button>
+  <button class="btn" bindtap='login' type="primary">登录</button>
 </view>

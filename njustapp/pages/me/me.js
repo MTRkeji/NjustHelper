@@ -13,7 +13,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     that.setData({
-      title: "Please sign in!",
+      title: "请登录!",
       content: "",
       canClick: false
     })
@@ -22,7 +22,7 @@ Page({
       success: function(res) {
         console.log(res);
         that.setData({
-          title: "Hello!",
+          title: "已登录",
           content: res.data,
           canClick: true
         })
@@ -83,5 +83,18 @@ Page({
     wx.navigateTo({
       url: '../login/login',
     })
+  },
+  toLogout: function(){
+    var that = this;
+    try {
+      wx.clearStorageSync();
+      console.log("清理缓存成功")
+      that.onLoad();
+      wx.navigateTo({
+        url: '../login/login',
+      })
+    } catch (e) {
+      // Do something when catch error
+    }
   }
 })
