@@ -1,0 +1,6 @@
+/* pages/aolan/aolan.wxss */
+@import '/weui.wxss';
+.title{
+  text-align: center;
+  font-size: 18px
+}

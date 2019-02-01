@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4fd9a52e-3884-45d2-8879-d6a03c68e3b4" name="Default Changelist" comment="" />
+    <list default="true" id="4fd9a52e-3884-45d2-8879-d6a03c68e3b4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/images/chengji.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/images/guanwang.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/images/home.png" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/images/home.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/images/jiaowuxitong.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/images/jisuanji.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/images/kaoshi.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/images/kechengbiao.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/images/shenfenrenzheng.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/images/shenfenrenzheng_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/images/siliujichaxun.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/images/home.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/images/wode.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/index/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/pages/index/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/index/index.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/pages/index/index.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/login/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/pages/login/login.js" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,7 +47,7 @@
           <entry key="java" value="5" />
           <entry key="mvnw" value="1" />
           <entry key="png" value="1" />
-          <entry key="xml" value="5" />
+          <entry key="xml" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -39,18 +56,18 @@
           <entry key="Image" value="1" />
           <entry key="JAVA" value="5" />
           <entry key="PLAIN_TEXT" value="3" />
-          <entry key="XML" value="5" />
+          <entry key="XML" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="8568" />
+          <entry key="java" value="9272" />
           <entry key="xml" value="30" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="8568" />
+          <entry key="JAVA" value="9272" />
           <entry key="XML" value="30" />
         </counts>
       </usages-collector>
@@ -61,18 +78,18 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/mtr/njusthelper/service/JwcService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
-              <caret line="235" column="21" selection-start-line="235" selection-start-column="21" selection-end-line="235" selection-end-column="21" />
+            <state relative-caret-position="462">
+              <caret line="21" column="25" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#takeScreenshot#0;class#JwcService#0" />
-                <element signature="method#createElementImage#0;class#JwcService#0" />
-                <element signature="method#getDriver#0;class#JwcService#0" />
                 <element signature="method#testLogin#0;class#JwcService#0" />
                 <element signature="method#getVerification#0;class#JwcService#0" />
+                <element signature="method#getGrade#0;class#JwcService#0" />
                 <element signature="method#caculateGP#0;class#JwcService#0" />
                 <element signature="method#getCourse#0;class#JwcService#0" />
                 <element signature="method#getHtml#0;class#JwcService#0" />
+                <element signature="method#summarize#0;class#JwcService#0" />
+                <element signature="method#encryption#0;class#JwcService#0" />
               </folding>
             </state>
           </provider>
@@ -81,8 +98,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="69" column="21" selection-start-line="69" selection-start-column="21" selection-end-line="69" selection-end-column="21" />
+            <state relative-caret-position="770">
+              <caret line="35" column="21" selection-start-line="35" selection-start-column="21" selection-end-line="35" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -90,11 +107,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/mtr/njusthelper/controller/JwcApi.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-332">
-              <caret line="53" selection-start-line="53" selection-end-line="53" />
+            <state relative-caret-position="228">
+              <caret line="63" selection-start-line="63" selection-end-line="63" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#Login#0;class#JwcApi#0" />
                 <element signature="method#teLogin#0;class#JwcApi#0" />
+                <element signature="method#getGrade#0;class#JwcApi#0" />
+                <element signature="method#getCourse#0;class#JwcApi#0" />
               </folding>
             </state>
           </provider>
@@ -116,9 +136,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/main/java/com/mtr/njusthelper/utils/MapKeyComparator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/mtr/njusthelper/controller/JwcApi.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/mtr/njusthelper/service/JwcService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mtr/njusthelper/controller/JwcApi.java" />
       </list>
     </option>
   </component>
@@ -135,7 +155,7 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="676" />
     <option name="width" value="697" />
     <option name="height" value="775" />
@@ -216,7 +236,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548952498273" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1549030088075" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/NjustHelper" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -261,17 +281,18 @@
       <workItem from="1548649542010" duration="1394000" />
       <workItem from="1548651940227" duration="1652000" />
       <workItem from="1548653782873" duration="14683000" />
-      <workItem from="1548724716199" duration="52535000" />
+      <workItem from="1548724716199" duration="65961000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="70264000" />
+    <option name="totallyTimeSpent" value="83690000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18456884" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18456884" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -281,7 +302,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33744222" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3266564" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -372,36 +393,39 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/mtr/njusthelper/controller/JwcApi.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-332">
-          <caret line="53" selection-start-line="53" selection-end-line="53" />
+        <state relative-caret-position="228">
+          <caret line="63" selection-start-line="63" selection-end-line="63" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#Login#0;class#JwcApi#0" />
             <element signature="method#teLogin#0;class#JwcApi#0" />
+            <element signature="method#getGrade#0;class#JwcApi#0" />
+            <element signature="method#getCourse#0;class#JwcApi#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="69" column="21" selection-start-line="69" selection-start-column="21" selection-end-line="69" selection-end-column="21" />
+        <state relative-caret-position="770">
+          <caret line="35" column="21" selection-start-line="35" selection-start-column="21" selection-end-line="35" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/mtr/njusthelper/service/JwcService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="235" column="21" selection-start-line="235" selection-start-column="21" selection-end-line="235" selection-end-column="21" />
+        <state relative-caret-position="462">
+          <caret line="21" column="25" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#takeScreenshot#0;class#JwcService#0" />
-            <element signature="method#createElementImage#0;class#JwcService#0" />
-            <element signature="method#getDriver#0;class#JwcService#0" />
             <element signature="method#testLogin#0;class#JwcService#0" />
             <element signature="method#getVerification#0;class#JwcService#0" />
+            <element signature="method#getGrade#0;class#JwcService#0" />
             <element signature="method#caculateGP#0;class#JwcService#0" />
             <element signature="method#getCourse#0;class#JwcService#0" />
             <element signature="method#getHtml#0;class#JwcService#0" />
+            <element signature="method#summarize#0;class#JwcService#0" />
+            <element signature="method#encryption#0;class#JwcService#0" />
           </folding>
         </state>
       </provider>

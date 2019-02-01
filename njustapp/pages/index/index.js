@@ -60,9 +60,9 @@ Page({
         wx.showToast({
           title: '正在登录...',
           icon: 'loading',
-          duration: 10000
+          duration: 2000
         });
-        var url = njustHelperUrl.testlogin;
+        var url = njustHelperUrl.login();
         wx.request({
           url: url,
           //定义传到后台的数据

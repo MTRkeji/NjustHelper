@@ -2,32 +2,16 @@ package com.mtr.njusthelper.service;
 
 
 import com.alibaba.fastjson.JSONObject;
-import net.sourceforge.tess4j.ITesseract;
-import net.sourceforge.tess4j.Tesseract;
-import net.sourceforge.tess4j.TesseractException;
-import org.apache.commons.collections.map.HashedMap;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.stereotype.Service;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,35 +20,6 @@ import java.util.regex.Pattern;
 //教务处service
 @Service
 public class JwcService {
-
-    //截图函数
-    public byte[] takeScreenshot(WebDriver driver) throws IOException {
-        byte[] screenshot = null;
-        screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
-        return screenshot;
-    }
-
-
-    //获取验证码图片
-    public BufferedImage createElementImage(WebDriver driver,
-                                            WebElement webElement, int width, int heigth)throws IOException{
-        BufferedImage originalImage = ImageIO.read(new ByteArrayInputStream(
-                takeScreenshot(driver)));
-        Point point = webElement.getLocation();
-        BufferedImage croppedImage = originalImage.getSubimage(point.getX(),point.getY(),width,heigth);
-        return croppedImage;
-    }
-
-    //获取Chromedriver引擎
-    public WebDriver getDriver(){
-        System.setProperty("webdriver.chrome.driver","chromedriver.exe");
-        //设置为无头浏览器（静默模式）
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("headless");
-        WebDriver driver = new ChromeDriver(chromeOptions);
-        return driver;
-    }
-
 
     //测试cookie是否有效
     public String testLogin(String cookies){
@@ -92,98 +47,53 @@ public class JwcService {
      *
      */
     public String getVerification(String username, String password){
-
-        //获取driver
-        WebDriver driver = getDriver();
-        Dimension dimension = new Dimension(1034,617);
-        driver.manage().window().setSize(dimension);
-
-        String result = null;
-
-        //访问登录界面
-        driver.get("http://202.119.81.113:8080/");
-
-        //配置tesseract插件
-        ITesseract instance = new Tesseract();
-        URL url1 = ClassLoader.getSystemResource("tessdata");
-        String tesspath = url1.getPath().substring(1);
-        instance.setDatapath(tesspath);
-        while(true){
-
-            //验证码图片保存的文件
-            File imageFile = new File("src\\main\\resources\\static\\yzm"+username+".png");
-            try{
-                imageFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            //获取验证码图片元素
-            WebElement element = driver.findElement(By.xpath("//*[@id=\"SafeCodeImg\"]"));
-
-
-            try{
-                //获取图片流
-                BufferedImage image = createElementImage(driver,element,64,28);
-                //写入文件
-                ImageIO.write(image,"png",imageFile);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try{
-                //利用OCR自动识别，获取返回的结果result
-                ImageIO.scanForPlugins();
-                result = instance.doOCR(imageFile);
-            } catch (TesseractException e) {
-                e.printStackTrace();
-            }
-            //字符串处理
-            result = result.replaceAll("[^a-z^A-Z^0-9]", "");
-
-            //driver操控输入用户名，密码，验证码
-            driver.findElement(By.xpath("//*[@id=\"userAccount\"]")).clear();
-            driver.findElement(By.xpath("//*[@id=\"userAccount\"]")).sendKeys(username);
-            driver.findElement(By.xpath("//*[@id=\"userPassword\"]")).clear();
-            driver.findElement(By.xpath("//*[@id=\"userPassword\"]")).sendKeys(password);
-            driver.findElement(By.xpath("//*[@id=\"RANDOMCODE\"]")).clear();
-            driver.findElement(By.xpath("//*[@id=\"RANDOMCODE\"]")).sendKeys(result);
-            driver.findElement(By.xpath("//*[@id=\"btnSubmit\"]")).click();
-
-            try{
-                //检验是否登录成功
-                String errorText = driver.findElement(By.xpath("/html/body/form/div/div/div[2]/div[1]/font")).getText();
-                driver.findElement(By.xpath("//*[@id=\"SafeCodeImg\"]")).click();
-                System.out.println("错误信息："+errorText);
-                if(errorText.equals("该帐号不存在或密码错误,请联系管理员!")){
-                    return "errorInput";
-                }
-            }catch (Exception e){
-                //成功
-                break;
-            }
-        }
-
-        //获取登陆成功后的cookie
-        Set<Cookie> set = driver.manage().getCookies();
-
-        //处理cookie，存入cookies列表
-        List<Cookie> cookies = new ArrayList<>();
-        for (Cookie cookie:set) {
-            cookies.add(cookie);
-        }
-        //处理cookie之后，存入字符串，并返回
+        String passwordMd5 = encryption(password);
+        System.out.println(passwordMd5);
+        String urlString = "http://202.119.81.113:9080/njlgdx/xk/LoginToXk";
+        String arg = "method=verify&USERNAME="+username+"&PASSWORD="+passwordMd5;
+        System.out.println(urlString);
         String cookie = "";
-        for(int i = 0;i<cookies.size();i++){
-            if(i < (cookies.size()-1)){
-                cookie = cookie+cookies.get(i)+";";
+        PrintWriter out = null;
+        try{
+            //建立与教务处的连接
+            URL url = new URL(urlString);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setDoInput(true);
+            urlConnection.setDoOutput(true);
+            urlConnection.setInstanceFollowRedirects(false);
+            //获取连接的输出流
+            out = new PrintWriter(urlConnection.getOutputStream());
+            //写入参数
+            if(arg!=null){
+                out.write(arg);
+                System.out.println("写入数据成功");
+            }
+
+            out.flush();
+
+            //获取返回的数据流
+            cookie = urlConnection.getHeaderField("Set-Cookie");
+            System.out.println(cookie);
+            String location = urlConnection.getHeaderField("Location");
+            if(location!=null){
+                cookie = cookie+";domain="+location.substring(7,21);
             }else{
-                cookie = cookie+cookies.get(i);
+                cookie = "errorInput";
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if(out != null){
+                out.close();
             }
         }
-        //String cookie = cookies.get(0).getName()+"="+cookies.get(0).getValue()+";"+cookies.get(1).getName()+"="+cookies.get(1).getValue();
+        //获取登陆成功后的cookie
+
+
         return cookie;
     }
-
 
     /**成绩查询service
      *
@@ -269,7 +179,7 @@ public class JwcService {
         }
 
         for(int i = 0;i<middleList.size();i++){
-            Map<String,Object> everyXq = new HashedMap();
+            Map<String,Object> everyXq = new HashMap<>();
             everyXq.put("xq",middleList.get(i).get(0).get("kkxq"));
             everyXq.put("data",middleList.get(i));
             everyXq = summarize(middleList.get(i),everyXq);
@@ -281,7 +191,7 @@ public class JwcService {
             jsonObject.put("success", "1");
             jsonObject.put("list", resultList);
 
-            Map<String, Object> tempMap = new HashedMap();
+            Map<String, Object> tempMap = new HashMap();
             tempMap = summarize(list, tempMap);
             jsonObject.put("summarizing", tempMap);
         }
@@ -360,12 +270,12 @@ public class JwcService {
             Document document1 = Jsoup.parse(html);
             //#kbtable > tbody:nth-child(1) > tr:nth-child(2)
             Elements elements1 = document1.select("#kbtable").select("tbody:nth-child(1)").select("tr");
-            Map<String,Map<String,Map<String,String>>> everyClass = new HashedMap();
+            Map<String,Map<String,Map<String,String>>> everyClass = new HashMap();
             for(int w = 1;w<elements1.size()-1;w++) {
-                Map<String,Map<String,String>> courseM = new HashedMap();
+                Map<String,Map<String,String>> courseM = new HashMap();
                 Elements elements2 = elements1.get(w).getElementsByAttributeValue("style","display: none;");
                 for(int j = 0;j<elements2.size();j++){
-                    Map<String,String> temp = new HashedMap();
+                    Map<String,String> temp = new HashMap();
                     String value = elements2.get(j).text();
                     String[] courseZip = value.split(" ");
 
@@ -407,12 +317,11 @@ public class JwcService {
         try{
             //建立与教务处的连接
             URL url = new URL(postUrl);
-            URLConnection urlConnection = url.openConnection();
-            urlConnection.setRequestProperty("Content-Type",
-                    "application/x-www-form-urlencoded");
-            urlConnection.setUseCaches(false);
-            urlConnection.setRequestProperty("Connection", "Keep-Alive");
-            urlConnection.setRequestProperty("Cookie",cookies);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            if(cookies!=null){
+                urlConnection.setRequestProperty("Cookie",cookies);
+            }
+
             urlConnection.setDoInput(true);
             urlConnection.setDoOutput(true);
 
@@ -421,7 +330,6 @@ public class JwcService {
             //写入参数
             if(arg!=null){
                 out.write(arg);
-                System.out.println("写入数据成功");
             }
 
             out.flush();
@@ -502,6 +410,35 @@ public class JwcService {
         map.put("avgAllGP",String.format("%.2f",avgAllGP));
         map.put("avgBxGP",String.format("%.2f",avgBxGP));
         return map;
+    }
+
+
+    //MD5加密 32位
+    public String encryption(String plainText) {
+        String re_md5 = new String();
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(plainText.getBytes());
+            byte b[] = md.digest();
+
+            int i;
+
+            StringBuffer buf = new StringBuffer("");
+            for (int offset = 0; offset < b.length; offset++) {
+                i = b[offset];
+                if (i < 0)
+                    i += 256;
+                if (i < 16)
+                    buf.append("0");
+                buf.append(Integer.toHexString(i));
+            }
+
+            re_md5 = buf.toString().toUpperCase();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return re_md5;
     }
 }
 

@@ -2,14 +2,10 @@ package com.mtr.njusthelper.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.mtr.njusthelper.service.JwcService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 //教务处API接口
 @RestController

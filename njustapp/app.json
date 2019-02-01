@@ -4,7 +4,15 @@
     "pages/logs/logs",
     "pages/login/login",
     "pages/me/me",
-    "pages/grade/grade"
+    "pages/schedule/schedule",
+    "pages/grade/grade",
+    "pages/test/test",
+    "pages/cet/cet",
+    "pages/computer/computer",
+    "pages/jwc/jwc",
+    "pages/guanwang/guanwang",
+    "pages/aolan/aolan",
+    "pages/tongyi/tongyi"
   ],
   "window":{
     "backgroundTextStyle":"light",

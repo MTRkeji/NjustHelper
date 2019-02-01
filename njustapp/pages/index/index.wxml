@@ -6,7 +6,7 @@
   </view>
   <view class="page__bd">
     <view class="weui-grids">
-      <navigator url="" class="weui-grid" hover-class="weui-grid_active">
+      <navigator url="../schedule/schedule" class="weui-grid" hover-class="weui-grid_active">
         <image class="weui-grid__icon" src="../images/kechengbiao.png" />
         <view class="weui-grid__label">课程表</view>
       </navigator>
@@ -14,31 +14,31 @@
         <image class="weui-grid__icon" src="../images/chengji.png" />
         <view class="weui-grid__label">成绩</view>
       </navigator>
-      <navigator url="" class="weui-grid" hover-class="weui-grid_active">
+      <navigator url="../test/test" class="weui-grid" hover-class="weui-grid_active">
         <image class="weui-grid__icon" src="../images/kaoshi.png" />
         <view class="weui-grid__label">考试</view>
       </navigator>
-      <navigator url="" class="weui-grid" hover-class="weui-grid_active">
+      <navigator url="../cet/cet" class="weui-grid" hover-class="weui-grid_active">
         <image class="weui-grid__icon" src="../images/siliujichaxun.png" />
         <view class="weui-grid__label">四/六级</view>
       </navigator>
-      <navigator url="" class="weui-grid" hover-class="weui-grid_active">
+      <navigator url="../computer/computer" class="weui-grid" hover-class="weui-grid_active">
         <image class="weui-grid__icon" src="../images/jisuanji.png" />
         <view class="weui-grid__label">计算机等级考试</view>
       </navigator>
-      <navigator url="http://jwc.njust.edu.cn/" class="weui-grid" hover-class="weui-grid_active">
+      <navigator url="../jwc/jwc" class="weui-grid" hover-class="weui-grid_active">
         <image class="weui-grid__icon" src="../images/jiaowuxitong.png" />
         <view class="weui-grid__label">教务处</view>
       </navigator>
-      <navigator url="http://www.njust.edu.cn/" class="weui-grid" hover-class="weui-grid_active">
+      <navigator url="../guanwang/guanwang" class="weui-grid" hover-class="weui-grid_active">
         <image class="weui-grid__icon" src="../images/guanwang.png" />
         <view class="weui-grid__label">官网</view>
       </navigator>
-      <navigator url="http://aolan.njust.edu.cn/LOGIN.ASPX" class="weui-grid" hover-class="weui-grid_active">
+      <navigator url="../aolan/aolan" class="weui-grid" hover-class="weui-grid_active">
         <image class="weui-grid__icon" src="../images/shenfenrenzheng_1.png" />
         <view class="weui-grid__label">奥兰系统</view>
       </navigator>
-      <navigator url="http://ids.njust.edu.cn/authserver/login" class="weui-grid" hover-class="weui-grid_active">
+      <navigator url="../tongyi/tongyi" class="weui-grid" hover-class="weui-grid_active">
         <image class="weui-grid__icon" src="../images/shenfenrenzheng.png" />
         <view class="weui-grid__label">统一身份认证</view>
       </navigator>

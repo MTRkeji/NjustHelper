@@ -36,7 +36,7 @@ Page({
     wx.showToast({
       title: '正在登录...',
       icon: 'loading',
-      duration: 5000
+      duration: 2000
     });
     var url=njustHelperUrl.login();
     wx.request({
