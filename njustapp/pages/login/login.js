@@ -1,6 +1,6 @@
 // pages/login/login.js
 const app = getApp()
-
+var njustHelperUrl = require('../../utils/njustHelperUrl.js')
 Page({
 
   /**
@@ -12,61 +12,7 @@ Page({
     message: ""
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
-    var that = this;
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
-  },
+  
   //处理accountInput的触发事件
   accountInput: function(e) {
     var username = e.detail.value; //从页面获取到用户输入的用户名/邮箱/手机号
@@ -92,8 +38,9 @@ Page({
       icon: 'loading',
       duration: 5000
     });
+    var url=njustHelperUrl.login();
     wx.request({
-      url: 'http://192.168.0.104:8080/api/njustjwc/login', //后面详细介绍
+      url: url,
       //定义传到后台的数据
       data: {
         //从全局变量data中获取数据
@@ -139,5 +86,61 @@ Page({
         console.log("调用API失败");
       }
     })
-  }
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    var that = this;
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  },
 })

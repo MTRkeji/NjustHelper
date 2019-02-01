@@ -1,7 +1,7 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
+var njustHelperUrl = require('../../utils/njustHelperUrl.js')
 Page({
   data: {
     motto: 'Hello World',
@@ -23,9 +23,11 @@ Page({
     var that = this;
     console.log("cookie:"+wx.getStorageSync("cookie"))
     if (wx.getStorageSync("cookie") != "" && wx.getStorageSync("cookie") != null) {
+
+      var url = njustHelperUrl.testlogin();
       console.log("执行testlogin")
       wx.request({
-        url: 'http://192.168.0.104:8080/api/njustjwc/testlogin',
+        url: url,
         data: {
           //从全局变量data中获取数据
           cookie: wx.getStorageSync("cookie"),
@@ -60,8 +62,9 @@ Page({
           icon: 'loading',
           duration: 10000
         });
+        var url = njustHelperUrl.testlogin;
         wx.request({
-          url: 'http://192.168.0.104:8080/api/njustjwc/login', //后面详细介绍
+          url: url,
           //定义传到后台的数据
           data: {
             //从全局变量data中获取数据

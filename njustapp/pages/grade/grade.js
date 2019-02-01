@@ -1,5 +1,6 @@
 // pages/grade/grade.js
 const app = getApp()
+var njustHelperUrl = require('../../utils/njustHelperUrl.js')
 Page({
 
   /**
@@ -14,9 +15,11 @@ Page({
    */
   onLoad: function (options) {
     var that = this //不要漏了这句，很重要
+    var url = njustHelperUrl.getgrade();
     if (wx.getStorageSync("cookie") != "" && wx.getStorageSync("cookie") != null) {
       wx.request({
-        url: 'http://192.168.0.104:8080/api/njustjwc/getgrade',
+        // url: 'http://192.168.0.104:8080/api/njustjwc/getgrade',
+        url: url,
         headers: {
           'Content-Type': 'application/json'
         },
