@@ -1,2 +1,6 @@
 <!--pages/computer/computer.wxml-->
-<text>pages/computer/computer.wxml</text>
+<view class="container">
+  <view class="page__hd">
+    <view class="page__desc">此功能目前尚未开发完成</view>
+  </view>
+</view>

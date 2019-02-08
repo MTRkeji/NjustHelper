@@ -7,32 +7,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    account: "",
-    password: "",
-    message: ""
   },
 
-  
-  //处理accountInput的触发事件
-  accountInput: function(e) {
-    var username = e.detail.value; //从页面获取到用户输入的用户名/邮箱/手机号
-    if (username != '') {
-      this.setData({
-        account: username
-      }); //把获取到的密码赋值给全局变量Date中的password
-    }
-  },
-  //处理pwdBlurt的触发事件
-  pwdBlur: function(e) {
-    var pwd = e.detail.value; //从页面获取到用户输入的密码
-    if (pwd != '') {
-      this.setData({
-        password: pwd
-      }); //把获取到的密码赋值给全局变量Date中的password
-    }
-  },
   //处理login的触发事件
   login: function(e) {
+    var that = this;
     wx.showToast({
       title: '正在登录...',
       icon: 'loading',
@@ -44,8 +23,8 @@ Page({
       //定义传到后台的数据
       data: {
         //从全局变量data中获取数据
-        username: this.data.account,
-        password: this.data.password,
+        username: e.detail.value.username,
+        password: e.detail.value.password,
       },
       method: 'post', //定义传到后台接受的是post方法还是get方法
       header: {
@@ -92,7 +71,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this;
   },
 
   /**

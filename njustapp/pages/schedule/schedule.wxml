@@ -1,2 +1,35 @@
-<!--pages/schedule/schedule.wxml-->
-<text>pages/schedule/schedule.wxml</text>
+
+<view>
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+    <button type="default">{{array[index]}} ∨</button>
+  </picker>
+</view>
+
+<view class="top">
+  <view wx:for="{{['一','二','三','四','五','六','日']}}" class="top-text">周{{item}}</view>
+</view>
+<scroll-view scroll-y="true" class="scroll">
+  <view style="height:1000rpx;width:730rpx;display:flex;">
+    <view style="background-color:#D2E6B3;color:#7cba23;">
+      <view wx:for="{{[1,2,3,4,5]}}" class="left">
+        {{item}}
+      </view>
+    </view>
+    <view wx:for="{{[1,2,3,4,5]}}">
+      <view style="width:750rpx;margin-top:{{item*200}}rpx;  position: absolute;border-bottom:1rpx solid lightgray;">
+      </view>
+    </view>
+
+
+    <!--课表-->
+    <view wx:for="{{[0,1,2,3,4]}}" wx:for-item="i">
+      <view wx:for="{{[0,1,2,3,4,5,6]}}" wx:for-item="j">
+        <view wx:if="{{course[i][j] != null}}">
+          <view class="flex-item kcb-item" bindtap="showCardView" data-i="{{i}}" data-j="{{j}}" style="margin-left:{{j*100+5}}rpx;margin-top:{{i*200+5}}rpx;height:197rpx;background-color:{{colorArrays[(i*j)%8]}}">
+            <view class="smalltext">{{course[i][j].name+"@"+course[i][j].address}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

@@ -4,6 +4,7 @@ package com.mtr.njusthelper.service;
 import com.alibaba.fastjson.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 import java.io.*;
@@ -216,33 +217,34 @@ public class JwcService {
         if(cj.equals("不及格")){
             cj = "0";
         }
-        if(cj.compareTo("60")>=0){
+        int cjNum = Integer.parseInt(cj);
+        if(cjNum>=60){
             jd = "1.0";
         }else{
             jd = "0.0";
         }
-        if(cj.compareTo("64")>=0){
+        if(cjNum>=64){
             jd = "1.5";
         }
-        if(cj.compareTo("68")>=0){
+        if(cjNum>=68){
             jd = "2.0";
         }
-        if(cj.compareTo("72")>=0){
+        if(cjNum>=72){
             jd = "2.3";
         }
-        if(cj.compareTo("75")>=0){
+        if(cjNum>=75){
             jd = "2.7";
         }
-        if(cj.compareTo("78")>=0){
+        if(cjNum>=78){
             jd = "3.0";
         }
-        if(cj.compareTo("82")>=0){
+        if(cjNum>=82){
             jd = "3.3";
         }
-        if(cj.compareTo("85")>=0){
+        if(cjNum>=85){
             jd = "3.7";
         }
-        if(cj.compareTo("90")>=0){
+        if(cjNum>=90){
             jd = "4.0";
         }
         return jd;
@@ -261,7 +263,7 @@ public class JwcService {
      */
     public JSONObject getCourse(String cookies){
         JSONObject jsonObject = new JSONObject();
-        List<Map<String,Map<String,Map<String,String>>>> everyWeek = new ArrayList<>();
+        List<List<List<Map<String,String>>>> everyWeek = new ArrayList<>();
         int length = cookies.length();
         String domain = cookies.substring(length-14);
         System.out.println(domain);
@@ -270,9 +272,9 @@ public class JwcService {
             Document document1 = Jsoup.parse(html);
             //#kbtable > tbody:nth-child(1) > tr:nth-child(2)
             Elements elements1 = document1.select("#kbtable").select("tbody:nth-child(1)").select("tr");
-            Map<String,Map<String,Map<String,String>>> everyClass = new HashMap();
+            List<List<Map<String,String>>> everyClass = new ArrayList<>();
             for(int w = 1;w<elements1.size()-1;w++) {
-                Map<String,Map<String,String>> courseM = new HashMap();
+                List<Map<String,String>> courseM = new ArrayList<>();
                 Elements elements2 = elements1.get(w).getElementsByAttributeValue("style","display: none;");
                 for(int j = 0;j<elements2.size();j++){
                     Map<String,String> temp = new HashMap();
@@ -288,18 +290,27 @@ public class JwcService {
                         }else{
                             temp.put("address","未知");
                         }
-                        courseM.put("weekday"+(j+1),temp);
+                        courseM.add(temp);
                     }else{
-                        courseM.put("weekday"+(j+1),null);
+                        courseM.add(null);
                     }
                 }
-                everyClass.put("lesson"+w,courseM);
+                everyClass.add(courseM);
             }
             everyWeek.add(everyClass);
         }
+        String datehtml = getHtml("http://"+domain+":9080/njlgdx/jxzl/jxzl_query?Ves632DSdyV=NEW_XSD_WDZM",cookies,null);
+        Document document1 = Jsoup.parse(datehtml);
+        //#kbtable > tbody:nth-child(1) > tr:nth-child(2)
+        //#kbtable > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2)
+        Element element = document1.select("#kbtable").select("tbody:nth-child(1)").select("tr:nth-child(2)").select("td:nth-child(2)").get(0);
+        String date = element.attr("title");
+        String start_date = date.substring(0,4)+"-"+date.substring(5,7)+"-"+date.substring(8,10);
+
         if(everyWeek.get(1).isEmpty()){
             jsonObject.put("success","0");
         }else {
+            jsonObject.put("start_date",start_date);
             jsonObject.put("course", everyWeek);
             jsonObject.put("success", "1");
         }

@@ -1,2 +1,6 @@
 <!--pages/test/test.wxml-->
-<text>pages/test/test.wxml</text>
+<view class="container">
+  <view class="page__hd">
+    <view class="page__desc">近期无考试，尽管浪~</view>
+  </view>
+</view>

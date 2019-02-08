@@ -1,0 +1,4 @@
+/* templates/footer/footer.wxss */
+.weui-footer{
+    margin-bottom: 50px;
+}

@@ -1,0 +1,6 @@
+<!--templates/footer/footer.wxml-->
+<template name="footer">
+  <view class="weui-footer">
+    <view class="weui-footer__text">Copyright © 2018-2019 MTR科技</view>
+  </view>
+</template>

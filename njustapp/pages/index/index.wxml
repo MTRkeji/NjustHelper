@@ -1,4 +1,5 @@
 <!--index.wxml-->
+<import src="/templates/footer/footer.wxml" />
 <view class="container">
   <view class="page__hd">
     <view class="page__title">南京理工大学</view>
@@ -44,4 +45,5 @@
       </navigator>
     </view>
   </view>
+  <template is="footer"></template>
 </view>

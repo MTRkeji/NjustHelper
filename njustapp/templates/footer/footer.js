@@ -1,17 +1,18 @@
-// pages/me/me.js
+// templates/footer/footer.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+
   },
 
   /**
@@ -25,20 +26,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var that = this;
-    if(wx.getStorageSync("username")){
-      that.setData({
-        title: "已登录",
-        content: wx.getStorageSync("username"),
-        canClick: true
-      })
-    }else{
-      that.setData({
-        title: "请登录!",
-        content: "",
-        canClick: false
-      })
-    }
+
   },
 
   /**
@@ -74,21 +62,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-
-  toLogin: function(){
-    wx.navigateTo({
-      url: '../login/login',
-    })
-  },
-  toLogout: function(){
-    var that = this;
-    try {
-      wx.clearStorageSync();
-      console.log("清理缓存成功")
-      that.onShow();
-    } catch (e) {
-      // Do something when catch error
-    }
   }
 })

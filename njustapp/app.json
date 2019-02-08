@@ -12,10 +12,11 @@
     "pages/jwc/jwc",
     "pages/guanwang/guanwang",
     "pages/aolan/aolan",
-    "pages/tongyi/tongyi"
+    "pages/tongyi/tongyi",
+    "templates/footer/footer"
   ],
   "window":{
-    "backgroundTextStyle":"light",
+    "backgroundTextStyle":"dark",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "NJUST-helper",
     "navigationBarTextStyle":"black"
