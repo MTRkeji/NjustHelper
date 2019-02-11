@@ -19,14 +19,6 @@
         <image class="weui-grid__icon" src="../images/kaoshi.png" />
         <view class="weui-grid__label">考试</view>
       </navigator>
-      <navigator url="../cet/cet" class="weui-grid" hover-class="weui-grid_active">
-        <image class="weui-grid__icon" src="../images/siliujichaxun.png" />
-        <view class="weui-grid__label">四/六级</view>
-      </navigator>
-      <navigator url="../computer/computer" class="weui-grid" hover-class="weui-grid_active">
-        <image class="weui-grid__icon" src="../images/jisuanji.png" />
-        <view class="weui-grid__label">计算机等级考试</view>
-      </navigator>
       <navigator url="../jwc/jwc" class="weui-grid" hover-class="weui-grid_active">
         <image class="weui-grid__icon" src="../images/jiaowuxitong.png" />
         <view class="weui-grid__label">教务处</view>

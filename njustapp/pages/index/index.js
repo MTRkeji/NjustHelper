@@ -44,8 +44,6 @@ Page({
           }
         },
       })
-    }else{
-      that.login();
     }
   },
   login:function(){

@@ -217,7 +217,7 @@ public class JwcService {
         if(cj.equals("不及格")){
             cj = "0";
         }
-        int cjNum = Integer.parseInt(cj);
+        Double cjNum = Double.parseDouble(cj);
         if(cjNum>=60){
             jd = "1.0";
         }else{

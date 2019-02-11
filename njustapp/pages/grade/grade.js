@@ -59,8 +59,8 @@ Page({
         }
       })
     } else {
-      wx.navigateTo({
-        url: '../login/login',
+      wx.switchTab({
+        url: '../me/me',
       })
     }
   },

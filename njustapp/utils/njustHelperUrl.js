@@ -3,8 +3,8 @@ var njustHelperUrl ={
 
   base: function () {
     
-    return "https://www.mtrschool.top/api/njustjwc/";
-    // return "http://192.168.0.104:8080/api/njustjwc/";
+    return "https://localhost/api/njustjwc/";
+    // return "http://localhost:8080/api/njustjwc/";
 
   },
 
