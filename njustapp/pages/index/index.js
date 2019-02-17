@@ -38,14 +38,13 @@ Page({
         },
         success: function(res) {
           console.log("调用API成功");
-          if (res.data.success == "1") {
-          } else {
+          if (res.data.success == "1") {} else {
             that.login();
           }
         },
       })
     }
-    var courses = wx.getStorageSync("courses");
+    const courses = wx.getStorageSync("courses");
     if (courses) {
       that.setDay();
       that.setData({
@@ -69,7 +68,7 @@ Page({
           icon: 'loading',
           duration: 2000
         });
-        var url = njustHelperUrl.login();
+        const url = njustHelperUrl.login();
         wx.request({
           url: url,
           //定义传到后台的数据
@@ -122,9 +121,9 @@ Page({
       })
     }
   },
-  getCourse: function () {
+  getCourse: function() {
     var that = this;
-    var url = njustHelperUrl.getcourse();
+    const url = njustHelperUrl.getcourse();
     if (wx.getStorageSync("cookie") != "" && wx.getStorageSync("cookie") != null) {
       wx.showToast({
         title: '正在导入...',
@@ -141,7 +140,8 @@ Page({
           cookie: wx.getStorageSync("cookie"),
         },
         method: 'post',
-        success: function (res) {
+        success: function(res) {
+          that.setDay()
           //将获取到的json数据，存在名字叫zhihu的这个数组中
           that.setData({
             course: res.data.course[that.data.index],
@@ -149,8 +149,7 @@ Page({
           })
           wx.setStorageSync("courses", res.data.course)
           wx.setStorageSync("start_date", res.data.start_date)
-          that.setDay()
-          that.onShow()
+          //that.onShow()
           wx.showToast({
             title: '导入课表成功！',
             duration: 1000
@@ -165,8 +164,6 @@ Page({
   },
   setDay: function() {
     var that = this;
-    var start_date = wx.getStorageSync("start_date")
-    console.log(start_date)
     var start_date = new Date(wx.getStorageSync("start_date").replace(/-/g, "/"));
     console.log(start_date)
     var current_date = new Date();
@@ -194,6 +191,6 @@ Page({
         today: -1
       })
     }
-    console.log("今天是："+that.data.today)
+    console.log("今天是：" + that.data.today)
   }
 })
