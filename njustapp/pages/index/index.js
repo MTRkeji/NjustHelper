@@ -141,14 +141,12 @@ Page({
         },
         method: 'post',
         success: function(res) {
-          that.setDay()
-          //将获取到的json数据，存在名字叫zhihu的这个数组中
-          that.setData({
-            course: res.data.course[that.data.index],
-            //res代表success函数的事件对，data是固定的，stories是是上面json数据中stories
-          })
           wx.setStorageSync("courses", res.data.course)
           wx.setStorageSync("start_date", res.data.start_date)
+          that.setDay()
+          that.setData({
+            course: res.data.course[that.data.index],
+          })
           //that.onShow()
           wx.showToast({
             title: '导入课表成功！',
