@@ -1,0 +1,6 @@
+/* pages/about/about.wxss */
+.container {
+  top:50%;
+  position:absolute;
+  transform:translate(0, -60%);
+}

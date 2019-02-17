@@ -10,7 +10,8 @@
     "pages/cet/cet",
     "pages/computer/computer",
     "pages/guanwang/guanwang",
-    "templates/footer/footer"
+    "templates/footer/footer",
+    "pages/about/about"
   ],
   "window": {
     "backgroundTextStyle": "dark",

@@ -2,6 +2,5 @@
 <template name="footer">
   <view class="weui-footer">
     <view class="weui-footer__text">Copyright © 2018-2019 MTR科技</view>
-    <view class="weui-footer__text">反馈请加微信：mutourensu</view>
   </view>
 </template>

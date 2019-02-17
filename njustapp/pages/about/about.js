@@ -1,17 +1,19 @@
-// pages/me/me.js
+// pages/about/about.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    QQcode: '985247867',
+    GitHub: 'https://github.com/MTRkeji/NjustHelper',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+
   },
 
   /**
@@ -25,20 +27,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var that = this;
-    if(wx.getStorageSync("username")){
-      that.setData({
-        name: wx.getStorageSync("name"),
-        xuehao: wx.getStorageSync("username"),
-        canClick: true
-      })
-    }else{
-      that.setData({
-        name: "请登录!",
-        xuehao: "",
-        canClick: false
-      })
-    }
+
   },
 
   /**
@@ -76,24 +65,10 @@ Page({
 
   },
 
-  toLogin: function(){
-    wx.navigateTo({
-      url: '../login/login',
+  copyText: e => {
+    wx.setClipboardData({
+      data: e.currentTarget.dataset.text,
+      success: res => console.log('用户复制成功')
     })
   },
-  toLogout: function(){
-    var that = this;
-    try {
-      wx.clearStorageSync();
-      console.log("清理缓存成功")
-      that.onShow();
-    } catch (e) {
-      // Do something when catch error
-    }
-  },
-  toAbout: function () {
-    wx.navigateTo({
-      url: '../about/about',
-    })
-  }
 })

@@ -5,6 +5,9 @@
     <view class="page__desc">{{xuehao}}</view>
   </view>
   <view class="page__bd page__bd_spacing">
+    <block>
+      <button class="weui-btn" type="normal" bindtap='toAbout'>系统信息/反馈</button>
+    </block>
     <block wx:if="{{canClick}}">
       <button class="weui-btn" type="warn" bindtap='toLogout'>注销</button>
     </block>
