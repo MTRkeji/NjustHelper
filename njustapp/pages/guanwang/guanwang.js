@@ -66,25 +66,10 @@ Page({
   onShareAppMessage: function () {
 
   },
-  copyText: function (e) {
-    console.log(e)
+  copyText: e => {
     wx.setClipboardData({
       data: e.currentTarget.dataset.text,
-      success: function (res) {
-        wx.getClipboardData({
-          success: function (res) {
-            wx.showModal({
-              content: '已复制，请打开浏览器粘贴网址进行访问！',
-              showCancel: false,
-              success: function (res) {
-                if (res.confirm) {
-                  console.log('用户点击确定')
-                }
-              }
-            });
-          }
-        })
-      }
+      success: res => console.log('用户复制成功')
     })
   },
 })
