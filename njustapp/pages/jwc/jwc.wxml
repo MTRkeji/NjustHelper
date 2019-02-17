@@ -1,7 +1,0 @@
-<!--pages/jwc/jwc.wxml-->
-<view class="page">
-  <view class="page__bd page__bd_spacing">
-    <view class="title">网址：{{contents}} </view>
-    <button class="weui-btn" bindtap='copyText' type="default" data-text="{{contents}}">点此复制网址到剪切板</button>
-  </view>
-</view>

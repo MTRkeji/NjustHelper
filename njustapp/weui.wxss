@@ -735,6 +735,7 @@ icon {
   border-top: 1rpx solid #d9d9d9;
   border-left: 1rpx solid #d9d9d9;
   overflow: hidden;
+  border-radius: 8px;
 }
 
 .weui-grid {
@@ -745,6 +746,7 @@ icon {
   box-sizing: border-box;
   border-right: 1rpx solid #d9d9d9;
   border-bottom: 1rpx solid #d9d9d9;
+  
 }
 
 .weui-grid_active {
@@ -753,8 +755,8 @@ icon {
 
 .weui-grid__icon {
   display: block;
-  width: 28px;
-  height: 28px;
+  width: 35px;
+  height: 35px;
   margin: 0 auto;
 }
 
@@ -875,9 +877,11 @@ icon {
 
 .weui-panel {
   background-color: #fff;
-  margin-top: 10px;
+  margin: 10px;
   position: relative;
   overflow: hidden;
+  border-radius: 10px;
+  box-shadow:-1px 1px 7px 1px #c7c7c7;
 }
 
 .weui-panel:first-child {
@@ -886,7 +890,6 @@ icon {
 
 .weui-panel:before {
   top: 0;
-  border-top: 1rpx solid #e5e5e5;
 }
 
 .weui-panel:after, .weui-panel:before {
@@ -900,7 +903,6 @@ icon {
 
 .weui-panel:after {
   bottom: 0;
-  border-bottom: 1rpx solid #e5e5e5;
 }
 
 .weui-panel__hd {
@@ -917,7 +919,6 @@ icon {
   bottom: 0;
   right: 0;
   height: 1px;
-  border-bottom: 1rpx solid #e5e5e5;
   color: #e5e5e5;
   left: 15px;
 }

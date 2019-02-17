@@ -41,22 +41,13 @@ public class JwcApi {
     @RequestMapping("/login")
     public Object Login(@RequestBody JSONObject requestJson){
 
-        JSONObject jsonObject = new JSONObject();
+        JSONObject jsonObject;
         //解析前端传来的参数
         String username = requestJson.get("username").toString();
         String password = requestJson.get("password").toString();
 
         //登录获取Cookie
-        String result = jwcService.getVerification(username,password);
-        System.out.println(result);
-        if(result.equals("errorInput")){
-            jsonObject.put("success","0");
-        }else{
-            jsonObject.put("success","1");
-            jsonObject.put("cookie",result);
-            jsonObject.put("username",username);
-            jsonObject.put("password",password);
-        }
+        jsonObject = jwcService.getVerification(username,password);
         return jsonObject;
     }
 
@@ -69,7 +60,7 @@ public class JwcApi {
 
         //登录获取Cookie
         String result = jwcService.testLogin(cookie);
-        System.out.println(result);
+        //System.out.println(result);
         jsonObject.put("success",result);
         return jsonObject;
     }
@@ -99,6 +90,14 @@ public class JwcApi {
         String cook = (String)requestJson.get("cookie");
         JSONObject jsonObject;
         jsonObject = jwcService.getCourse(cook);
+        return jsonObject;
+    }
+
+    @RequestMapping("/getexam")
+    public Object getExam(@RequestBody JSONObject requestJson){
+        String cook = (String)requestJson.get("cookie");
+        JSONObject jsonObject;
+        jsonObject = jwcService.getExam(cook);
         return jsonObject;
     }
 }

@@ -46,6 +46,7 @@ Page({
             data: res.data.password,
           })
           wx.setStorageSync("cookie", res.data.cookie);
+          wx.setStorageSync("name", res.data.name);
           wx.switchTab({
             url: '../index/index',
           })

@@ -3,8 +3,8 @@ var njustHelperUrl ={
 
   base: function () {
     
-    return "https://localhost/api/njustjwc/";
-    // return "http://localhost:8080/api/njustjwc/";
+    return "https://www.mtrschool.top/api/njustjwc/";
+    // return "http://192.168.0.104:8080/api/njustjwc/";
 
   },
 
@@ -22,6 +22,10 @@ var njustHelperUrl ={
 
   getcourse:function() {
     return this.base() + "getcourse";
+  },
+
+  getexam: function () {
+    return this.base() + "getexam";
   }
 }
 module.exports = {
@@ -33,5 +37,7 @@ module.exports = {
 
   testlogin: njustHelperUrl.testlogin,
 
-  getcourse: njustHelperUrl.getcourse
+  getcourse: njustHelperUrl.getcourse,
+
+  getexam: njustHelperUrl.getexam
 }

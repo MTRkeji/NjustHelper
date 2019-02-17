@@ -5,7 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    contents: 'http://www.njust.edu.cn/'
+    guanwang: 'http://www.njust.edu.cn/',
+    aolan: "http://alstu.njust.edu.cn/default.aspx",
+    jwc: "http://jwc.njust.edu.cn/",
+    zhihuiligong: "http://ehall.njust.edu.cn/new/index.html",
   },
 
   /**

@@ -1,6 +1,15 @@
 <!--pages/test/test.wxml-->
-<view class="container">
-  <view class="page__hd">
-    <view class="page__desc">近期无考试，尽管浪~</view>
+<block wx:if="{{exams.length>0}}">
+  <view wx:for="{{exams}}">
+    <view class="tr">
+      <text class="item">课程：{{item.name}}\n时间：{{item.time}}\n考场：{{item.address}}\n座位号：{{item.num}}</text>
+    </view>
   </view>
-</view>
+</block>
+<block wx:else>
+  <view class="container">
+    <view class="page__hd">
+      <view class="page__desc">近期无考试，尽管浪~</view>
+    </view>
+  </view>
+</block>

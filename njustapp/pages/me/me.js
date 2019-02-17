@@ -28,14 +28,14 @@ Page({
     var that = this;
     if(wx.getStorageSync("username")){
       that.setData({
-        title: "已登录",
-        content: wx.getStorageSync("username"),
+        name: wx.getStorageSync("name"),
+        xuehao: wx.getStorageSync("username"),
         canClick: true
       })
     }else{
       that.setData({
-        title: "请登录!",
-        content: "",
+        name: "请登录!",
+        xuehao: "",
         canClick: false
       })
     }

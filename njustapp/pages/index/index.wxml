@@ -6,35 +6,49 @@
     <view class="page__desc">团结 献身 求是 创新</view>
   </view>
   <view class="page__bd">
-    <view class="weui-grids">
-      <navigator url="../schedule/schedule" class="weui-grid" hover-class="weui-grid_active">
-        <image class="weui-grid__icon" src="../images/kechengbiao.png" />
-        <view class="weui-grid__label">课程表</view>
-      </navigator>
-      <navigator url="../grade/grade" class="weui-grid" hover-class="weui-grid_active">
-        <image class="weui-grid__icon" src="../images/chengji.png" />
-        <view class="weui-grid__label">成绩</view>
-      </navigator>
-      <navigator url="../test/test" class="weui-grid" hover-class="weui-grid_active">
-        <image class="weui-grid__icon" src="../images/kaoshi.png" />
-        <view class="weui-grid__label">考试</view>
-      </navigator>
-      <navigator url="../jwc/jwc" class="weui-grid" hover-class="weui-grid_active">
-        <image class="weui-grid__icon" src="../images/jiaowuxitong.png" />
-        <view class="weui-grid__label">教务处</view>
-      </navigator>
-      <navigator url="../guanwang/guanwang" class="weui-grid" hover-class="weui-grid_active">
-        <image class="weui-grid__icon" src="../images/guanwang.png" />
-        <view class="weui-grid__label">官网</view>
-      </navigator>
-      <navigator url="../aolan/aolan" class="weui-grid" hover-class="weui-grid_active">
-        <image class="weui-grid__icon" src="../images/shenfenrenzheng_1.png" />
-        <view class="weui-grid__label">奥兰系统</view>
-      </navigator>
-      <navigator url="../tongyi/tongyi" class="weui-grid" hover-class="weui-grid_active">
-        <image class="weui-grid__icon" src="../images/shenfenrenzheng.png" />
-        <view class="weui-grid__label">统一身份认证</view>
-      </navigator>
+    <view class="weui-panel weui-panel_access">
+      <view class="weui-panel__hd">今日课程</view>
+      <view class="weui-panel__bd">
+        <view wx:if="{{today>-1}}">
+          <view wx:for="{{[0,1,2,3,4]}}" wx:for-item="i">
+            <view wx:if="{{course[i][4].name!=null}}">
+              <view class="tr">
+                <text class="item">第{{i+1}}大节\n课程：{{course[i][today].name}}\n地点：{{course[i][today].address}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="weui-panel weui-panel_access">
+      <view class="weui-panel__hd">教务处</view>
+      <view class="weui-panel__bd">
+        <view class="weui-grids">
+          <navigator url="../schedule/schedule" class="weui-grid" hover-class="weui-grid_active">
+            <image class="weui-grid__icon" src="../images/kechengbiao.png" />
+            <view class="weui-grid__label">课程表</view>
+          </navigator>
+          <navigator url="../grade/grade" class="weui-grid" hover-class="weui-grid_active">
+            <image class="weui-grid__icon" src="../images/chengji.png" />
+            <view class="weui-grid__label">成绩</view>
+          </navigator>
+          <navigator url="../test/test" class="weui-grid" hover-class="weui-grid_active">
+            <image class="weui-grid__icon" src="../images/kaoshi.png" />
+            <view class="weui-grid__label">考试</view>
+          </navigator>
+        </view>
+      </view>
+    </view>
+    <view class="weui-panel weui-panel_access">
+      <view class="weui-panel__hd">其他</view>
+      <view class="weui-panel__bd">
+        <view class="weui-grids">
+          <navigator url="../guanwang/guanwang" class="weui-grid" hover-class="weui-grid_active">
+            <image class="weui-grid__icon" src="../images/guanwang.png" />
+            <view class="weui-grid__label">各网站入口</view>
+          </navigator>
+        </view>
+      </view>
     </view>
   </view>
   <template is="footer"></template>

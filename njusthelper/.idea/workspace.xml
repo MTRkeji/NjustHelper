@@ -1,13 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="njusthelper:war" />
+      <artifact name="njusthelper:war exploded" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9a52e-3884-45d2-8879-d6a03c68e3b4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/grade/grade.js" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/pages/grade/grade.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/aolan/aolan.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/aolan/aolan.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/aolan/aolan.wxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/aolan/aolan.wxss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/guanwang/guanwang.js" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/pages/guanwang/guanwang.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/guanwang/guanwang.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/pages/guanwang/guanwang.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/guanwang/guanwang.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/pages/guanwang/guanwang.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/images/chengji.png" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/pages/images/chengji.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/images/guanwang.png" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/pages/images/guanwang.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/images/kaoshi.png" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/pages/images/kaoshi.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/images/kechengbiao.png" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/pages/images/kechengbiao.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/index/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/pages/index/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/index/index.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/pages/index/index.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/index/index.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/pages/index/index.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/jwc/jwc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/jwc/jwc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/jwc/jwc.wxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/jwc/jwc.wxss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/login/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/pages/login/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/me/me.js" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/pages/me/me.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/me/me.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/pages/me/me.wxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/schedule/schedule.js" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/pages/schedule/schedule.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/schedule/schedule.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/pages/schedule/schedule.wxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/test/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/pages/test/test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/templates/footer/footer.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/templates/footer/footer.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/test/test.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/pages/test/test.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/test/test.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/pages/test/test.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/tongyi/tongyi.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/tongyi/tongyi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/tongyi/tongyi.wxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/pages/tongyi/tongyi.wxss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/utils/njustHelperUrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/utils/njustHelperUrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NjustHelper/njustapp/weui.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/NjustHelper/njustapp/weui.wxss" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -21,12 +54,16 @@
     <session id="385493969">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
+          <entry key="project.closed" value="9" />
           <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.14" value="1" />
+          <entry key="project.open.time.15" value="2" />
+          <entry key="project.open.time.17" value="1" />
+          <entry key="project.open.time.18" value="2" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.opened" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -34,10 +71,10 @@
           <entry key="class" value="1" />
           <entry key="cmd" value="1" />
           <entry key="gitignore" value="1" />
-          <entry key="java" value="6" />
+          <entry key="java" value="7" />
           <entry key="mvnw" value="1" />
           <entry key="png" value="1" />
-          <entry key="properties" value="1" />
+          <entry key="properties" value="2" />
           <entry key="xml" value="6" />
         </counts>
       </usages-collector>
@@ -45,21 +82,23 @@
         <counts>
           <entry key="CLASS" value="1" />
           <entry key="Image" value="1" />
-          <entry key="JAVA" value="6" />
+          <entry key="JAVA" value="7" />
           <entry key="PLAIN_TEXT" value="3" />
-          <entry key="Properties" value="1" />
+          <entry key="Properties" value="2" />
           <entry key="XML" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="9621" />
+          <entry key="java" value="10517" />
+          <entry key="properties" value="1" />
           <entry key="xml" value="48" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="9621" />
+          <entry key="JAVA" value="10517" />
+          <entry key="Properties" value="1" />
           <entry key="XML" value="48" />
         </counts>
       </usages-collector>
@@ -70,13 +109,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/mtr/njusthelper/service/JwcService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="219" column="46" selection-start-line="219" selection-start-column="46" selection-end-line="219" selection-end-column="46" />
+            <state relative-caret-position="-578">
+              <caret line="328" column="47" selection-start-line="328" selection-start-column="47" selection-end-line="328" selection-end-column="47" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#testLogin#0;class#JwcService#0" />
-                <element signature="method#getVerification#0;class#JwcService#0" />
-                <element signature="method#getHtml#0;class#JwcService#0" />
+                <element signature="method#caculateGP#0;class#JwcService#0" />
+                <element signature="method#getCourse#0;class#JwcService#0" />
                 <element signature="method#summarize#0;class#JwcService#0" />
                 <element signature="method#encryption#0;class#JwcService#0" />
               </folding>
@@ -85,22 +123,12 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66">
-              <caret line="3" column="30" lean-forward="true" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/mtr/njusthelper/controller/JwcApi.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1180">
-              <caret line="19" column="10" lean-forward="true" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
+            <state relative-caret-position="203">
+              <caret line="62" column="10" selection-start-line="62" selection-start-column="10" selection-end-line="62" selection-end-column="10" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#teLogin#0;class#JwcApi#0" />
                 <element signature="method#getGrade#0;class#JwcApi#0" />
               </folding>
             </state>
@@ -123,9 +151,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/main/java/com/mtr/njusthelper/utils/MapKeyComparator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/mtr/njusthelper/controller/JwcApi.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mtr/njusthelper/controller/JwcApi.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mtr/njusthelper/service/JwcService.java" />
       </list>
     </option>
@@ -171,7 +199,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -222,15 +249,11 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="njusthelper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="njusthelper" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -240,7 +263,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1549890772956" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550065645412" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/NjustHelper" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -286,16 +309,23 @@
       <workItem from="1548651940227" duration="1652000" />
       <workItem from="1548653782873" duration="14683000" />
       <workItem from="1548724716199" duration="78893000" />
+      <workItem from="1549892452572" duration="547000" />
+      <workItem from="1549895526353" duration="2481000" />
+      <workItem from="1549898063345" duration="40000" />
+      <workItem from="1549898203983" duration="1340000" />
+      <workItem from="1550052739667" duration="9629000" />
+      <workItem from="1550145695400" duration="12371000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="96622000" />
+    <option name="totallyTimeSpent" value="123030000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="784" extended-state="7" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25869894" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28290468" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -305,7 +335,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.38212636" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.21109399" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -322,7 +352,7 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info active="true" anchor="right" id="Maven Projects" order="5" visible="true" weight="0.32980332" />
+      <window_info anchor="right" id="Maven Projects" order="5" weight="0.32980332" />
       <window_info anchor="right" id="Database" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
@@ -341,9 +371,7 @@
     </ignored-roots>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/yzm916107820236.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/yzm916107820236.png" />
     <entry file="file://$PROJECT_DIR$/mvnw.cmd">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1716" />
@@ -366,10 +394,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
           <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
-          <folding>
-            <element signature="e#193#194#0" expanded="true" />
-            <element signature="e#232#233#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -408,13 +432,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/util/ArrayList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="421" column="27" selection-start-line="421" selection-start-column="27" selection-end-line="421" selection-end-column="27" />
+          <folding>
+            <element signature="e#15586#15587#0" expanded="true" />
+            <element signature="e#15631#15632#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/mtr/njusthelper/controller/JwcApi.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1180">
-          <caret line="19" column="10" lean-forward="true" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
+        <state relative-caret-position="203">
+          <caret line="62" column="10" selection-start-line="62" selection-start-column="10" selection-end-line="62" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#teLogin#0;class#JwcApi#0" />
             <element signature="method#getGrade#0;class#JwcApi#0" />
           </folding>
         </state>
@@ -422,13 +456,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/mtr/njusthelper/service/JwcService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="219" column="46" selection-start-line="219" selection-start-column="46" selection-end-line="219" selection-end-column="46" />
+        <state relative-caret-position="-578">
+          <caret line="328" column="47" selection-start-line="328" selection-start-column="47" selection-end-line="328" selection-end-column="47" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#testLogin#0;class#JwcService#0" />
-            <element signature="method#getVerification#0;class#JwcService#0" />
-            <element signature="method#getHtml#0;class#JwcService#0" />
+            <element signature="method#caculateGP#0;class#JwcService#0" />
+            <element signature="method#getCourse#0;class#JwcService#0" />
             <element signature="method#summarize#0;class#JwcService#0" />
             <element signature="method#encryption#0;class#JwcService#0" />
           </folding>

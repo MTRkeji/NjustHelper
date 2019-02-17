@@ -27,7 +27,7 @@ public class JwcService {
         JSONObject jsonObject = new JSONObject();
         int length = cookies.length();
         String domain = cookies.substring(length-14);
-        System.out.println(domain);
+        //System.out.println(domain);
         String html = getHtml("http://"+domain+":9080/njlgdx/framework/main.jsp",cookies,null);
 
         Pattern pattern = Pattern.compile("<div id=\"Top1_divLoginName\".*?>[\\s\\S]*?</div>");
@@ -37,6 +37,7 @@ public class JwcService {
         }
         return "0";
     }
+
     /**登录service
      *
      * 根据controller传来的参数进行登录，并返回登陆成功之后的cookie
@@ -47,14 +48,18 @@ public class JwcService {
      * @return cookie
      *
      */
-    public String getVerification(String username, String password){
+    public JSONObject getVerification(String username, String password){
+        JSONObject jsonObject = new JSONObject();
         String passwordMd5 = encryption(password);
-        System.out.println(passwordMd5);
+        //System.out.println(passwordMd5);
         String urlString = "http://202.119.81.113:9080/njlgdx/xk/LoginToXk";
         String arg = "method=verify&USERNAME="+username+"&PASSWORD="+passwordMd5;
-        System.out.println(urlString);
+        //System.out.println(urlString);
         String cookie = "";
         PrintWriter out = null;
+        String domain = null;
+        String name = null;
+        String ssuccess = null;
         try{
             //建立与教务处的连接
             URL url = new URL(urlString);
@@ -67,19 +72,32 @@ public class JwcService {
             //写入参数
             if(arg!=null){
                 out.write(arg);
-                System.out.println("写入数据成功");
+                //System.out.println("写入数据成功");
             }
 
             out.flush();
 
             //获取返回的数据流
             cookie = urlConnection.getHeaderField("Set-Cookie");
-            System.out.println(cookie);
+            //System.out.println(cookie);
             String location = urlConnection.getHeaderField("Location");
             if(location!=null){
-                cookie = cookie+";domain="+location.substring(7,21);
+                domain = location.substring(7,21);
+                cookie = cookie+";domain="+domain;
+                String html = getHtml("http://"+domain+":9080/njlgdx/framework/main.jsp",cookie,null);
+                Pattern pattern = Pattern.compile("<div id=\"Top1_divLoginName\".*?>([\\s\\S]*?)</div>");
+                Matcher matcher = pattern.matcher(html);
+                if(matcher.find()){
+                    String result = matcher.group(1);
+                    name = result.substring(0,result.length()-14);
+                }
+                ssuccess = "1";
+                jsonObject.put("cookie",cookie);
+                jsonObject.put("name",name);
+                jsonObject.put("username",username);
+                jsonObject.put("password",password);
             }else{
-                cookie = "errorInput";
+                ssuccess = "0";
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -93,7 +111,54 @@ public class JwcService {
         //获取登陆成功后的cookie
 
 
-        return cookie;
+
+        jsonObject.put("success",ssuccess);
+
+
+        return jsonObject;
+    }
+
+    /**考试查询service
+     *
+     * 根据controller传来的cookie，带着cookie访问教务处考试查询界面。
+     * 用正则匹配需要的数据，取出数据返回给controller
+     *
+     * @param cookies
+     * @return
+     */
+    public JSONObject getExam(String cookies){
+        JSONObject jsonObject = new JSONObject();
+        int length = cookies.length();
+        String domain = cookies.substring(length-14);
+        //System.out.println(domain);
+        String html = getHtml("http://"+domain+":9080/njlgdx/xsks/xsksap_query?Ves632DSdyV=NEW_XSD_KSBM",cookies,null);
+        Pattern pattern = Pattern.compile("<option selected.*?>([\\s\\S]*?)</option>");
+        Matcher matcher = pattern.matcher(html);
+        String xq="";
+        while (matcher.find()){
+            xq = matcher.group(1);
+        }
+
+
+        String html1 = getHtml("http://"+domain+":9080/njlgdx/xsks/xsksap_list",cookies,"xnxqid="+xq);
+        //检索数据
+        Document document = Jsoup.parse(html1);
+        //#dataList > tbody:nth-child(1) > tr:nth-child(1)
+        Elements elements = document.select("#dataList").select("tbody:nth-child(1)").select("tr");
+        //th.Nsb_r_list_thb:nth-child(4)
+        List<Map<String,String>> examList = new ArrayList<>();
+        for(int i = 1;i<elements.size();i++){
+            Elements elements1 = elements.get(i).getElementsByTag("td");
+            Map<String,String> elemMap = new HashMap<>();
+            elemMap.put("name",elements1.get(3).text());
+            elemMap.put("time",elements1.get(4).text());
+            elemMap.put("address",elements1.get(5).text());
+            elemMap.put("num",elements1.get(6).text());
+            examList.add(elemMap);
+        }
+        jsonObject.put("exams", examList);
+        jsonObject.put("success", "1");
+        return jsonObject;
     }
 
     /**成绩查询service
@@ -108,10 +173,10 @@ public class JwcService {
         JSONObject jsonObject = new JSONObject();
         int length = cookies.length();
         String domain = cookies.substring(length-14);
-        System.out.println(domain);
+        //System.out.println(domain);
         String html = getHtml("http://"+domain+":9080/njlgdx/kscj/cjcx_list",cookies,"kksj=&kcxz=&kcmc=&xsfs=max");
         //检索数据
-        System.out.println(html);
+        //System.out.println(html);
         List<Map> list = new ArrayList<>();
         Pattern pattern = Pattern.compile("<table id=\"dataList\".*?>[\\s\\S]*?<\\/table>");
         Matcher matcher = pattern.matcher(html);
@@ -186,32 +251,32 @@ public class JwcService {
             everyXq = summarize(middleList.get(i),everyXq);
             resultList.add(everyXq);
         }
-        if(resultList.isEmpty()){
-            jsonObject.put("success","0");
-        }else {
-            jsonObject.put("success", "1");
-            jsonObject.put("list", resultList);
+        jsonObject.put("success", "1");
+        jsonObject.put("list", resultList);
 
-            Map<String, Object> tempMap = new HashMap();
-            tempMap = summarize(list, tempMap);
-            jsonObject.put("summarizing", tempMap);
-        }
+        Map<String, Object> tempMap = new HashMap();
+        tempMap = summarize(list, tempMap);
+        jsonObject.put("summarizing", tempMap);
         return jsonObject;
     }
 
     //计算绩点
     public String caculateGP(String cj){
         String jd="";
-        if(cj.equals("良好")){
-            cj = "80";
-        }
+
         if(cj.equals("优秀")){
             cj = "90";
+        }
+        if(cj.equals("良好")){
+            cj = "80";
         }
         if(cj.equals("中等")){
             cj = "70";
         }
         if(cj.equals("及格")){
+            cj = "60";
+        }
+        if(cj.equals("通过")){
             cj = "60";
         }
         if(cj.equals("不及格")){
@@ -266,7 +331,7 @@ public class JwcService {
         List<List<List<Map<String,String>>>> everyWeek = new ArrayList<>();
         int length = cookies.length();
         String domain = cookies.substring(length-14);
-        System.out.println(domain);
+        //System.out.println(domain);
         for(int i = 0;i<25;i++){
             String html = getHtml("http://"+domain+":9080/njlgdx/xskb/xskb_list.do?Ves632DSdyV=NEW_XSD_PYGL",cookies,"zc="+(i+1));
             Document document1 = Jsoup.parse(html);
@@ -307,19 +372,15 @@ public class JwcService {
         String date = element.attr("title");
         String start_date = date.substring(0,4)+"-"+date.substring(5,7)+"-"+date.substring(8,10);
 
-        if(everyWeek.get(1).isEmpty()){
-            jsonObject.put("success","0");
-        }else {
-            jsonObject.put("start_date",start_date);
-            jsonObject.put("course", everyWeek);
-            jsonObject.put("success", "1");
-        }
+        jsonObject.put("start_date",start_date);
+        jsonObject.put("course", everyWeek);
+        jsonObject.put("success", "1");
         return jsonObject;
     }
 
 
     //获取网页源码
-    public String getHtml(String postUrl, String cookies, String arg){
+    public String getHtml(String thisUrl, String cookies, String arg){
 
 
         PrintWriter out = null;
@@ -327,7 +388,7 @@ public class JwcService {
         StringBuffer sb = new StringBuffer();
         try{
             //建立与教务处的连接
-            URL url = new URL(postUrl);
+            URL url = new URL(thisUrl);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             if(cookies!=null){
                 urlConnection.setRequestProperty("Cookie",cookies);
@@ -396,6 +457,9 @@ public class JwcService {
                 tempCj = "70";
             }
             if(tempCj.equals("及格")){
+                tempCj = "60";
+            }
+            if(tempCj.equals("通过")){
                 tempCj = "60";
             }
             if(tempCj.equals("不及格")){

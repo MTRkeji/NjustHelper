@@ -8,7 +8,6 @@
 <view class="top">
   <view wx:for="{{['一','二','三','四','五','六','日']}}" class="top-text">周{{item}}</view>
 </view>
-<scroll-view scroll-y="true" class="scroll">
   <view style="height:1000rpx;width:730rpx;display:flex;">
     <view style="background-color:#D2E6B3;color:#7cba23;">
       <view wx:for="{{[1,2,3,4,5]}}" class="left">
@@ -32,4 +31,3 @@
       </view>
     </view>
   </view>
-</scroll-view>

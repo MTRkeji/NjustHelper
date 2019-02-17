@@ -9,10 +9,7 @@
     "pages/test/test",
     "pages/cet/cet",
     "pages/computer/computer",
-    "pages/jwc/jwc",
     "pages/guanwang/guanwang",
-    "pages/aolan/aolan",
-    "pages/tongyi/tongyi",
     "templates/footer/footer"
   ],
   "window":{
