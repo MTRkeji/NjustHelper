@@ -3,7 +3,20 @@
   height: 100px;
 }
 
+.schedule-body {
+  display: flex;
+  height: 1000rpx;
+  width: 730rpx;
+}
+
+.class-container {
+  width: 695rpx;
+  position: absolute;
+  border-bottom: 1rpx solid lightgray;
+}
+
 .kcb-item {
+  height:197rpx;
   position: absolute;
   justify-content: center;
   display: flex;
@@ -17,7 +30,7 @@
   padding-left: 2px;
 }
 
-.top {
+.schedule-header {
   display: flex;
   flex-direction: row;
   margin-left: 35rpx;
@@ -40,7 +53,11 @@
   position: fixed;
 }
 
-.left {
+.body-left-container {
+   background-color:#D2E6B3;
+   color:#7cba23;
+}
+.body-left {
   width: 35rpx;
   height: 200rpx;
   font-size: 9pt;
