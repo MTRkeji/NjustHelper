@@ -112,7 +112,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.getCourse();
+    let that = this;
+    that.getCourse();
     wx.stopPullDownRefresh()
   },
 
@@ -152,7 +153,7 @@ Page({
     let that = this;
     const url = njustHelperUrl.getcourse();
     const cookie = wx.getStorageSync("cookie");
-    if (!cookie) {
+    if (cookie) {
       wx.showToast({
         title: '正在导入...',
         icon: 'loading',
@@ -184,7 +185,7 @@ Page({
       })
     } else {
       wx.switchTab({
-        url: '../me/me',
+        url: '../../me/me',
       })
     }
   },
