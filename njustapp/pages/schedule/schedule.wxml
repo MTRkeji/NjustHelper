@@ -1,11 +1,14 @@
 <view>
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{semester}}">
-    <button type="default">{{semester[index]}} ∨</button>
+    <button type="default">{{semester[index]}} ▽</button>
   </picker>
 </view>
 
 <view class="schedule-header">
-  <view wx:for="{{weeks}}" class="top-text">{{item}}</view>
+  <view wx:for="{{weeks}}" wx:for-index="index" class="top-text">{{item}}</view>
+</view>
+<view class="schedule-header">
+  <view wx:for="{{weeks}}" wx:for-index="index" class="top-text">{{curWeekDates[index]}}</view>
 </view>
 
 <view class="schedule-body">
