@@ -1,5 +1,5 @@
-const njustHelperUrl = require('../../utils/njustHelperUrl')
-const { semester, colorArrays, weeks, courseSection } = require('../../config/constants/schedule')
+const njustHelperUrl = require('../../../utils/njustHelperUrl')
+const { semester, colorArrays, weeks, courseSection } = require('../../../config/constants/schedule')
 
 Page({
 

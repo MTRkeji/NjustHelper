@@ -1,0 +1,13 @@
+/* pages/searchbook/searchbook.wxss */
+.tr {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #dadada;
+  padding: 10px;
+}
+.item{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}

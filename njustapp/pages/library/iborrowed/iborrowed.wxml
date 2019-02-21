@@ -1,0 +1,20 @@
+<!--pages/iborrowed/iborrowed.wxml-->
+<block wx:if="{{content.length>0}}">
+  <view wx:for="{{content}}" class="card-content">
+    <view class="weui-panel weui-panel_access">
+      <view class="weui-panel__bd">
+        <view class="tr">
+          <text class="item">{{item.title_author}}\n{{item.detail[0].th}} : {{item.detail[0].td}}\n{{item.detail[1].th}} : {{item.detail[1].td}}\n{{item.detail[2].th}} : {{item.detail[2].td}}\n{{item.detail[3].th}} : {{item.detail[3].td}}\n{{item.detail[4].th}} : {{item.detail[4].td}}\n</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</block>
+<block wx:else>
+  <view class="container">
+    <view class="page__hd">
+      <view class="page__desc">目前无借书</view>
+      <view class="page__desc">书中自有黄金屋，书中自有颜如玉！</view>
+    </view>
+  </view>
+</block>

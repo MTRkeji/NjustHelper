@@ -1,0 +1,30 @@
+<!--pages/searchbook/searchbook.wxml-->
+<view class="weui-search-bar">
+  <view class="weui-search-bar__form">
+    <view class="weui-search-bar__box">
+      <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+      <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+      <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+        <icon type="clear" size="14"></icon>
+      </view>
+    </view>
+    <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+      <icon class="weui-icon-search" type="search" size="14"></icon>
+      <view class="weui-search-bar__text">搜索</view>
+    </label>
+  </view>
+  <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+</view>
+<block wx:if="{{result.length>0}}">
+  <view wx:for="{{result}}">
+    <navigator url="detail/detail?marcRecNo={{item.marcRecNo}}">
+      <view class="weui-panel weui-panel_access">
+        <view class="weui-panel__bd">
+          <view class="tr">
+            <text class="item">题名：《{{item.title}}》\n作者：{{item.author}}\n出版日期：{{item.pubYear}}\n出版社：{{item.publisher}}</text>
+          </view>
+        </view>
+      </view>
+    </navigator>
+  </view>
+</block>

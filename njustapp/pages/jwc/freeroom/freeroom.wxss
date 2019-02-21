@@ -1,0 +1,24 @@
+/* pages/jwc/freeroom/freeroom.wxss */
+.content{
+  margin-top: 40px;
+}
+.table {
+  justify-content: center;
+  border:1px solid #dadada;
+  border-right: 0;
+  border-bottom: 0;
+  width: 98%;
+  margin: 40rpx 5rpx 20rpx 0rpx
+}
+.tr {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.td {
+  padding: 10px;
+  border-bottom: 1px solid #dadada;
+  border-right: 1px solid #dadada;
+  text-align: center;
+  width: 100%
+}

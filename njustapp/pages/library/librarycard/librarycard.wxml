@@ -1,0 +1,36 @@
+<!--pages/library/librarycard/librarycard.wxml-->
+<block wx:if="{{logged}}">
+  <view class="content page__bd page__bd_spacing">
+    <view class="weui-panel weui-panel_access">
+      <view class="weui-panel__bd card-content">
+        <image class="photo" src="../../../images/xiaohui.png" />
+        <view class="info">
+          <view class="info-content">南京理工大学\n</view>
+          <view class="info-content">{{libusername}}\n</view>
+        </view>
+      </view>
+    </view>
+    <button class="weui-btn" type="warn" bindtap='toLogout'>注销</button>
+  </view>
+</block>
+<block wx:else>
+  <form bindsubmit="save">
+    <view class="content">
+      <view class="account">
+        <view class="title">学号</view>
+        <view class="num">
+          <input name="libusername" placeholder="请输入学号" placeholder-style="color:#999999;" />
+        </view>
+      </view>
+      <view class="hr"></view>
+      <view class="account">
+        <view class="title">图书馆密码</view>
+        <view class="num">
+          <input name="libpassword" placeholder="初始密码为学号" password placeholder-style="color:#999999;" />
+        </view>
+      </view>
+      <view class="hr"></view>
+      <button class="btn" form-type='submit' type="primary">登录</button>
+    </view>
+  </form>
+</block>

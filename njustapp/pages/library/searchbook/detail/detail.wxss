@@ -1,0 +1,48 @@
+/* pages/library/searchbook/detail/detail.wxss */
+.table {
+  justify-content: center;
+  border:1px solid #dadada;
+  border-right: 0;
+  border-bottom: 0;
+  width: 100%;
+  margin: 40rpx 5rpx 20rpx 0rpx
+}
+.tr {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.td-body {
+  padding-left: 3px;
+  border-bottom: 1px solid #dadada;
+  border-right: 1px solid #dadada;
+  text-align: left;
+  width:70%
+}
+.td-head {
+  padding-right: 2px;
+  border-bottom: 1px solid #dadada;
+  border-right: 1px solid #dadada;
+  text-align: right;
+  width:30%
+}
+.td {
+  padding: 10px,3px,10px,3px;
+  border-bottom: 1px solid #dadada;
+  border-right: 1px solid #dadada;
+  text-align: center;
+  width:100%
+}
+.th {
+  text-align: center;
+  width:100%;
+  padding: 10px;
+  font-weight: 400;
+  background-color: #dadada
+}
+.title{
+  text-align: left;
+  font-size: 20px;
+  font-weight:bold;
+  margin: 20px
+}
