@@ -38,6 +38,7 @@ Page({
       // 转为 mm/dd 格式
       curTime2MonthDay = curTime.toLocaleString().split(' ')[0].slice(5);
       dates.push(curTime2MonthDay);
+      console.log(curTime2MonthDay)
     }
     return dates;
   },
@@ -91,6 +92,19 @@ Page({
       })
     } else {
       that.getCourse()
+    }
+  },
+
+  currentChange: function(e){
+    if (e.detail.source =="touch"){
+      let that = this;
+      const weekSelected = e.detail.current;
+      let curWeekDates = that.getWeekDateByUserPicker(weekSelected);
+      that.setData({
+        curWeekDates,
+        index: weekSelected
+      })
+      that.onShow();
     }
   },
 
