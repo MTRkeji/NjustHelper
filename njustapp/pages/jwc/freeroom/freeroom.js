@@ -109,6 +109,11 @@ Page({
       jxlbh = parseInt(that.data.buildingIndex)+1;
     }
     if (wx.getStorageSync("cookie") != "" && wx.getStorageSync("cookie") != null) {
+      wx.showToast({
+        title: '正在查询...',
+        icon: 'loading',
+        duration: 500
+      });
       wx.request({
         // url: 'http://192.168.0.104:8080/api/njustjwc/getgrade',
         url: url,
