@@ -1,5 +1,5 @@
 // pages/test/test.js
-var njustHelperUrl = require('../../utils/njustHelperUrl.js')
+var njustHelperUrl = require('../../../utils/njustHelperUrl.js')
 Page({
 
   /**

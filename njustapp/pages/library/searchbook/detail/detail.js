@@ -1,21 +1,41 @@
-// pages/guanwang/guanwang.js
+// pages/library/searchbook/detail/detail.js
+var njustHelperUrl = require('../../../../utils/njustHelperUrl.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    guanwang: 'http://www.njust.edu.cn/',
-    aolan: "http://alstu.njust.edu.cn/default.aspx",
-    jwc: "http://jwc.njust.edu.cn/",
-    zhihuiligong: "http://ehall.njust.edu.cn/new/index.html",
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that = this;
+    that.setData({
+      marcRecNo: options.marcRecNo
+    })
+    var url = njustHelperUrl.detail();
+    wx.request({
+      // url: 'http://192.168.0.104:8080/api/njustjwc/getexam',
+      url: url,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+        marcRecNo: that.data.marcRecNo,
+      },
+      method: 'post',
+      success: function (res) {
+        //将获取到的json数据，存在名字叫zhihu的这个数组中
+        that.setData({
+          gcInfo:res.data.gcInfo,
+          detail:res.data.detail,
+        })
+      }
+    })
   },
 
   /**
@@ -65,26 +85,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-  copyText: function (e) {
-    console.log(e)
-    wx.setClipboardData({
-      data: e.currentTarget.dataset.text,
-      success: function (res) {
-        wx.getClipboardData({
-          success: function (res) {
-            wx.showModal({
-              content: '已复制，请打开浏览器粘贴网址进行访问！',
-              showCancel: false,
-              success: function (res) {
-                if (res.confirm) {
-                  console.log('用户点击确定')
-                }
-              }
-            });
-          }
-        })
-      }
-    })
-  },
+  }
 })

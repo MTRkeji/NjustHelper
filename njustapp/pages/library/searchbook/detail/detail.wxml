@@ -1,0 +1,23 @@
+<!--pages/library/searchbook/detail/detail.wxml-->
+<view class="container">
+<view class="title">图书信息：</view>
+  <view class="table">
+    <view class="tr" wx:for="{{detail}}">
+      <view class="td-head">{{item.head}}</view>
+      <view class="td-body">{{item.body}}</view>
+    </view>
+  </view>
+  <view class="title">馆藏信息：</view>
+  <view class="table">
+  <view class="tr">
+      <view class="th">索书号</view>
+      <view class="th">馆藏地</view>
+      <view class="th">书刊状态</view>
+    </view>
+    <view class="tr" wx:for="{{gcInfo}}">
+      <view class="td">{{item.shh}}</view>
+      <view class="td">{{item.gcd}}</view>
+      <view class="td">{{item.skzt}}</view>
+    </view>
+  </view>
+</view>

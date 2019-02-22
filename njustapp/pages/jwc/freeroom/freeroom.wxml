@@ -1,0 +1,56 @@
+<!--pages/jwc/freeroom/freeroom.wxml-->
+<form bindsubmit="select">
+  <view class="content">
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">教学楼</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindBuildingChange" value="{{buildingIndex}}" range="{{buildings}}">
+          <view class="weui-select weui-select_in-select-after">{{buildings[buildingIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">周次</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindWeekChange" value="{{weekIndex}}" range="{{weeks}}">
+          <view class="weui-select weui-select_in-select-after">{{weeks[weekIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">星期</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindWeekdayChange" value="{{weekdayIndex}}" range="{{weekdays}}">
+          <view class="weui-select weui-select_in-select-after">{{weekdays[weekdayIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">节次</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindSessionChange" value="{{sessionIndex}}" range="{{sessions}}">
+          <view class="weui-select weui-select_in-select-after">{{sessions[sessionIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+    <button class="btn" form-type='submit' type="primary">查询</button>
+  </view>
+</form>
+<view class="page__bd page__bd_spacing">
+  <view class="table">
+    <view class="tr" wx:for="{{arr}}">
+      <view class="td" wx:if="{{classrooms.length>=item*4}}">{{classrooms[item*4]}}</view>
+      <view class="td" wx:if="{{classrooms.length>=item*4+1}}">{{classrooms[item*4+1]}}</view>
+      <view class="td" wx:if="{{classrooms.length>=item*4+2}}">{{classrooms[item*4+2]}}</view>
+      <view class="td" wx:if="{{classrooms.length>=item*4+3}}">{{classrooms[item*4+3]}}</view>
+    </view>
+  </view>
+</view>

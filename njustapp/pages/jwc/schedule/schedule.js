@@ -1,5 +1,5 @@
-const njustHelperUrl = require('../../utils/njustHelperUrl')
-const { semester, colorArrays, weeks, courseSection } = require('../../config/constants/schedule')
+const njustHelperUrl = require('../../../utils/njustHelperUrl')
+const { semester, colorArrays, weeks, courseSection } = require('../../../config/constants/schedule')
 
 Page({
 
@@ -38,6 +38,7 @@ Page({
       // 转为 mm/dd 格式
       curTime2MonthDay = curTime.toLocaleString().split(' ')[0].slice(5);
       dates.push(curTime2MonthDay);
+      console.log(curTime2MonthDay)
     }
     return dates;
   },
@@ -94,6 +95,19 @@ Page({
     }
   },
 
+  currentChange: function(e){
+    if (e.detail.source =="touch"){
+      let that = this;
+      const weekSelected = e.detail.current;
+      let curWeekDates = that.getWeekDateByUserPicker(weekSelected);
+      that.setData({
+        curWeekDates,
+        index: weekSelected
+      })
+      that.onShow();
+    }
+  },
+
   /**
    * 生命周期函数--监听页面隐藏
    */
@@ -112,7 +126,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.getCourse();
+    let that = this;
+    that.getCourse();
     wx.stopPullDownRefresh()
   },
 
@@ -152,7 +167,7 @@ Page({
     let that = this;
     const url = njustHelperUrl.getcourse();
     const cookie = wx.getStorageSync("cookie");
-    if (!cookie) {
+    if (cookie) {
       wx.showToast({
         title: '正在导入...',
         icon: 'loading',
@@ -184,7 +199,7 @@ Page({
       })
     } else {
       wx.switchTab({
-        url: '../me/me',
+        url: '../../me/me',
       })
     }
   },

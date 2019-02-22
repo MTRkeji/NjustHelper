@@ -1,0 +1,57 @@
+/* pages/library/librarycard/librarycard.wxss */
+
+.content {
+  margin-top: 40px;
+}
+
+.account {
+  display: flex;
+  flex-direction: row;
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  width: 90%;
+}
+
+.title {
+  margin-right: 30px;
+  font-weight: bold;
+}
+
+.hr {
+  border: 1px solid #ccc;
+  opacity: 0.2;
+  width: 90%;
+  margin: 0 auto;
+  background-color: red;
+}
+
+.btn {
+  width: 90%;
+  margin-top: 40px;
+  color: #999;
+}
+
+.photo {
+  width: 100px;
+  height: 100px;
+  margin-left: 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.info {
+  width: 200px;
+  height: 100px;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: row;
+}
+
+.info-content {
+  padding-top: 20px;
+}

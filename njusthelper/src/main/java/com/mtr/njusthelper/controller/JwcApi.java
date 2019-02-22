@@ -100,4 +100,15 @@ public class JwcApi {
         jsonObject = jwcService.getExam(cook);
         return jsonObject;
     }
+    @RequestMapping("/getclassroom")
+    public Object getClassroom(@RequestBody JSONObject requestJson){
+        String cook = (String)requestJson.get("cookie");
+        String jxlbh = (String)requestJson.get("jxlbh");
+        String zc = (String)requestJson.get("zc");
+        String xq = (String)requestJson.get("xq");
+        String jc = (String)requestJson.get("jc");
+        JSONObject jsonObject;
+        jsonObject = jwcService.getClassroom(cook,jxlbh,zc,xq,jc);
+        return jsonObject;
+    }
 }

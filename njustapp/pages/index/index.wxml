@@ -11,7 +11,7 @@
       <view class="weui-panel__bd">
         <view wx:if="{{today>-1}}">
           <view wx:for="{{[0,1,2,3,4]}}" wx:for-item="i">
-            <view wx:if="{{course[i][4].name!=null}}">
+            <view wx:if="{{course[i][today].name!=null}}">
               <view class="tr">
                 <text class="item">第{{i+1}}大节\n课程：{{course[i][today].name}}\n地点：{{course[i][today].address}}</text>
               </view>
@@ -24,17 +24,40 @@
       <view class="weui-panel__hd">教务处</view>
       <view class="weui-panel__bd">
         <view class="weui-grids">
-          <navigator url="../schedule/schedule" class="weui-grid" hover-class="weui-grid_active">
+          <navigator url="../jwc/schedule/schedule" class="weui-grid" hover-class="weui-grid_active">
             <image class="weui-grid__icon" src="../images/kechengbiao.png" />
             <view class="weui-grid__label">课程表</view>
           </navigator>
-          <navigator url="../grade/grade" class="weui-grid" hover-class="weui-grid_active">
+          <navigator url="../jwc/grade/grade" class="weui-grid" hover-class="weui-grid_active">
             <image class="weui-grid__icon" src="../images/chengji.png" />
             <view class="weui-grid__label">成绩</view>
           </navigator>
-          <navigator url="../test/test" class="weui-grid" hover-class="weui-grid_active">
+          <navigator url="../jwc/test/test" class="weui-grid" hover-class="weui-grid_active">
             <image class="weui-grid__icon" src="../images/kaoshi.png" />
             <view class="weui-grid__label">考试</view>
+          </navigator>
+          <navigator url="../jwc/freeroom/freeroom" class="weui-grid" hover-class="weui-grid_active">
+            <image class="weui-grid__icon" src="../images/zixi.png" />
+            <view class="weui-grid__label">空闲教室</view>
+          </navigator>
+        </view>
+      </view>
+    </view>
+    <view class="weui-panel weui-panel_access">
+      <view class="weui-panel__hd">图书馆</view>
+      <view class="weui-panel__bd">
+        <view class="weui-grids">
+          <navigator url="../library/searchbook/searchbook" class="weui-grid" hover-class="weui-grid_active">
+            <image class="weui-grid__icon" src="../images/search.png" />
+            <view class="weui-grid__label">搜索图书</view>
+          </navigator>
+          <navigator url="../library/iborrowed/iborrowed" class="weui-grid" hover-class="weui-grid_active">
+            <image class="weui-grid__icon" src="../images/book.png" />
+            <view class="weui-grid__label">个人借阅</view>
+          </navigator>
+          <navigator url="../library/librarycard/librarycard" class="weui-grid" hover-class="weui-grid_active">
+            <image class="weui-grid__icon" src="../images/icard.png" />
+            <view class="weui-grid__label">借书证</view>
           </navigator>
         </view>
       </view>
@@ -43,7 +66,7 @@
       <view class="weui-panel__hd">其他</view>
       <view class="weui-panel__bd">
         <view class="weui-grids">
-          <navigator url="../guanwang/guanwang" class="weui-grid" hover-class="weui-grid_active">
+          <navigator url="../others/guanwang/guanwang" class="weui-grid" hover-class="weui-grid_active">
             <image class="weui-grid__icon" src="../images/guanwang.png" />
             <view class="weui-grid__label">各网站入口</view>
           </navigator>

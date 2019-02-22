@@ -2,10 +2,12 @@ package com.mtr.njusthelper.service;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.mtr.njusthelper.utils.HtmlGetter;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -21,6 +23,8 @@ import java.util.regex.Pattern;
 //教务处service
 @Service
 public class JwcService {
+    @Value("${start_date}")
+    private String start_date;
 
     //测试cookie是否有效
     public String testLogin(String cookies){
@@ -28,7 +32,7 @@ public class JwcService {
         int length = cookies.length();
         String domain = cookies.substring(length-14);
         //System.out.println(domain);
-        String html = getHtml("http://"+domain+":9080/njlgdx/framework/main.jsp",cookies,null);
+        String html = HtmlGetter.getHtml("http://"+domain+":9080/njlgdx/framework/main.jsp",cookies,null);
 
         Pattern pattern = Pattern.compile("<div id=\"Top1_divLoginName\".*?>[\\s\\S]*?</div>");
         Matcher matcher = pattern.matcher(html);
@@ -84,7 +88,7 @@ public class JwcService {
             if(location!=null){
                 domain = location.substring(7,21);
                 cookie = cookie+";domain="+domain;
-                String html = getHtml("http://"+domain+":9080/njlgdx/framework/main.jsp",cookie,null);
+                String html = HtmlGetter.getHtml("http://"+domain+":9080/njlgdx/framework/main.jsp",cookie,null);
                 Pattern pattern = Pattern.compile("<div id=\"Top1_divLoginName\".*?>([\\s\\S]*?)</div>");
                 Matcher matcher = pattern.matcher(html);
                 if(matcher.find()){
@@ -131,7 +135,7 @@ public class JwcService {
         int length = cookies.length();
         String domain = cookies.substring(length-14);
         //System.out.println(domain);
-        String html = getHtml("http://"+domain+":9080/njlgdx/xsks/xsksap_query?Ves632DSdyV=NEW_XSD_KSBM",cookies,null);
+        String html = HtmlGetter.getHtml("http://"+domain+":9080/njlgdx/xsks/xsksap_query?Ves632DSdyV=NEW_XSD_KSBM",cookies,null);
         Pattern pattern = Pattern.compile("<option selected.*?>([\\s\\S]*?)</option>");
         Matcher matcher = pattern.matcher(html);
         String xq="";
@@ -140,7 +144,7 @@ public class JwcService {
         }
 
 
-        String html1 = getHtml("http://"+domain+":9080/njlgdx/xsks/xsksap_list",cookies,"xnxqid="+xq);
+        String html1 = HtmlGetter.getHtml("http://"+domain+":9080/njlgdx/xsks/xsksap_list",cookies,"xnxqid="+xq);
         //检索数据
         Document document = Jsoup.parse(html1);
         //#dataList > tbody:nth-child(1) > tr:nth-child(1)
@@ -174,7 +178,7 @@ public class JwcService {
         int length = cookies.length();
         String domain = cookies.substring(length-14);
         //System.out.println(domain);
-        String html = getHtml("http://"+domain+":9080/njlgdx/kscj/cjcx_list",cookies,"kksj=&kcxz=&kcmc=&xsfs=max");
+        String html = HtmlGetter.getHtml("http://"+domain+":9080/njlgdx/kscj/cjcx_list",cookies,"kksj=&kcxz=&kcmc=&xsfs=max");
         //检索数据
         //System.out.println(html);
         List<Map> list = new ArrayList<>();
@@ -333,7 +337,7 @@ public class JwcService {
         String domain = cookies.substring(length-14);
         //System.out.println(domain);
         for(int i = 0;i<25;i++){
-            String html = getHtml("http://"+domain+":9080/njlgdx/xskb/xskb_list.do?Ves632DSdyV=NEW_XSD_PYGL",cookies,"zc="+(i+1));
+            String html = HtmlGetter.getHtml("http://"+domain+":9080/njlgdx/xskb/xskb_list.do?Ves632DSdyV=NEW_XSD_PYGL",cookies,"zc="+(i+1));
             Document document1 = Jsoup.parse(html);
             //#kbtable > tbody:nth-child(1) > tr:nth-child(2)
             Elements elements1 = document1.select("#kbtable").select("tbody:nth-child(1)").select("tr");
@@ -364,13 +368,8 @@ public class JwcService {
             }
             everyWeek.add(everyClass);
         }
-        String datehtml = getHtml("http://"+domain+":9080/njlgdx/jxzl/jxzl_query?Ves632DSdyV=NEW_XSD_WDZM",cookies,null);
-        Document document1 = Jsoup.parse(datehtml);
-        //#kbtable > tbody:nth-child(1) > tr:nth-child(2)
-        //#kbtable > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2)
-        Element element = document1.select("#kbtable").select("tbody:nth-child(1)").select("tr:nth-child(2)").select("td:nth-child(2)").get(0);
-        String date = element.attr("title");
-        String start_date = date.substring(0,4)+"-"+date.substring(5,7)+"-"+date.substring(8,10);
+
+
 
         jsonObject.put("start_date",start_date);
         jsonObject.put("course", everyWeek);
@@ -378,60 +377,82 @@ public class JwcService {
         return jsonObject;
     }
 
+    /**空闲教室查询
+     *
+     * 带着cookie访问教务处教室借用界面，
+     * 通过jsoup解析网页获取教室信息
+     * 教室信息存入List
+     *
+     *
+     */
+    public JSONObject getClassroom(String cookies,String jxlbh,String zc,String xq,String jc){
+        JSONObject jsonObject = new JSONObject();
+        List<String> crList = new ArrayList<>();
+        String html;
+        String xnxqh="";
+        String startJc = "";
+        String endJc = "";
+        if(jc.equals("1")){
+            startJc = "01";
+            endJc = "03";
+        }else if(jc.equals("2")){
+            startJc = "04";
+            endJc = "05";
+        }else if(jc.equals("3")){
+            startJc = "06";
+            endJc = "07";
+        }else if(jc.equals("4")){
+            startJc = "08";
+            endJc = "10";
+        }else if(jc.equals("5")){
+            startJc = "11";
+            endJc = "12";
+        }
 
-    //获取网页源码
-    public String getHtml(String thisUrl, String cookies, String arg){
 
+        int length = cookies.length();
+        String domain = cookies.substring(length-14);
+        //System.out.println(domain);
+        html = HtmlGetter.getHtml("http://"+domain+":9080/njlgdx/kbxx/jsjy_query",cookies,null);
+        //检索数据
+        //System.out.println(html);
+        //#xnxqh > option:nth-child(7)
+        Pattern pattern = Pattern.compile("<select id=\"xnxqh\".*?>.*?<option.*?selected.*?>([\\s\\S]*?)</option>");
+        Matcher matcher = pattern.matcher(html);
+        while (matcher.find()){
+            xnxqh = matcher.group(1);
+        }
 
-        PrintWriter out = null;
-        BufferedReader in = null;
-        StringBuffer sb = new StringBuffer();
-        try{
-            //建立与教务处的连接
-            URL url = new URL(thisUrl);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            if(cookies!=null){
-                urlConnection.setRequestProperty("Cookie",cookies);
-            }
-
-            urlConnection.setDoInput(true);
-            urlConnection.setDoOutput(true);
-
-            //获取连接的输出流
-            out = new PrintWriter(urlConnection.getOutputStream());
-            //写入参数
-            if(arg!=null){
-                out.write(arg);
-            }
-
-            out.flush();
-
-            //获取返回的数据流
-            in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-            //数据处理
-            String line = "";
-            while((line = in.readLine())!=null){
-                sb.append(line);
-            }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
-            try{
-                if(out != null){
-                    out.close();
-                }
-                if(in != null){
-                    in.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+        Document document2 = Jsoup.parse(html);
+        Elements elements2 = document2.select("#xnxqh").select("option");
+        for(Element element:elements2){
+            if(element.getElementsByAttribute("selected").size()!=0){
+                xnxqh = element.text();
             }
         }
-        String result = sb.toString();
-        return result;
+
+
+        String arg = "typewhere=jszq&xnxqh="+xnxqh+"&xqbh=01&jxqbh=&jxlbh="+jxlbh+"&jsbh=&bjfh=%3D&rnrs=&jszt=5&zc="+zc+"&zc2="+zc+"&xq="+xq+"&xq2="+xq+"&jc="+startJc+"&jc2="+endJc;
+        html = HtmlGetter.getHtml("http://"+domain+":9080/njlgdx/kbxx/jsjy_query2",cookies,arg);
+        //#dataList > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1)
+        Document document = Jsoup.parse(html);
+        Elements elements = document.select("#dataList").select("tbody:nth-child(1)").select("tr");
+        for(int i = 2;i<elements.size()-2;i++){
+            //#dataList > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1)
+            Elements elements1 = elements.get(i).select("td:nth-child(1)");
+            String tempResult = elements1.text();
+            String classroom;
+            Pattern pattern1 = Pattern.compile("(.*?)\\(");
+            Matcher matcher1 = pattern1.matcher(tempResult);
+            while (matcher1.find()){
+                classroom = matcher1.group(1);
+                crList.add(classroom);
+            }
+        }
+        jsonObject.put("classrooms",crList);
+        return jsonObject;
     }
+
 
     //汇总数据，计算学分，均分，GPA等
     public Map<String,Object> summarize(List<Map> list,Map<String,Object> map){

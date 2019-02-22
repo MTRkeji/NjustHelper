@@ -1,6 +1,6 @@
 // pages/grade/grade.js
 const app = getApp()
-var njustHelperUrl = require('../../utils/njustHelperUrl.js')
+var njustHelperUrl = require('../../../utils/njustHelperUrl.js')
 Page({
 
   /**

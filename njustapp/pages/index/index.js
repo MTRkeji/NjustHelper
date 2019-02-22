@@ -21,7 +21,6 @@ Page({
   },
   onShow: function() {
     var that = this;
-    console.log("cookie:" + wx.getStorageSync("cookie"))
     if (wx.getStorageSync("cookie") != "" && wx.getStorageSync("cookie") != null) {
 
       var url = njustHelperUrl.testlogin();
@@ -62,7 +61,6 @@ Page({
       console.log(password)
       if (username != "" && password != "") {
         // Do something with return value
-        console.log("成功读取缓存")
         wx.showToast({
           title: '正在登录...',
           icon: 'loading',
@@ -109,7 +107,6 @@ Page({
           }
         })
       } else {
-        console.log("执行else")
         wx.redirectTo({
           url: '../login/login',
         })
@@ -163,30 +160,32 @@ Page({
   setDay: function() {
     var that = this;
     var start_date = new Date(wx.getStorageSync("start_date").replace(/-/g, "/"));
-    console.log(start_date)
     var current_date = new Date();
-    console.log(current_date)
     //var end_date = new Date(this.data.end_date.replace(/-/g, "/"));
     var days = current_date.getTime() - start_date.getTime();
     var day = parseInt(days / (1000 * 60 * 60 * 24));
     var today = parseInt(day % 7);
-    console.log(day)
     var week = parseInt(day / 7) + 1;
-    console.log(week)
     if (week > 0 && week < 26) {
       that.setData({
         index: week - 1,
-        today: today
       })
     } else if (week > 25) {
       that.setData({
         index: 24,
-        today: 6
       })
     } else {
       that.setData({
         index: 0,
+      })
+    }
+    if (day < 0) {
+      that.setData({
         today: -1
+      })
+    } else {
+      that.setData({
+        today: today
       })
     }
     console.log("今天是：" + that.data.today)
