@@ -38,6 +38,7 @@ Page({
       dates.push(curTime2MonthDay);
     }
     return dates;
+    console.log('一周的日期', dates)
   },
 
   /**
@@ -98,6 +99,7 @@ Page({
   onShow: function () {
     let that = this;
     const courses = wx.getStorageSync("courses");
+    console.log('courses', courses)
     if (courses) {
       that.setData({
         course: courses[that.data.index]
@@ -222,6 +224,7 @@ Page({
   setIndex: function(){
     let that = this;
     let start_date = wx.getStorageSync("start_date")
+    console.log('start_date', start_date)
     const startTime = dayjs(start_date)
     const nowTime = dayjs()
     // 相差周数
@@ -239,6 +242,7 @@ Page({
     that.setData({
       index: curWeek,
     })
+    console.log('index', curWeek)
     console.log(`今天是第${curWeek + 1}周`)
   },
 })
