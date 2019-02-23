@@ -84,6 +84,9 @@ Page({
     } else {
       that.getCourse()
     }
+    wx.switchTab({
+      url: './schedule',
+    })
   },
 
   /**

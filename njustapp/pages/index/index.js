@@ -17,7 +17,12 @@ Page({
     })
   },
   onLoad: function() {
-
+    let that = this
+    let vision = wx.getStorageSync("vision")
+    if(vision == null || vision != app.globalData.vision){
+      that.onPullDownRefresh()
+      wx.setStorageSync("vision", app.globalData.vision)
+    }
   },
   onShow: function() {
     var that = this;
@@ -53,6 +58,12 @@ Page({
       that.getCourse()
     }
   },
+  onPullDownRefresh: function () {
+    let that = this;
+    that.getCourse();
+    wx.stopPullDownRefresh()
+  },
+
   login: function() {
     try {
       const username = wx.getStorageSync('username');
