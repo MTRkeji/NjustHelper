@@ -1,5 +1,6 @@
 const njustHelperUrl = require('../../../utils/njustHelperUrl')
 const { semester, colorArrays, weeks, courseSection } = require('../../../config/constants/schedule')
+const dayjs = require('../../../utils/day')
 
 Page({
 
@@ -24,21 +25,17 @@ Page({
     let that = this;
     const dateStorage = wx.getStorageSync("start_date");
     if (!dateStorage) return [];
-    // 本学期开始时间数组 [yyyy, mm, dd]
-    const startDate = dateStorage.slice(1, dateStorage.length - 1).split('-');
+    const startTime = dayjs(dateStorage)
+
     let dates = [];
-    let startTime;
     let curTime;
     let curTime2MonthDay;
     for (let i = 0; i < 7; i++) {
-      // 开学日的Date对象
-      startTime = new Date(startDate[0], startDate[1] - 1, startDate[2]);
-      // 根据所选周数计算出对应的Date对象
-      curTime = new Date(startTime.setDate(startTime.getDate() + weekSelected * 7 + i));
+      // 根据所选周数计算出对应的Dayjs对象
+      curTime = startTime.add(weekSelected * 7 + i, 'day');
       // 转为 mm/dd 格式
-      curTime2MonthDay = curTime.toLocaleString().split(' ')[0].slice(5);
+      curTime2MonthDay = curTime.format('MM/DD');
       dates.push(curTime2MonthDay);
-      console.log(curTime2MonthDay)
     }
     return dates;
   },
@@ -63,9 +60,24 @@ Page({
   onLoad: function (options) {
     let that = this;
     if (wx.getStorageSync("start_date")) {
-      let curWeekDates = that.getWeekDateByUserPicker(0);
+      const dateStorage = wx.getStorageSync("start_date");
+
+      const startTime = dayjs(dateStorage)
+      const nowTime = dayjs()
+      // 相差周数
+      const diffWeek = nowTime.diff(startTime, 'week')
+      let curWeekDates;
+      if (diffWeek < 0) {
+        curWeekDates = that.getWeekDateByUserPicker(0);
+      }
+      else if (diffWeek > 25) {
+        curWeekDates = that.getWeekDateByUserPicker(24);
+      }
+      else {
+        curWeekDates = that.getWeekDateByUserPicker(diffWeek);
+      }
       that.setData({
-        curWeekDates
+        curWeekDates,
       })
       that.setIndex()
     } else {
@@ -210,24 +222,24 @@ Page({
   setIndex: function(){
     let that = this;
     let start_date = wx.getStorageSync("start_date")
-    start_date = new Date(wx.getStorageSync("start_date").replace(/-/g, "/"));
-    const current_date = new Date();
-    const days = current_date.getTime() - start_date.getTime();
-    const day = parseInt(days / (1000 * 60 * 60 * 24));
-    const week = parseInt(day / 7) + 1;
-    console.log(`今天是第${week}周`)
-    if (week > 0 && week < 26) {
-      that.setData({
-        index: week - 1
-      })
-    } else if (week > 25) {
-      that.setData({
-        index: 24
-      })
-    } else {
-      that.setData({
-        index: 0
-      })
+
+    const startTime = dayjs(start_date)
+    const nowTime = dayjs()
+    // 相差周数
+    const diffWeek = nowTime.diff(startTime, 'week')
+    let curWeek;
+    if (diffWeek < 0) {
+      curWeek = 0;
     }
+    else if (diffWeek > 25) {
+      curWeek = 24;
+    }
+    else {
+      curWeek = diffWeek;
+    }
+    that.setData({
+      index: curWeek,
+    })
+    console.log(`今天是第${curWeek + 1}周`)
   },
 })
