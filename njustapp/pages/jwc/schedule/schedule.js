@@ -222,7 +222,6 @@ Page({
   setIndex: function(){
     let that = this;
     let start_date = wx.getStorageSync("start_date")
-
     const startTime = dayjs(start_date)
     const nowTime = dayjs()
     // 相差周数
@@ -231,7 +230,7 @@ Page({
     if (diffWeek < 0) {
       curWeek = 0;
     }
-    else if (diffWeek > 25) {
+    else if (diffWeek >= 25) {
       curWeek = 24;
     }
     else {
