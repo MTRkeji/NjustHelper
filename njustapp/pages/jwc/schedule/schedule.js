@@ -229,6 +229,7 @@ Page({
     const nowTime = dayjs()
     // 相差周数
     const diffWeek = nowTime.diff(startTime, 'week')
+    console.log('diffweek', diffweek)
     let curWeek;
     if (diffWeek < 0) {
       curWeek = 0;
