@@ -226,10 +226,12 @@ Page({
     let start_date = wx.getStorageSync("start_date")
     console.log('start_date', start_date)
     const startTime = dayjs(start_date)
+    console.log('startTime', startTime)
     const nowTime = dayjs()
+    console.log('nowTime', nowTime)
     // 相差周数
     const diffWeek = nowTime.diff(startTime, 'week')
-    console.log('diffweek', diffweek)
+    console.log('diffWeek', diffWeek)
     let curWeek;
     if (diffWeek < 0) {
       curWeek = 0;
