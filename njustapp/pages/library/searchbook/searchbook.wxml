@@ -15,16 +15,18 @@
   </view>
   <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
 </view>
-<block wx:if="{{result.length>0}}">
-  <view wx:for="{{result}}">
-    <navigator url="detail/detail?marcRecNo={{item.marcRecNo}}">
-      <view class="weui-panel weui-panel_access">
-        <view class="weui-panel__bd">
-          <view class="tr">
-            <text class="item">题名：《{{item.title}}》\n作者：{{item.author}}\n出版日期：{{item.pubYear}}\n出版社：{{item.publisher}}</text>
+<scroll-view scroll-y style="height: 1000px;">
+  <block wx:if="{{result.length>0}}">
+    <view wx:for="{{result}}">
+      <navigator url="detail/detail?marcRecNo={{item.marcRecNo}}">
+        <view class="weui-panel weui-panel_access">
+          <view class="weui-panel__bd">
+            <view class="tr">
+              <text class="item">题名：《{{item.title}}》\n作者：{{item.author}}\n出版日期：{{item.pubYear}}\n出版社：{{item.publisher}}</text>
+            </view>
           </view>
         </view>
-      </view>
-    </navigator>
-  </view>
-</block>
+      </navigator>
+    </view>
+  </block>
+</scroll-view>

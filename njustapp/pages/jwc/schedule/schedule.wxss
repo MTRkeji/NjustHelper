@@ -48,9 +48,8 @@
 }
 
 .scroll {
-  height: 1170rpx;
-  z-index: 101;
-  position: fixed;
+  margin-top: 163rpx;
+  height: 1000px;
 }
 
 .body-left-container {

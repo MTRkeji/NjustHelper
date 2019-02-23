@@ -1,14 +1,13 @@
 <!--pages/guanwang/guanwang.wxml-->
 <view class="page">
-  <view class="page__bd page__bd_spacing">
-    <view class="title">官网：{{guanwang}} </view>
-    <button class="weui-btn" bindtap='copyText' type="default" data-text="{{guanwang}}">点此复制网址到剪切板</button>
-    <view class="title">奥兰系统：{{aolan}} </view>
-    <view class="page__desc">此网址进入之后为统一身份认证页面，在统一身份认证登录之后即可进入奥兰系统</view>
-    <button class="weui-btn" bindtap='copyText' type="default" data-text="{{aolan}}">点此复制网址到剪切板</button>
-    <view class="title">教务处：{{jwc}} </view>
-    <button class="weui-btn" bindtap='copyText' type="default" data-text="{{jwc}}">点此复制网址到剪切板</button>
-    <view class="title">智慧理工：{{zhihuiligong}} </view>
-    <button class="weui-btn" bindtap='copyText' type="default" data-text="{{zhihuiligong}}">点此复制网址到剪切板</button>
+  <view class="page__bd page__bd_spacing container">
+    <p>
+      以下为南理工各大网站入口（奥兰系统进入之后为统一身份认证页面，在统一身份认证登录之后即可自动跳转至奥兰系统）。
+      点击下方按钮即可复制网址，到浏览器打开。
+    </p>
+    <button class="weui-btn" bindtap='copyText' type="default" data-text="{{guanwang}}">南京理工大学官网</button>
+    <button class="weui-btn" bindtap='copyText' type="default" data-text="{{aolan}}">奥兰系统</button>
+    <button class="weui-btn" bindtap='copyText' type="default" data-text="{{jwc}}">教务处</button>
+    <button class="weui-btn" bindtap='copyText' type="default" data-text="{{zhihuiligong}}">智慧理工</button>
   </view>
 </view>

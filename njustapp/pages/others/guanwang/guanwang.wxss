@@ -5,3 +5,8 @@
   font-size: 18px;
   margin-top: 40px;
 }
+.container {
+  top:50%;
+  position:absolute;
+  transform:translate(0, -60%);
+}
