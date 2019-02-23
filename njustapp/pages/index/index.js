@@ -139,7 +139,8 @@ Page({
         method: 'post',
         success: function(res) {
           wx.setStorageSync("courses", res.data.course)
-          wx.setStorageSync("start_date", res.data.start_date)
+          let start_date = res.data.start_date.substring(1, res.data.start_date.length - 1).replace(/\-/g, '/')
+          wx.setStorageSync("start_date", start_date)
           that.setDay()
           that.setData({
             course: res.data.course[that.data.index],
@@ -159,11 +160,17 @@ Page({
   },
   setDay: function() {
     var that = this;
-    var start_date = new Date(wx.getStorageSync("start_date").replace(/-/g, "/"));
+    let start_date = wx.getStorageSync("start_date")
+    start_date = new Date(start_date)
+    console.log(wx.getStorageSync("start_date").substring(1, wx.getStorageSync("start_date").length - 1).replace(/\-/g, '/') + " 00:00:00")
+    console.log("start_date:"+start_date)
     var current_date = new Date();
+    console.log("current_date:" + current_date)
     //var end_date = new Date(this.data.end_date.replace(/-/g, "/"));
     var days = current_date.getTime() - start_date.getTime();
+    console.log("days:" + days)
     var day = parseInt(days / (1000 * 60 * 60 * 24));
+    console.log("day:" + day)
     var today = parseInt(day % 7);
     var week = parseInt(day / 7) + 1;
     if (week > 0 && week < 26) {

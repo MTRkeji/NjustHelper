@@ -202,7 +202,8 @@ Page({
             //res代表success函数的事件对，data是固定的，stories是是上面json数据中stories
           })
           wx.setStorageSync("courses", res.data.course)
-          wx.setStorageSync("start_date", res.data.start_date)
+          let start_date = res.data.start_date.substring(1, res.data.start_date.length - 1).replace(/\-/g, '/')
+          wx.setStorageSync("start_date", start_date)
           that.setIndex()
           that.onShow()
           wx.showToast({
