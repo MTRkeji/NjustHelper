@@ -38,7 +38,6 @@ Page({
       // 转为 mm/dd 格式
       curTime2MonthDay = curTime.toLocaleString().split(' ')[0].slice(5);
       dates.push(curTime2MonthDay);
-      console.log(curTime2MonthDay)
     }
     return dates;
   },
