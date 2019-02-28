@@ -26,7 +26,7 @@
 
 .smalltext {
   font-size: 8pt;
-  color: #fff;
+  color: rgb(8, 8, 8);
   padding-left: 2px;
 }
 

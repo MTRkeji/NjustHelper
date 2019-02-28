@@ -271,6 +271,9 @@ public class JwcService {
         if(cj.equals("优秀")){
             cj = "90";
         }
+        if(cj.equals("免修")){
+            cj = "89";
+        }
         if(cj.equals("良好")){
             cj = "80";
         }
@@ -283,7 +286,19 @@ public class JwcService {
         if(cj.equals("通过")){
             cj = "60";
         }
+        if(cj.equals("合格")){
+            cj = "60";
+        }
         if(cj.equals("不及格")){
+            cj = "0";
+        }
+        if(cj.equals("不合格")){
+            cj = "0";
+        }
+        if(cj.equals("不通过")){
+            cj = "0";
+        }
+        if(cj.equals("请评教")){
             cj = "0";
         }
         Double cjNum = Double.parseDouble(cj);
@@ -352,10 +367,21 @@ public class JwcService {
 
                     if(courseZip.length >1 && courseZip!=null){
                         temp.put("name",courseZip[0]);
-                        temp.put("teacher",courseZip[1]);
-                        temp.put("week",courseZip[2]);
-                        if(courseZip.length>3){
-                            temp.put("address",courseZip[3]);
+                        String teacher = elements2.get(j).getElementsByAttributeValue("title","老师").text();
+                        String week = elements2.get(j).getElementsByAttributeValue("title","周次(节次)").text();
+                        String address = elements2.get(j).getElementsByAttributeValue("title","教室").text();
+                        if(teacher!=null){
+                            temp.put("teacher",teacher);
+                        }else{
+                            temp.put("teacher","未知");
+                        }
+                        if(week!=null){
+                            temp.put("week",week);
+                        } else{
+                            temp.put("week","未知");
+                        }
+                        if(address!=null){
+                            temp.put("address",address);
                         }else{
                             temp.put("address","未知");
                         }
@@ -474,6 +500,9 @@ public class JwcService {
             if(tempCj.equals("优秀")){
                 tempCj = "90";
             }
+            if(tempCj.equals("免修")){
+                tempCj = "89";
+            }
             if(tempCj.equals("中等")){
                 tempCj = "70";
             }
@@ -483,7 +512,19 @@ public class JwcService {
             if(tempCj.equals("通过")){
                 tempCj = "60";
             }
+            if(tempCj.equals("合格")){
+                tempCj = "60";
+            }
             if(tempCj.equals("不及格")){
+                tempCj = "0";
+            }
+            if(tempCj.equals("不合格")){
+                tempCj = "0";
+            }
+            if(tempCj.equals("不通过")){
+                tempCj = "0";
+            }
+            if(tempCj.equals("请评教")){
                 tempCj = "0";
             }
             sumAllXf = sumAllXf + Double.parseDouble(String.valueOf(list.get(j).get("xf")));

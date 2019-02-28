@@ -30,7 +30,7 @@
           <view wx:for="{{[0, 1, 2, 3, 4]}}" wx:for-item="i">
             <view wx:for="{{[0, 1, 2, 3, 4, 5, 6]}}" wx:for-item="j">
               <view wx:if="{{course[i][j] != null}}">
-                <view class="flex-item kcb-item" bindtap="showCardView" data-i="{{i}}" data-j="{{j}}" style="margin-left:{{j*100+5}}rpx; margin-top:{{i*200+5}}rpx; background-color:{{colorArrays[(i*j)%8]}}">
+                <view class="flex-item kcb-item" bindtap="showCardView" data-i="{{i}}" data-j="{{j}}" style="margin-left:{{j*100+5}}rpx; margin-top:{{i*200+5}}rpx; background-color:{{courseColor[course[i][j].name]}}">
                   <view class="smalltext">{{course[i][j].name+"@"+course[i][j].address}}</view>
                 </view>
               </view>

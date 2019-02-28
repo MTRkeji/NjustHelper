@@ -20,6 +20,7 @@ Page({
     let that = this
     let vision = wx.getStorageSync("vision")
     if(vision == null || vision != app.globalData.vision){
+      console.log(vision + "    " + app.globalData.vision)
       that.onPullDownRefresh()
       wx.setStorageSync("vision", app.globalData.vision)
     }
@@ -68,8 +69,6 @@ Page({
     try {
       const username = wx.getStorageSync('username');
       const password = wx.getStorageSync("password");
-      console.log(username)
-      console.log(password)
       if (username != "" && password != "") {
         // Do something with return value
         wx.showToast({
@@ -173,7 +172,7 @@ Page({
     var that = this;
     let start_date = wx.getStorageSync("start_date")
     start_date = new Date(start_date)
-    console.log(wx.getStorageSync("start_date").substring(1, wx.getStorageSync("start_date").length - 1).replace(/\-/g, '/') + " 00:00:00")
+    console.log(wx.getStorageSync("start_date"))
     console.log("start_date:"+start_date)
     var current_date = new Date();
     console.log("current_date:" + current_date)
@@ -197,9 +196,9 @@ Page({
         index: 0,
       })
     }
-    if (day < 0) {
+    if (days < 0) {
       that.setData({
-        today: -1
+        today: -2
       })
     } else {
       that.setData({
