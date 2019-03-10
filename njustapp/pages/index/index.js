@@ -21,8 +21,8 @@ Page({
     let vision = wx.getStorageSync("vision")
     if(vision == null || vision != app.globalData.vision){
       console.log(vision + "    " + app.globalData.vision)
-      that.onPullDownRefresh()
       wx.setStorageSync("vision", app.globalData.vision)
+      that.onPullDownRefresh()
     }
   },
   onShow: function() {
@@ -94,7 +94,7 @@ Page({
             if (res.data.success == "1") {
               wx.showToast({
                 title: '成功',
-                duration: 2000
+                duration: 1000
               });
               wx.setStorageSync("cookie", res.data.cookie);
               wx.switchTab({
@@ -117,15 +117,19 @@ Page({
           }
         })
       } else {
-        wx.redirectTo({
-          url: '../login/login',
-        })
+        
       }
     } catch (e) {
       // Do something when catch error
-      wx.navigateTo({
-        url: '../login/login',
-      })
+      wx.showModal({
+        content: '请登录！',
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          }
+        }
+      });
     }
   },
   getCourse: function() {
@@ -163,9 +167,15 @@ Page({
         }
       })
     } else {
-      wx.switchTab({
-        url: '../me/me',
-      })
+      wx.showModal({
+        content: '请登录！',
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          }
+        }
+      });
     }
   },
   setDay: function() {
@@ -206,5 +216,19 @@ Page({
       })
     }
     console.log("今天是：" + that.data.today)
-  }
+  },
+  /**
+   * @Doc 渲染课表详情页
+   */
+  showCardView: function (e) {
+    let that = this;
+    const i = parseInt(e.currentTarget.dataset.i);
+    const j = parseInt(e.currentTarget.dataset.j);
+    const thiscourse = that.data.course[i][j]
+    wx.showModal({
+      content: thiscourse.name + '\n' + thiscourse.teacher + '\n' + thiscourse.week + '\n' + thiscourse.address,
+      showCancel: false,
+      success: res => console.log('用户点击确定:', res.confirm)
+    });
+  },
 })

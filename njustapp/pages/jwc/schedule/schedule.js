@@ -87,6 +87,7 @@ Page({
     } else {
       that.getCourse()
     }
+    
     wx.switchTab({
       url: './schedule',
     })
@@ -221,9 +222,15 @@ Page({
         }
       })
     } else {
-      wx.switchTab({
-        url: '../../me/me',
-      })
+      wx.showModal({
+        content: '请登录！',
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          }
+        }
+      });
     }
   },
 

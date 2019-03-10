@@ -12,7 +12,7 @@
         <view wx:if="{{today>-1}}">
           <view wx:for="{{[0,1,2,3,4]}}" wx:for-item="i">
             <view wx:if="{{course[i][today].name!=null}}">
-              <view class="tr">
+              <view class="tr" bindtap="showCardView" data-i="{{i}}" data-j="{{today}}">
                 <text class="item">第{{i+1}}大节\n课程：{{course[i][today].name}}\n地点：{{course[i][today].address}}</text>
               </view>
             </view>

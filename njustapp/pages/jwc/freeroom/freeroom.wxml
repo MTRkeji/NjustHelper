@@ -6,7 +6,7 @@
         <view class="weui-label">教学楼</view>
       </view>
       <view class="weui-cell__bd">
-        <picker bindchange="bindBuildingChange" value="{{buildingIndex}}" range="{{buildings}}">
+        <picker bindchange="bindBuildingChange" name="jxlbh" value="{{buildingIndex}}" range="{{buildings}}">
           <view class="weui-select weui-select_in-select-after">{{buildings[buildingIndex]}}</view>
         </picker>
       </view>
@@ -16,7 +16,7 @@
         <view class="weui-label">周次</view>
       </view>
       <view class="weui-cell__bd">
-        <picker bindchange="bindWeekChange" value="{{weekIndex}}" range="{{weeks}}">
+        <picker bindchange="bindWeekChange" name="zc" value="{{weekIndex}}" range="{{weeks}}">
           <view class="weui-select weui-select_in-select-after">{{weeks[weekIndex]}}</view>
         </picker>
       </view>
@@ -26,7 +26,7 @@
         <view class="weui-label">星期</view>
       </view>
       <view class="weui-cell__bd">
-        <picker bindchange="bindWeekdayChange" value="{{weekdayIndex}}" range="{{weekdays}}">
+        <picker bindchange="bindWeekdayChange" name="xq" value="{{weekdayIndex}}" range="{{weekdays}}">
           <view class="weui-select weui-select_in-select-after">{{weekdays[weekdayIndex]}}</view>
         </picker>
       </view>
@@ -36,7 +36,7 @@
         <view class="weui-label">节次</view>
       </view>
       <view class="weui-cell__bd">
-        <picker bindchange="bindSessionChange" value="{{sessionIndex}}" range="{{sessions}}">
+        <picker bindchange="bindSessionChange" name="jc" value="{{sessionIndex}}" range="{{sessions}}">
           <view class="weui-select weui-select_in-select-after">{{sessions[sessionIndex]}}</view>
         </picker>
       </view>

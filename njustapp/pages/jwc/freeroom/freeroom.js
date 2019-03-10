@@ -103,11 +103,15 @@ Page({
     var that = this //不要漏了这句，很重要
     var url = njustHelperUrl.getclassroom();
     let jxlbh;
-    if (that.data.buildingIndex==3){
+    let zc = parseInt(e.detail.value.zc) + 1;
+    let xq = parseInt(e.detail.value.xq) + 1;
+    let jc = parseInt(e.detail.value.jc) + 1;
+    if (e.detail.value.jxlbh==3){
       jxlbh = 6;
     }else{
-      jxlbh = parseInt(that.data.buildingIndex)+1;
+      jxlbh = parseInt(e.detail.value.jxlbh)+1;
     }
+    console.log(jxlbh + "--" + zc + "--" + xq + "--" + jc)
     if (wx.getStorageSync("cookie") != "" && wx.getStorageSync("cookie") != null) {
       wx.showToast({
         title: '正在查询...',
@@ -123,9 +127,9 @@ Page({
         data: {
           cookie: wx.getStorageSync("cookie"),
           jxlbh: jxlbh + "",
-          zc: that.data.weekIndex + 1 + "",
-          xq: that.data.weekdayIndex + 1 + "",
-          jc: that.data.sessionIndex + 1 + "",
+          zc: zc + "",
+          xq: xq + "",
+          jc: jc + "",
         },
         method: 'post',
         success: function (res) {
@@ -145,9 +149,15 @@ Page({
         }
       })
     } else {
-      wx.switchTab({
-        url: '../me/me',
-      })
+      wx.showModal({
+        content: '请登录！',
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          }
+        }
+      });
     }
   },
 })
