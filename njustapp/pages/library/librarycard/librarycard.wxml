@@ -1,4 +1,11 @@
 <!--pages/library/librarycard/librarycard.wxml-->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed bg-white" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+      <text class='icon-back'></text> 借书证
+    </navigator>
+  </view>
+</view>
 <block wx:if="{{logged}}">
   <view class="content page__bd page__bd_spacing">
     <view class="weui-panel weui-panel_access">

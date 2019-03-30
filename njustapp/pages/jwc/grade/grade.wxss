@@ -22,11 +22,26 @@ page {
   justify-content: space-between;
 }
 .th,.td {
-  padding: 10px;
+  padding: 5px;
   border-bottom: 1px solid #dadada;
   border-right: 1px solid #dadada;
   text-align: center;
-  width:100%
+  width: 100%
+}
+.course{
+  width:40%
+}
+.grade{
+  width:15%
+}
+.credit{
+  width:15%
+}
+.gpa{
+  width:15%
+}
+.xz{
+  width:15%
 }
 .th {
   font-weight: 400;

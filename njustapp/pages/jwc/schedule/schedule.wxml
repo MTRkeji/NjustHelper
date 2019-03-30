@@ -1,9 +1,17 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed bg-white" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+      <text class='icon-back'></text> 课程表
+    </navigator>
+  </view>
+</view>
 <view style="position: fixed;z-index: 1;">
   <view>
     <picker bindchange="bindPickerChange" value="{{index}}" range="{{semester}}">
-      <button type="default">{{semester[index]}} ▽</button>
+      <button type="default">{{semester[index]}} ▽<text style='font-size:smaller'>（下拉刷新）</text></button>
     </picker>
   </view>
+  
 
   <view class="schedule-header">
     <view wx:for="{{weeks}}" wx:for-index="index" class="top-text">{{item}}</view>

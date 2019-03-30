@@ -1,4 +1,11 @@
 <!--pages/jwc/freeroom/freeroom.wxml-->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed bg-white" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+      <text class='icon-back'></text> 空闲教室
+    </navigator>
+  </view>
+</view>
 <form bindsubmit="select">
   <view class="content">
     <view class="weui-cell weui-cell_select">
@@ -31,16 +38,12 @@
         </picker>
       </view>
     </view>
-    <view class="weui-cell weui-cell_select">
-      <view class="weui-cell__hd weui-cell__hd_in-select-after">
-        <view class="weui-label">节次</view>
+    <checkbox-group bindchange="checkboxChange" name='jc1'>
+      <view class="cu-form-group" wx:for="{{checkboxData}}">
+        <view class='title'>{{item.name}}</view>
+        <checkbox class='round' value='{{item.value}}'></checkbox>
       </view>
-      <view class="weui-cell__bd">
-        <picker bindchange="bindSessionChange" name="jc" value="{{sessionIndex}}" range="{{sessions}}">
-          <view class="weui-select weui-select_in-select-after">{{sessions[sessionIndex]}}</view>
-        </picker>
-      </view>
-    </view>
+    </checkbox-group>
     <button class="btn" form-type='submit' type="primary">查询</button>
   </view>
 </form>

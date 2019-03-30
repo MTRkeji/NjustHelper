@@ -1,0 +1,49 @@
+<!--pages/me/mymoments/mymoments.wxml-->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed bg-white" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+      <text class='icon-back'></text> 我的贴子
+    </navigator>
+  </view>
+</view>
+<scroll-view scroll-y style="height: 1200px;" bindscrolltoupper="upper" bindscrolltolower="lower">
+  <view class="cu-card article no-card">
+    <view wx:for="{{momentlist}}" wx:key class="cu-item shadow">
+      <navigator url="../../mtr/detail/detail?id={{item.id}}">
+        <view class="title">{{item.title}}</view>
+        <view class="content">
+          <block wx:if='{{item.firstpic!=null}}'>
+            <image src="{{item.firstpic}}" mode="aspectFill"></image>
+          </block>
+          <view class="desc">
+            <view class='text-content'> {{item.content}}</view>
+            <view>
+              <block wx:if="{{item.label == 1}}">
+                <view class='cu-tag bg-red light  round'>生活</view>
+              </block>
+              <block wx:if="{{item.label == 2}}">
+                <view class='cu-tag bg-green light  round'>休闲</view>
+              </block>
+              <block wx:if="{{item.label == 3}}">
+                <view class='cu-tag bg-blue light  round'>学习</view>
+              </block>
+              <view class="text-gray text-sm text-right">
+                <text>{{item.createtime}} </text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </navigator>
+      <view class="content">
+        <view class='desc'>
+          <view class="text-red text-right">
+            <text bindtap='deletemoment' data-id='{{item.id}}'> 删除</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="text-gray text-sm text-center padding">
+      <text>{{bottomtext}}</text>
+    </view>
+  </view>
+</scroll-view>

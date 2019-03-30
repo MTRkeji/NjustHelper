@@ -1,4 +1,5 @@
 // pages/library/librarycard/librarycard.js
+const app = getApp();
 var njustHelperUrl = require('../../../utils/njustHelperUrl.js')
 Page({
 
@@ -6,6 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    StatusBar: app.globalData.StatusBar,
+    CustomBar: app.globalData.CustomBar,
 
   },
   save: function (e) {

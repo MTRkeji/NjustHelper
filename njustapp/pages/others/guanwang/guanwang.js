@@ -1,10 +1,13 @@
 // pages/guanwang/guanwang.js
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    StatusBar: app.globalData.StatusBar,
+    CustomBar: app.globalData.CustomBar,
     guanwang: 'http://www.njust.edu.cn/',
     aolan: "http://alstu.njust.edu.cn/default.aspx",
     jwc: "http://jwc.njust.edu.cn/",

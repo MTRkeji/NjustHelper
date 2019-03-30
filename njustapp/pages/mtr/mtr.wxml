@@ -1,0 +1,68 @@
+<!--pages/mtr/mtr.wxml-->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed bg-white" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+      Hole
+    </navigator>
+  </view>
+</view>
+<view class='top' style="top:{{CustomBar}}px;">
+  <scroll-view scroll-x class="bg-white nav tab">
+    <view class="cu-bar search bg-white">
+      <view class='search-form round'>
+        <text class="icon-search"></text>
+        <input type="text" placeholder="关键字" confirm-type="search" bindinput="inputTyping" value="{{inputVal}}"></input>
+      </view>
+      <view class='action'>
+        <button class='cu-btn bg-green shadow-blur round' bindinput="search">搜索</button>
+      </view>
+    </view>
+    <scroll-view scroll-x class="bg-white nav" scroll-with-animation scroll-left="{{channelscrollLeft}}">
+      <view class="cu-item {{index==ChannelTabCur?'text-green cur':''}}" wx:for="{{ChannelTablist}}" wx:key bindtap='tabSelectChannel' data-id="{{index}}">
+        {{ChannelTablist[index]}}
+      </view>
+    </scroll-view>
+    <view class='flex text-center'>
+      <view class="cu-item flex-sub {{index==TabCur?'text-orange cur':''}}" wx:for="{{Tablist}}" wx:key bindtap='tabSelect' data-id="{{index}}">
+        {{Tablist[index]}}
+      </view>
+    </view>
+  </scroll-view>
+</view>
+<scroll-view scroll-y style="height: 1200px;" bindscrolltoupper="upper" bindscrolltolower="lower">
+  <view class="cu-card article no-card">
+    <view wx:for="{{momentlist}}" wx:key class="cu-item shadow">
+      <navigator url="detail/detail?id={{item.id}}">
+        <view class="title">{{item.title}}</view>
+        <view class="content">
+          <block wx:if='{{item.firstpic!=null}}'>
+            <image src="{{item.firstpic}}" mode="aspectFill"></image>
+          </block>
+          <view class="desc">
+            <view class='text-content'> <text>{{item.content}}</text></view>
+            <view>
+              <block wx:if="{{item.label == 1}}">
+                <view class='cu-tag bg-red light  round'>生活</view>
+              </block>
+              <block wx:if="{{item.label == 2}}">
+                <view class='cu-tag bg-green light  round'>休闲</view>
+              </block>
+              <block wx:if="{{item.label == 3}}">
+                <view class='cu-tag bg-blue light  round'>学习</view>
+              </block>
+              <view class="text-gray text-sm text-right">
+                <text>{{item.createtime}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </navigator>
+    </view>
+    <view class="text-gray text-sm text-center padding">
+      <text>{{bottomtext}}</text>
+    </view>
+  </view>
+</scroll-view>
+<button class="weui-btn" bindtap='addpost'>
+  <image class='addpost' src='../images/addpost.png'></image>
+</button>

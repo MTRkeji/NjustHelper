@@ -1,18 +1,84 @@
 <!--pages/me/me.wxml-->
-<view class="page">
-  <view class="page__hd">
-    <view class="page__title">{{name}}</view>
-    <view class="page__desc">{{xuehao}}</view>
-  </view>
-  <view class="page__bd page__bd_spacing">
-    <block>
-      <button class="weui-btn" type="normal" bindtap='toAbout'>系统信息/反馈</button>
+<import src="/templates/footer/footer.wxml" />
+<view class='UCenter-bg' style='background-image: url({{bgurl}});'>
+  <view class="cu-avatar xl round" style="background-image:url({{userInfo.avatarUrl}});"></view>
+  <!--<image src='{{userInfo.avatarUrl}}' class='png' mode='widthFix'></image>-->
+  <view class='text-xl margin-top-sm'>
+    <block wx:if="{{canClick}}">
+      {{name}}
     </block>
+    <block wx:else>
+      <button class="weui-btn" type="normal" bindtap='toLogin'>登录</button>
+    </block>
+  </view>
+  <view class='margin-top-sm'>
+    <text>{{xuehao}}</text>
+  </view>
+  <image src='{{waveurl}}' mode='scaleToFill' class='gif-wave'></image>
+</view>
+<view class='padding flex text-center text-grey bg-white shadow-warp'>
+  <view class='flex flex-sub flex-direction solid-right'>
+    <view class="text-xxl text-orange">{{visitTotal}}</view>
+    <view class="margin-top-sm">
+      <navigator url="mymoments/mymoments">帖子</navigator>
+    </view>
+  </view>
+  <view class='flex flex-sub flex-direction'>
+    <view class="text-xxl text-orange">{{visitTotal}}</view>
+    <view class="margin-top-sm">
+      <navigator url="mycomments/mycomments">评论和@
+        <block wx:if='{{newNum>0}}'>
+          <view class="cu-tag round bg-red sm">{{newNum}}</view>
+        </block>
+      </navigator>
+    </view>
+  </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
+  <button class="cu-item arrow" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">
+    <button class='cu-btn content' >
+      <image src='../images/setting.png' class='png' mode='aspectFit'></image>
+      <text class='text-grey'>获取权限</text>
+    </button>
+  </button>
+  <view class="cu-item arrow" bindtap='CopyLink' data-link='https://github.com/MTRkeji/NjustHelper'>
+    <view class='content' >
+      <text class='icon-github text-grey'></text>
+      <text class='text-grey'>GitHub</text>
+    </view>
+  </view>
+  <view class="cu-item arrow" bindtap='CopyLink' data-link='985247867'>
+    <view class='content' >
+      <image src='../images/qq.png' class='png' mode='aspectFit'></image>
+      <text class='text-grey'>官方QQ群</text>
+    </view>
+  </view>
+  <view class="cu-item arrow" bindtap="showQrcode">
+    <view class='content' >
+      <text class='icon-appreciatefill text-red'></text>
+      <text class='text-grey'>赞赏支持</text>
+    </view>
+  </view>
+  <button class="cu-item arrow" open-type='feedback'>
+    <button class='cu-btn content' >
+      <text class='icon-writefill text-cyan'></text>
+      <text class='text-grey'>意见反馈</text>
+    </button>
+  </button>
+  <button class="cu-item arrow" open-type='contact'>
+    <button class='cu-btn content' >
+      <text class='icon-messagefill text-cyan'></text>
+      <text class='text-grey'>联系客服</text>
+    </button>
+  </button>
+</view>
+
+<view class='cu-tabbar-height'></view>
+<view class="page">
+  <view class="page__bd page__bd_spacing">
     <block wx:if="{{canClick}}">
       <button class="weui-btn" type="warn" bindtap='toLogout'>注销</button>
     </block>
-    <block wx:else>
-      <button class="weui-btn" type="primary" bindtap='toLogin'>登录</button>
-    </block>
   </view>
+  <template is="footer"></template>
 </view>

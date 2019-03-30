@@ -1,0 +1,67 @@
+<!--pages/mtr/detail/detail.wxml-->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed bg-white" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+      <text class='icon-back'></text> 详情
+    </navigator>
+  </view>
+</view>
+<view class="cu-card dynamic {{isCard?'no-card':''}}" style='margin-bottom:40px'>
+  <view wx:for="1" wx:key class="cu-item shadow">
+    <view class="cu-list menu menu-avatar">
+      <view class="cu-item">
+        <view class="cu-avatar round lg" style="background-image:url({{thismoment.weaccount.avatarurl}});"></view>
+        <view class='content flex-sub'>
+          <view>{{thismoment.weaccount.nickname}}</view>
+          <view class='text-gray text-sm flex justify-between'>
+            {{thismoment.createtime}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='text-content'>
+      <text selectable='{{true}}'>{{thismoment.content}}</text>
+    </view>
+    <view class="grid col-3 grid-square flex-sub padding-lr">
+      <block wx:for="{{thismoment.pictures}}" wx:key>
+        <view class="bg-img" style='background-image:url({{thismoment.pictures[index]}});' bindtap="showQrcode" data-urls='{{thismoment.pictures}}' data-url='{{thismoment.pictures[index]}}'>
+        </view>
+      </block>
+    </view>
+    <view class='text-gray text-sm text-right padding' bindtap='setcomment'>
+      <text class="icon-messagefill">评论</text> {{thismoment.commentnum}}
+    </view>
+    <view class="cu-list menu menu-avatar comment solids-top">
+      <view class="cu-item" wx:for="{{thismoment.comments}}" wx:key>
+        <view class="cu-avatar round" style="background-image:url({{item.weaccount.avatarurl}});"></view>
+        <view class='content'>
+          <view class='text-grey'>{{item.weaccount.nickname}}
+            <block wx:if='{{item.weaccount.nickname == thismoment.weaccount.nickname}}'>
+              <view class='cu-tag line-red padding-xs'>作者</view>
+            </block>
+          </view>
+
+          <view class='text-gray text-content text-df' >
+            <block wx:if='{{item.responsed != null}}'>
+              回复
+              <text class='text-cyan'>@{{item.responsed}}</text> :
+            </block>
+            <text selectable='{{true}}' bindtap='setpid' data-item='{{item}}'>{{item.content}}</text>
+          </view>
+          <view class='margin-top-sm flex justify-between'>
+            <view class='text-gray text-df'>{{item.createtime}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<form bindsubmit="postcomment" report-submit="true">
+  <view class="cu-bar foot input">
+    <input class='solid-bottom' name='comment' focus="{{inputShowed}}" value="{{inputVal}}" maxlength="300" cursor-spacing="10" placeholder='{{placeholder}}'></input>
+    <view class='action'>
+      <text class='icon-emojifill text-grey'></text>
+    </view>
+    <button class='cu-btn bg-green shadow' form-type='submit'>发送</button>
+  </view>
+</form>

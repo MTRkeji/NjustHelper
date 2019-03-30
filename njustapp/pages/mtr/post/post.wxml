@@ -1,0 +1,69 @@
+<!--pages/mtr/post/post.wxml-->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed bg-white" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+      <text class='icon-back'></text> 发布
+    </navigator>
+  </view>
+</view>
+<form bindsubmit="post">
+  <view class="cu-form-group margin-top">
+    <view class='title'>分类：</view>
+    <picker bindchange="PickerChange" value="{{index}}" range="{{picker}}">
+      <view class="picker">
+        {{index?picker[index]:'综合'}}
+      </view>
+    </picker>
+  </view>
+  <view class="cu-form-group">
+    <view class='title'>标题：</view>
+    <input placeholder="失物招领/二手/提问..." class='radius' name='title'></input>
+  </view>
+  <view class="cu-form-group margin-top" wx:hide="{{modalName==null}}">
+    <textarea placeholder="请输入内容" maxlength="-1" disabled="{{modalName!=null}}" placeholder-class='placeholder' name='content'></textarea>
+  </view>
+  <view class="cu-form-group margin-top">
+    <view class="weui-uploader">
+      <view class="weui-uploader__hd">
+        <view class="weui-uploader__title">图片上传</view>
+        <view class="weui-uploader__info">{{files.length}}/9</view>
+      </view>
+      <view class="weui-uploader__bd">
+        <view class="weui-uploader__files" id="uploaderFiles">
+          <block wx:for="{{files}}" wx:key="*this">
+            <view class="weui-uploader__file" bindtap="previewImage" bindlongpress="deleteImg" data-index="{{index}}" id="{{item}}">
+              <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+            </view>
+          </block>
+        </view>
+        <view class="weui-uploader__input-box">
+          <view class="weui-uploader__input" bindtap="chooseImage"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <radio-group class="block" name="label">
+    <view class="cu-form-group margin-top">
+      <view class='title'>
+        <view class='cu-tag bg-red light  round'>生活</view>
+      </view>
+      <radio checked value="{{1}}"></radio>
+    </view>
+    <view class="cu-form-group">
+      <view class='title'>
+        <view class='cu-tag bg-green light  round'>休闲</view>
+      </view>
+      <radio value="{{2}}"></radio>
+    </view>
+    <view class="cu-form-group">
+      <view class='title'>
+        <view class='cu-tag bg-blue light  round'>学习</view>
+      </view>
+      <radio value="{{3}}"></radio>
+    </view>
+  </radio-group>
+  <view class="cu-bar btn-group">
+    <!--<button class='cu-btn bg-green shadow-blur round'>保存</button>-->
+    <button class='cu-btn bg-blue shadow-blur round' form-type='submit'>提交</button>
+  </view>
+</form>

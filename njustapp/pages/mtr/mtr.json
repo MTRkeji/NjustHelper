@@ -1,0 +1,6 @@
+{
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTitleText": "论坛",
+  "backgroundColor": "#fff",
+  "enablePullDownRefresh": true
+}

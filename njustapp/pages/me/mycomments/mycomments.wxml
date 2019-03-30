@@ -1,0 +1,22 @@
+<!--pages/me/mycomments/mycomments.wxml-->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed bg-white" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+      <text class='icon-back'></text> 评论
+    </navigator>
+  </view>
+</view>
+<view class="cu-list menu menu-avatar">
+  <view class="cu-item" wx:for='{{commentlist}}'>
+    <view class="cu-avatar round lg" style="background-image:url({{item.avatar}});"></view>
+    <view class='content'>
+      <view class='text-grey'>{{item.nickname}}</view>
+      <view class='text-gray text-sm'>
+        <navigator url="../../mtr/detail/detail?id={{item.postid}}"><text selectable='{{true}}'>{{item.content}}</text></navigator>
+      </view>
+      <view class='text-gray text-sm'>
+        评论了你 {{item.createtime}}
+      </view>
+    </view>
+  </view>
+</view>

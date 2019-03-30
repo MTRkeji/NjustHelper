@@ -1,20 +1,27 @@
 <!--pages/grade/grade.wxml-->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed bg-white" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+      <text class='icon-back'></text> 成绩
+    </navigator>
+  </view>
+</view>
 <block wx:for="{{grades.list}}">
   <view class="title">学期：{{item.xq}}</view>
   <view class="table">
     <view class="tr">
-      <view class="th">课程</view>
-      <view class="th">成绩</view>
-      <view class="th">学分</view>
-      <view class="th">绩点</view>
-      <view class="th">性质</view>
+      <view class="th course">课程</view>
+      <view class="th grade">成绩</view>
+      <view class="th credit">学分</view>
+      <view class="th gpa">绩点</view>
+      <view class="th xz">性质</view>
     </view>
     <view class="tr" wx:for="{{item.data}}">
-      <view class="td">{{item.kcmc}}</view>
-      <view class="td">{{item.grade}}</view>
-      <view class="td">{{item.xf}}</view>
-      <view class="td">{{item.GP}}</view>
-      <view class="td">{{item.kcsz}}</view>
+      <view class="td course">{{item.kcmc}}</view>
+      <view class="td grade">{{item.grade}}</view>
+      <view class="td credit">{{item.xf}}</view>
+      <view class="td gpa">{{item.GP}}</view>
+      <view class="td xz">{{item.kcsz}}</view>
     </view>
     <view class="table">
       <view class="tr">

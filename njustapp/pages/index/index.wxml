@@ -1,10 +1,39 @@
 <!--index.wxml-->
 <import src="/templates/footer/footer.wxml" />
-<view class="container">
-  <view class="page__hd">
-    <view class="page__title">南京理工大学</view>
-    <view class="page__desc">团结 献身 求是 创新</view>
+<!--<view class="bg-img padding-tb-xl" style="background-image: url({{imgUrl}})">
+  <view class='padding-xl text-white' style='margin-top:28px;'>
+    <view class='padding-xs text-xl'>
+      <text selectable="true">\r</text>
+    </view>
   </view>
+</view>-->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed bg-white" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+      校园助手
+    </navigator>
+  </view>
+</view>
+<swiper class="screen-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+  <swiper-item wx:for="{{4}}" wx:key>
+    <block wx:if='{{index==0}}'>
+      <view class="bg-img bg-mask padding-tb-xl" style="background-image: url({{BingImage}});height: 414rpx;">
+        <view class="padding-xl text-white">
+          <view class="padding-xs text-xl">
+            今日诗词：
+          </view>
+          <view class="padding-xs">
+            {{jinrishici}}
+          </view>
+        </view>
+      </view>
+    </block>
+    <block wx:else>
+      <image src="{{imgUrl[index]}}" mode="aspectFill"></image>
+    </block>
+  </swiper-item>
+</swiper>
+<view class="container" style='margin-top:10px;'>
   <view class="page__bd">
     <view class="weui-panel weui-panel_access">
       <view class="weui-panel__hd">今日课程</view>
@@ -74,5 +103,6 @@
       </view>
     </view>
   </view>
+  <ad unit-id="adunit-b97c9fb304b42454"></ad>
   <template is="footer"></template>
 </view>

@@ -1,4 +1,11 @@
 <!--pages/login/login.wxml-->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed bg-white" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+      <text class='icon-back'></text> 登录
+    </navigator>
+  </view>
+</view>
 <form bindsubmit="login">
 <view class="content">
   <view class="account">

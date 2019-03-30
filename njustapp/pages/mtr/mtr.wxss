@@ -1,0 +1,19 @@
+/* pages/mtr/mtr.wxss */
+
+.addpost {
+  position: fixed;
+  width: 42px;
+  height: 42px;
+  bottom: 30px;
+  right: 20px;
+}
+
+.tab{
+  position: fixed;
+  left: 0;
+  z-index: 99999;
+}
+
+.top{
+  height: 130px;
+}
