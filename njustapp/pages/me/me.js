@@ -12,8 +12,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    let that = this;
-    
 
   },
 
@@ -53,38 +51,14 @@ Page({
       that.setData({
         userInfo: userInfo
       })
-      let commentsNumUrl = njustHelperUrl.getmycommentsnum()
-      let openid = wx.getStorageSync('user').openid
-      wx.request({
-        url: commentsNumUrl,
-        method: 'post',
-        data: {
-          openid: openid
-        },
-        header: {
-          'Content-Type': 'application/json'
-        },
-        success: function (res) {
-          let lastNum = wx.getStorageSync('commentsNum')
-          if (lastNum != null) {
-            let newNum = res.data.commentsNum - lastNum;
-            that.setData({
-              newNum: newNum,
-            })
-          }
-        }
-      })
-    }else{
-      wx.showModal({
-        content: '若头像无法显示，请点击“获取权限”!',
-      })
+    }
+  },
+
+  onGotUserInfo: function (e) {
+    var that = this;
+    if(e.detail.errMsg.indexOf('ok')!=-1){
       wx.getSetting({
         success(res) {
-          console.log(res.authSetting)
-          // res.authSetting = {
-          //   "scope.userInfo": true,
-          //   "scope.userLocation": true
-          // }
           if (res.authSetting['scope.userInfo']) {
             wx.getUserInfo({
               success(res) {
@@ -92,76 +66,16 @@ Page({
                 that.setData({
                   userInfo: res.userInfo
                 })
-                let commentsNumUrl = njustHelperUrl.getmycommentsnum()
-                let openid = wx.getStorageSync('user').openid
-                wx.request({
-                  url: commentsNumUrl,
-                  method: 'post',
-                  data: {
-                    openid: openid
-                  },
-                  header: {
-                    'Content-Type': 'application/json'
-                  },
-                  success: function (res) {
-                    let lastNum = wx.getStorageSync('commentsNum')
-                    if (lastNum != null) {
-                      let newNum = res.data.commentsNum - lastNum;
-                      that.setData({
-                        newNum: newNum,
-                      })
-                    }
-                  }
-                })
-                let addaccounturl = njustHelperUrl.wechataccountadd()
-                let user = wx.getStorageSync("user")
-                let studentnum = wx.getStorageSync("username")
-                if(studentnum){
-                  wx.request({
-                    url: addaccounturl,
-                    //定义传到后台的数据
-                    data: {
-                      //从全局变量data中获取数据
-                      openid: user.openid,
-                      nickname: res.userInfo.nickName,
-                      avatarurl: res.userInfo.avatarUrl,
-                      gender: res.userInfo.gender,
-                      province: res.userInfo.province,
-                      city: res.userInfo.city,
-                      studentnum: studentnum
-                    },
-                    method: 'post', //定义传到后台接受的是post方法还是get方法
-                    header: {
-                      'content-type': 'application/json' // 默认值
-                    },
-                    success: function (res) {
-                      console.log("调用API成功");
-                      if (res.data.success == "1") { } else {
-                        wx.showModal({
-                          content: '系统出现错误，请稍后再试！',
-                          showCancel: false,
-                          success: function (res) {
-                            if (res.confirm) {
-                              console.log('用户点击确定')
-                            }
-                          }
-                        });
-                      }
-                    },
-                    fail: function (res) {
-                      console.log("调用API失败");
-                    }
-                  })
-                }
               }
             })
           }
         }
       })
+      wx.navigateTo({
+        url: '../login/login',
+      })
     }
-    
   },
-
   /**
    * 生命周期函数--监听页面隐藏
    */
@@ -198,17 +112,10 @@ Page({
 
   },
 
-  toLogin: function() {
-    wx.navigateTo({
-      url: '../login/login',
-    })
-  },
   toLogout: function() {
     var that = this;
     try {
-      wx.removeStorageSync('username');
-      wx.removeStorageSync('password');
-      console.log("清理缓存成功")
+      wx.clearStorage();
       that.onShow();
     } catch (e) {
       // Do something when catch error

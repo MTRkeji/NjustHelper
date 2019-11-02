@@ -1,6 +1,6 @@
 /* pages/grade/grade.wxss */
 page {
-  font-size: 14px;
+  font-size: 12px;
   color: #333
 }
 .title{
@@ -22,26 +22,29 @@ page {
   justify-content: space-between;
 }
 .th,.td {
-  padding: 5px;
+  padding: 1px;
   border-bottom: 1px solid #dadada;
   border-right: 1px solid #dadada;
   text-align: center;
   width: 100%
 }
+.select{
+  width:6%
+}
 .course{
-  width:40%
+  width:42%
 }
 .grade{
-  width:15%
+  width:10%
 }
 .credit{
-  width:15%
+  width:12%
 }
 .gpa{
-  width:15%
+  width:12%
 }
 .xz{
-  width:15%
+  width:18%
 }
 .th {
   font-weight: 400;

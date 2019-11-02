@@ -1,6 +1,6 @@
 {
   "navigationBarBackgroundColor": "#fff",
-  "navigationBarTitleText": "我的课表",
+  "navigationBarTitleText": "课表",
   "backgroundColor": "#fff",
   "enablePullDownRefresh": true
 }

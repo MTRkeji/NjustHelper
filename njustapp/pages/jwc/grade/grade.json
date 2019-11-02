@@ -1,6 +1,6 @@
 {
   "navigationBarBackgroundColor": "#fff",
-  "navigationBarTitleText": "我的成绩",
+  "navigationBarTitleText": "成绩",
   "backgroundColor": "#fff",
   "enablePullDownRefresh": true
 }

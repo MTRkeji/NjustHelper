@@ -1,3 +1,5 @@
 {
-  "usingComponents": {}
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTitleText": "空闲教室",
+  "backgroundColor": "#fff"
 }

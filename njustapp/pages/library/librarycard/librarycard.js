@@ -13,6 +13,10 @@ Page({
   },
   save: function (e) {
     var that = this;
+    wx.showToast({
+      title: '正在登录...',
+      duration: 8000
+    });
     var url = njustHelperUrl.borrowed();
     wx.request({
       url: url,

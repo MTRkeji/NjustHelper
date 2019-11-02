@@ -1,11 +1,4 @@
 <!--pages/me/mymoments/mymoments.wxml-->
-<view class="cu-custom" style="height:{{CustomBar}}px;">
-  <view class="cu-bar fixed bg-white" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
-    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
-      <text class='icon-back'></text> 我的贴子
-    </navigator>
-  </view>
-</view>
 <scroll-view scroll-y style="height: 1200px;" bindscrolltoupper="upper" bindscrolltolower="lower">
   <view class="cu-card article no-card">
     <view wx:for="{{momentlist}}" wx:key class="cu-item shadow">

@@ -1,11 +1,4 @@
 <!--pages/library/searchbook/detail/detail.wxml-->
-<view class="cu-custom" style="height:{{CustomBar}}px;">
-  <view class="cu-bar fixed bg-white" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
-    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
-      <text class='icon-back'></text> 图书详情
-    </navigator>
-  </view>
-</view>
 <view class="container">
 <view class="title">图书信息：</view>
   <view class="table">

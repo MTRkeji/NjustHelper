@@ -80,12 +80,21 @@ Page({
     let thismoment = that.data.thismoment
     let postid = thismoment.id;
     let pid = that.data.pid;
+    console.log(e.detail)
+    if (e.detail.value.comment == '' || e.detail.value.comment==null){
+      wx.showModal({
+        title: '提示',
+        content: '内容不能为空！',
+      })
+      return
+    }
     wx.request({
       url: url,
       method: 'post',
       data: {
         openid: openid,
         postid: postid,
+        formId: e.detail.formId,
         content: e.detail.value.comment,
         pid: pid
       },

@@ -14,24 +14,23 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: function(options) {
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     var that = this //不要漏了这句，很重要
-    var url = njustHelperUrl.getexam();
-    if (wx.getStorageSync("cookie") != "" && wx.getStorageSync("cookie") != null) {
+    if(that.testLogin()){
+      var url = njustHelperUrl.getexam();
       wx.showToast({
         icon: 'loading',
         duration: 3000
@@ -53,55 +52,64 @@ Page({
             //res代表success函数的事件对，data是固定的，stories是是上面json数据中stories
           })
           wx.showToast({
+            title: 'success',
+            icon: 'success',
             duration: 1000
           });
         }
       })
+    }
+  },
+
+  /**
+   * 测试是否处于登录状态
+   */
+  testLogin: function() {
+    if (wx.getStorageSync("cookie") != "" && wx.getStorageSync("cookie") != null) {
+      return true;
     } else {
       wx.showModal({
         content: '请登录！',
-        showCancel: false,
-        success: function (res) {
-          if (res.confirm) {
-            console.log('用户点击确定')
-          }
-        }
+        showCancel: false
       });
+      wx.switchTab({
+        url: '/pages/me/me'
+      })
     }
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

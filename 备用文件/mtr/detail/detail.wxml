@@ -1,11 +1,4 @@
 <!--pages/mtr/detail/detail.wxml-->
-<view class="cu-custom" style="height:{{CustomBar}}px;">
-  <view class="cu-bar fixed bg-white" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
-    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
-      <text class='icon-back'></text> 详情
-    </navigator>
-  </view>
-</view>
 <view class="cu-card dynamic {{isCard?'no-card':''}}" style='margin-bottom:40px'>
   <view wx:for="1" wx:key class="cu-item shadow">
     <view class="cu-list menu menu-avatar">

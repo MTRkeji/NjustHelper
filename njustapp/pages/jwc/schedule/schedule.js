@@ -29,7 +29,8 @@ Page({
    * @param {number} 所选周数
    * @return {Array} 该周对应的日期
    */
-  getWeekDateByUserPicker: weekSelected => {
+
+  getAllWeekDate: function() {
     let that = this;
     const dateStorage = wx.getStorageSync("start_date");
     if (!dateStorage) return [];
@@ -38,15 +39,18 @@ Page({
     let dates = [];
     let curTime;
     let curTime2MonthDay;
-    for (let i = 0; i < 7; i++) {
-      // 根据所选周数计算出对应的Dayjs对象
-      curTime = startTime.add(weekSelected * 7 + i, 'day');
-      // 转为 mm/dd 格式
-      curTime2MonthDay = curTime.format('MM/DD');
-      dates.push(curTime2MonthDay);
+    for (let w = 0; w < 25; w++) {
+      for (let i = 0; i < 7; i++) {
+        // 根据所选周数计算出对应的Dayjs对象
+        curTime = startTime.add(w * 7 + i, 'day');
+        // 转为 mm/dd 格式
+        curTime2MonthDay = curTime.format('MM/DD');
+        dates.push(curTime2MonthDay);
+      }
     }
-    return dates;
-    console.log('一周的日期', dates)
+    that.setData({
+      WeekDates: dates
+    })
   },
 
   /**
@@ -55,44 +59,113 @@ Page({
   bindPickerChange: function(e) {
     let that = this;
     const weekSelected = e.detail.value;
-    let curWeekDates = that.getWeekDateByUserPicker(weekSelected);
     that.setData({
-      curWeekDates,
       index: weekSelected
     })
-    that.onShow();
   },
 
+  startChange: function(e) {
+    let that = this;
+    const weekSelected = e.detail.value;
+    that.setData({
+      start: weekSelected
+    })
+  },
+
+  endChange: function(e) {
+    let that = this;
+    const weekSelected = e.detail.value;
+    that.setData({
+      end: weekSelected
+    })
+  },
+  hideModal: function() {
+    let that = this;
+    that.setData({
+      showModal: false
+    })
+  },
+
+  addActivity: function(e) {
+    var that = this //不要漏了这句，很重要
+    let name = e.detail.value.name;
+    if (name == null || name == "") {
+      wx.showToast({
+        title: '名称不能为空！',
+        icon: 'none',
+        duration: 2000
+      })
+    } else {
+      let address = e.detail.value.address;
+      let teacher = e.detail.value.teacher;
+      let start = e.detail.value.start;
+      let end = e.detail.value.end;
+      let week = that.data.semester[start] + "-" + that.data.semester[end]
+      let courseIndex = that.data.courseIndex;
+      let dayIndex = that.data.dayIndex;
+      const courses = wx.getStorageSync("courses");
+      for (let i = start; i <= end; i++) {
+        if (courses[i][courseIndex][dayIndex]) {
+          wx.showModal({
+            content: "与其他课程/活动冲突！\n课程/活动：" + courses[i][courseIndex][dayIndex].name + "\n周次：" + courses[i][courseIndex][dayIndex].week,
+            confirmText: "关闭",
+            showCancel: false,
+            success: res => {}
+          });
+          return;
+        }
+      }
+      for (let i = start; i <= end; i++) {
+        courses[i][courseIndex][dayIndex] = {
+          "name": name,
+          "address": address,
+          "teacher": teacher,
+          "week": week
+        }
+      }
+      that.setColor(courses)
+      that.setData({
+        courses: courses
+      })
+      wx.setStorageSync("courses", courses)
+      that.setData({
+        showModal: false
+      })
+      wx.showToast({
+        title: '添加成功',
+        icon: 'success',
+        duration: 2000
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     let that = this;
     if (wx.getStorageSync("start_date")) {
-      const dateStorage = wx.getStorageSync("start_date");
-
-      const startTime = dayjs(dateStorage)
-      const nowTime = dayjs()
-      // 相差周数
-      const diffWeek = nowTime.diff(startTime, 'week')
-      let curWeekDates;
-      if (diffWeek < 0) {
-        curWeekDates = that.getWeekDateByUserPicker(0);
-      } else if (diffWeek > 25) {
-        curWeekDates = that.getWeekDateByUserPicker(24);
-      } else {
-        curWeekDates = that.getWeekDateByUserPicker(diffWeek);
-      }
-      that.setData({
-        curWeekDates,
-      })
       that.setIndex()
+      const courses = wx.getStorageSync("courses");
+      if (courses) {
+        that.setData({
+          courses: courses
+        })
+        if (wx.getStorageSync("courseColor")) {
+          let courseColor = wx.getStorageSync("courseColor")
+          that.setData({
+            courseColor: courseColor
+          })
+        } else {
+          that.setColor(courses)
+        }
+      } else {
+        that.getCourse()
+      }
+
     } else {
       that.getCourse()
     }
-    wx.switchTab({
-      url: './schedule',
-    })
+    that.getAllWeekDate();
   },
 
   /**
@@ -106,30 +179,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    let that = this;
-    const courses = wx.getStorageSync("courses");
-    console.log('courses', courses)
-    if (courses) {
-      that.setData({
-        course: courses[that.data.index]
-      })
-      that.setColor(courses)
-    } else {
-      that.getCourse()
-    }
-  },
 
-  currentChange: function(e) {
-    if (e.detail.source == "touch") {
-      let that = this;
-      const weekSelected = e.detail.current;
-      let curWeekDates = that.getWeekDateByUserPicker(weekSelected);
-      that.setData({
-        curWeekDates,
-        index: weekSelected
-      })
-      that.onShow();
-    }
   },
 
   /**
@@ -151,8 +201,17 @@ Page({
    */
   onPullDownRefresh: function() {
     let that = this;
-    that.getCourse();
-    wx.stopPullDownRefresh()
+    wx.showModal({
+      content: "刷新将会清空手动添加的课程或事件，是否确定刷新？",
+      showCancel: true,
+      success: res => {
+        if (res.confirm) {
+          that.getCourse();
+          that.getAllWeekDate();
+          wx.stopPullDownRefresh()
+        }
+      }
+    });
   },
 
   /**
@@ -174,14 +233,44 @@ Page({
    */
   showCardView: function(e) {
     let that = this;
+    const w = parseInt(e.currentTarget.dataset.w);
     const i = parseInt(e.currentTarget.dataset.i);
     const j = parseInt(e.currentTarget.dataset.j);
-    const thiscourse = that.data.course[i][j]
-    wx.showModal({
-      content: thiscourse.name + '\n' + thiscourse.teacher + '\n' + thiscourse.week + '\n' + thiscourse.address,
-      showCancel: false,
-      success: res => console.log('用户点击确定:', res.confirm)
-    });
+    const thiscourse = that.data.courses[w][i][j];
+    if (thiscourse) {
+      wx.showModal({
+        content: thiscourse.name + '\n' + thiscourse.teacher + '\n' + thiscourse.week + '\n' + thiscourse.address,
+        showCancel: true,
+        cancelText: "删除",
+        cancelColor: "#FF0000",
+        confirmText: "关闭",
+        success: res => {
+          if (res.cancel) {
+            wx.showModal({
+              content: '确定要删除此项内容？',
+              showCancel: true,
+              confirmColor: "#FF0000",
+              success: res => {
+                if (res.confirm) {
+                  let courses = that.data.courses;
+                  courses[w][i][j] = null;
+                  that.setData({
+                    courses: courses
+                  })
+                  wx.setStorageSync("courses", courses)
+                }
+              }
+            })
+          }
+        }
+      });
+    } else {
+      that.setData({
+        showModal: true,
+        courseIndex: i,
+        dayIndex: j
+      })
+    }
   },
 
   /**
@@ -189,9 +278,8 @@ Page({
    */
   getCourse: function() {
     let that = this;
-    const url = njustHelperUrl.getcourse();
-    const cookie = wx.getStorageSync("cookie");
-    if (cookie) {
+    if (that.testLogin()) {
+      const url = njustHelperUrl.getcourse();
       wx.showToast({
         title: '正在导入...',
         icon: 'loading',
@@ -203,36 +291,26 @@ Page({
           'Content-Type': 'application/json'
         },
         data: {
-          cookie,
+          cookie: wx.getStorageSync("cookie"),
         },
         method: 'post',
         success: res => {
           that.setData({
-            course: res.data.course[that.data.index],
+            course: res.data.course,
             //res代表success函数的事件对，data是固定的，stories是是上面json数据中stories
           })
           wx.setStorageSync("courses", res.data.course)
-          let start_date = res.data.start_date.substring(1, res.data.start_date.length - 1).replace(/\-/g, '/')
+          let start_date = res.data.start_date.replace(/\-/g, '/')
           wx.setStorageSync("start_date", start_date)
           that.setIndex()
           that.setColor(res.data.course)
-          that.onShow()
+          that.onLoad()
           wx.showToast({
             title: '导入课表成功！',
             duration: 1000
           });
         }
       })
-    } else {
-      wx.showModal({
-        content: '请登录！',
-        showCancel: false,
-        success: function (res) {
-          if (res.confirm) {
-            console.log('用户点击确定')
-          }
-        }
-      });
     }
   },
 
@@ -287,5 +365,22 @@ Page({
     that.setData({
       courseColor
     })
-  }
+    wx.setStorageSync("courseColor", courseColor)
+  },
+  /**
+   * 测试是否处于登录状态
+   */
+  testLogin: function() {
+    if (wx.getStorageSync("cookie") != "" && wx.getStorageSync("cookie") != null) {
+      return true;
+    } else {
+      wx.showModal({
+        content: '请登录！',
+        showCancel: false
+      });
+      wx.switchTab({
+        url: '/pages/me/me'
+      })
+    }
+  },
 })

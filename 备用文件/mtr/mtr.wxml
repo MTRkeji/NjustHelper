@@ -1,11 +1,4 @@
 <!--pages/mtr/mtr.wxml-->
-<view class="cu-custom" style="height:{{CustomBar}}px;">
-  <view class="cu-bar fixed bg-white" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
-    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
-      Hole
-    </navigator>
-  </view>
-</view>
 <view class='top' style="top:{{CustomBar}}px;">
   <scroll-view scroll-x class="bg-white nav tab">
     <view class="cu-bar search bg-white">

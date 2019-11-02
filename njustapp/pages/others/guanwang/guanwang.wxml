@@ -1,11 +1,4 @@
 <!--pages/guanwang/guanwang.wxml-->
-<view class="cu-custom" style="height:{{CustomBar}}px;">
-  <view class="cu-bar fixed bg-white" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
-    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
-      <text class='icon-back'></text> 网站入口
-    </navigator>
-  </view>
-</view>
 <view class="page">
   <view class="page__bd page__bd_spacing container">
     <p>

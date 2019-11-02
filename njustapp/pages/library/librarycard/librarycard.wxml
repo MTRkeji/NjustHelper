@@ -1,11 +1,4 @@
 <!--pages/library/librarycard/librarycard.wxml-->
-<view class="cu-custom" style="height:{{CustomBar}}px;">
-  <view class="cu-bar fixed bg-white" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
-    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
-      <text class='icon-back'></text> 借书证
-    </navigator>
-  </view>
-</view>
 <block wx:if="{{logged}}">
   <view class="content page__bd page__bd_spacing">
     <view class="weui-panel weui-panel_access">
@@ -33,7 +26,7 @@
       <view class="account">
         <view class="title">图书馆密码</view>
         <view class="num">
-          <input name="libpassword" placeholder="初始密码为学号" password placeholder-style="color:#999999;" />
+          <input name="libpassword" placeholder="请输入密码" password placeholder-style="color:#999999;" />
         </view>
       </view>
       <view class="hr"></view>

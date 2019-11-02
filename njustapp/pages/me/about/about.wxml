@@ -1,0 +1,18 @@
+<!--pages/me/about/about.wxml-->
+<view class='margin-xl bg-white padding-xl radius shadow-lg'>
+  <view class='text-center margin-bottom text-lg  text-grey'>关于MTR南理</view>
+  <view class='text-content'>
+    <view><h1 class="page__title">Hi！同学~欢迎使用MTR南理！</h1></view>
+    
+    <view class='margin-top-sm'><p class="page__desc">合作微信/加入我们：18260066362</p></view>
+    <view class='margin-top-sm'><text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MTR南理是我个人开发的一款服务于南京理工大学本科生的校园助手小程序，它致力于帮助我们南理工学生更方便的查询课程表、成绩、考试安排、空闲教室、蹭课查询等信息，并能查询图书馆图书借阅情况。</text></view>
+    <view class='margin-top-sm'><text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MTR南理不收取任何费用，但是使用服务器和域名都需要租金，会有一定的费用，如果MTR南理有帮到你，或者你觉得很赞，可以点击'Me'界面的“赞赏支持”来支持我们一下！</text></view>
+    <view class='margin-top-sm'><text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MTR南理是开源的，所有源代码已经上传至Github仓库，感兴趣的同学可以点击'Me'界面的“Github”获取仓库网址。如果您拥有一定的编程技能并且对MTR南理项目感兴趣，欢迎加入我们参与维护！</text></view>
+    <h1 class="page__title">数据来源：</h1>
+    <view class='margin-top-sm'><text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;小程序原理：使用您提供的账号密码模拟您登录学校网站获取完成服务所需要的信息。\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *课表、成绩等数据来自南理工教务处官网；\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *图书馆相关信息来自南理工图书馆官网；</text></view>
+    <h1 class="page__title">数据用途：</h1>
+    <view class='margin-top-sm'><text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您输入的账号密码信息、获取到的课表、成绩等数据均保存在微信官方提供给小程序使用的本地缓存中，小程序服务器不会保存更没有必要保存您的数据，小程序服务器所需的数据均从学校网站实时获取。\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 如您不想本小程序以及小程序的服务器接触到这些信息，请您不要绑定您账号密码。绑定账号密码，视为您授权同意小程序及小程序服务器获取完成服务所需的信息。</text></view><h1 class="page__title">关联MTR南理</h1>
+    <view class='margin-top-sm'><text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;若您或您的朋友在运营与南京理工大学相关的公众号（学生组织/社团/校园自媒体等），MTR南理诚挚地欢迎您的公众号关联我们的小程序，并期待与您合作！\nAppID：wx49d828b86b336218</text></view>
+    <view class='margin-top-sm'>更多功能敬请期待！</view>
+  </view>
+</view>

@@ -20,6 +20,11 @@ Page({
     let libpassword = wx.getStorageSync("libpassword");
     if (libusername && libpassword) {
       var url = njustHelperUrl.borrowed();
+      wx.showToast({
+        title: '正在查询...',
+        icon: 'loading',
+        duration: 6000
+      });
       wx.request({
         url: url,
         //定义传到后台的数据
@@ -44,6 +49,7 @@ Page({
               }
             });
           } else{
+            wx.hideToast()
             that.setData({
               content: res.data.content,
             })

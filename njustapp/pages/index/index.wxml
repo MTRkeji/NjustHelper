@@ -1,40 +1,35 @@
 <!--index.wxml-->
 <import src="/templates/footer/footer.wxml" />
-<!--<view class="bg-img padding-tb-xl" style="background-image: url({{imgUrl}})">
-  <view class='padding-xl text-white' style='margin-top:28px;'>
-    <view class='padding-xs text-xl'>
-      <text selectable="true">\r</text>
-    </view>
-  </view>
-</view>-->
-<view class="cu-custom" style="height:{{CustomBar}}px;">
-  <view class="cu-bar fixed bg-white" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
-    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
-      校园助手
-    </navigator>
-  </view>
+<block wx:if="{{announcementText}}">
+<view class='width border-box f-pl30 f-pr30 f-mt30 f-mb30'>
+  <form report-submit="true" bindsubmit="bindOpenAnnouncement">
+    <button class='btn-reset flex announcement order-box f-pl25 f-pr25' form-type="submit">
+      <view class='f-pl25 f-font24 f-pr25'>公告:</view>
+      <view class='f-font24 s-32 announcement-context'>
+        <view animation="{{animationData}}" class="f-font24 s-32 announcement-text f-text-left">{{announcementText}}</view>
+      </view>
+    </button>
+  </form>
 </view>
+</block>
 <swiper class="screen-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
   <swiper-item wx:for="{{4}}" wx:key>
-    <block wx:if='{{index==0}}'>
-      <view class="bg-img bg-mask padding-tb-xl" style="background-image: url({{BingImage}});height: 414rpx;">
-        <view class="padding-xl text-white">
-          <view class="padding-xs text-xl">
-            今日诗词：
-          </view>
-          <view class="padding-xs">
-            {{jinrishici}}
-          </view>
-        </view>
-      </view>
-    </block>
-    <block wx:else>
-      <image src="{{imgUrl[index]}}" mode="aspectFill"></image>
-    </block>
+    <image src="{{imgUrl[index]}}" mode="aspectFill" bindtap="showQrcode" data-url='{{imgUrl[index]}}'></image>
   </swiper-item>
 </swiper>
 <view class="container" style='margin-top:10px;'>
   <view class="page__bd">
+    <view class="weui-panel weui-panel_access">
+      <view class="weui-panel__bd">
+        <view class="bg-img bg-mask padding-tb-xl" style="background-image: url({{BingImage}});height: 200rpx;" bindtap="showQrcodeBing">
+          <view class="padding-xs text-white">
+            <view class="padding-xs">
+              {{jinrishici}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
     <view class="weui-panel weui-panel_access">
       <view class="weui-panel__hd">今日课程</view>
       <view class="weui-panel__bd">
@@ -68,6 +63,10 @@
           <navigator url="../jwc/freeroom/freeroom" class="weui-grid" hover-class="weui-grid_active">
             <image class="weui-grid__icon" src="../images/zixi.png" />
             <view class="weui-grid__label">空闲教室</view>
+          </navigator>
+          <navigator url="../jwc/cengke/cengke" class="weui-grid" hover-class="weui-grid_active">
+            <image class="weui-grid__icon" src="../images/cengke.png" />
+            <view class="weui-grid__label">蹭课查询</view>
           </navigator>
         </view>
       </view>

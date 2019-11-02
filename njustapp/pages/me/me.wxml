@@ -8,7 +8,7 @@
       {{name}}
     </block>
     <block wx:else>
-      <button class="weui-btn" type="normal" bindtap='toLogin'>登录</button>
+      <button class="weui-btn" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" type="normal">登录</button>
     </block>
   </view>
   <view class='margin-top-sm'>
@@ -16,6 +16,7 @@
   </view>
   <image src='{{waveurl}}' mode='scaleToFill' class='gif-wave'></image>
 </view>
+<!--
 <view class='padding flex text-center text-grey bg-white shadow-warp'>
   <view class='flex flex-sub flex-direction solid-right'>
     <view class="text-xxl text-orange">{{visitTotal}}</view>
@@ -34,23 +35,24 @@
     </view>
   </view>
 </view>
+-->
 <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
-  <button class="cu-item arrow" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">
-    <button class='cu-btn content' >
-      <image src='../images/setting.png' class='png' mode='aspectFit'></image>
-      <text class='text-grey'>获取权限</text>
-    </button>
-  </button>
   <view class="cu-item arrow" bindtap='CopyLink' data-link='https://github.com/MTRkeji/NjustHelper'>
     <view class='content' >
-      <text class='icon-github text-grey'></text>
+      <image src="../images/github.png" class="png" mode="aspectFit"></image>
       <text class='text-grey'>GitHub</text>
     </view>
   </view>
+  <view class="cu-item arrow">
+      <navigator class="content" url="/pages/me/about/about" hover-class="none">
+        <image src="../images/about.png" class="png" mode="aspectFit"></image>
+        <text class="text-grey">关于MTR南理</text>
+      </navigator>
+    </view>
   <view class="cu-item arrow" bindtap='CopyLink' data-link='985247867'>
     <view class='content' >
       <image src='../images/qq.png' class='png' mode='aspectFit'></image>
-      <text class='text-grey'>官方QQ群</text>
+      <text class='text-grey'>反馈QQ群</text>
     </view>
   </view>
   <view class="cu-item arrow" bindtap="showQrcode">

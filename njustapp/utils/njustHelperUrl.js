@@ -4,6 +4,7 @@ var njustHelperUrl ={
   base: function () {
     
     return "https://www.mtrschool.top/";
+    //return "https://localhost:8080/";
 
   },
 
@@ -38,11 +39,15 @@ var njustHelperUrl ={
     return this.api() + "moment/";
   },
 
+  utils: function(){
+    return this.api() +"utils/";
+  },
+
 
   /**
    * 图书馆api
    */
-
+  
   searchbook: function () {
     return this.library() + "search";
   },
@@ -82,6 +87,10 @@ var njustHelperUrl ={
 
   getclassroom: function () {
     return this.jwc() + "getclassroom";
+  },
+
+  getcengke: function () {
+    return this.jwc() + "getcengke";
   },
 
 
@@ -141,6 +150,17 @@ var njustHelperUrl ={
 
   getmymessages: function () {
     return this.moment() + "getmymessages"
+  },
+
+  /**
+   * 工具API
+   */
+  getnotice: function(){
+    return this.utils() + "getnotice"
+  },
+
+  getadphonenum: function(){
+    return this.utils() + "getadphonenum"
   }
 }
 
@@ -160,6 +180,8 @@ module.exports = {
   wechat: njustHelperUrl.wechat,
 
   moment: njustHelperUrl.moment,
+
+  utils: njustHelperUrl.utils,
 
 
 
@@ -182,6 +204,8 @@ module.exports = {
   getexam: njustHelperUrl.getexam,
 
   getclassroom: njustHelperUrl.getclassroom,
+
+  getcengke: njustHelperUrl.getcengke,
 
 
 
@@ -211,5 +235,10 @@ module.exports = {
 
   getmycommentsnum: njustHelperUrl.getmycommentsnum,
 
-  getmymessages: njustHelperUrl.getmymessages
+  getmymessages: njustHelperUrl.getmymessages,
+
+
+
+  getnotice: njustHelperUrl.getnotice,
+  getadphonenum: njustHelperUrl.getadphonenum
 }

@@ -32,3 +32,21 @@
   display: flex;
   justify-content: space-between;
 }
+
+.announcement {
+    color: #a0a0a0;
+    background: #fff0e3;
+    border-radius: 6rpx;
+    line-height: 66rpx;
+    height: 66rpx;
+}
+.announcement-context {
+    width: 580rpx;
+    /* 偏移出文本框的内容隐藏掉 */
+    overflow: hidden;
+}
+.announcement-text {
+    width: 570rpx;
+    /* 文字内容只做一行显示 */
+    white-space: nowrap;
+}

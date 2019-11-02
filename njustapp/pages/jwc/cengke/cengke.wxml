@@ -1,0 +1,41 @@
+<!--pages/jwc/cengke/cengke.wxml
+<view class="cu-bar search bg-white">
+  <view class='search-form round'>
+    <text class="icon-search"></text>
+    <input type="text" placeholder="课程名" confirm-type="search" bindinput="inputTyping" value="{{inputVal}}"></input>
+  </view>
+  <view class='action'>
+    <button class='cu-btn bg-green shadow-blur round' bindtap="search">搜索</button>
+  </view>
+</view>
+-->
+<form bindsubmit="search">
+    <view class="content">
+      <view class="account">
+        <view class="title"></view>
+        <view class="num">
+          <input name="name" placeholder="请输入课程名" placeholder-style="color:#999999;" />
+        </view>
+      </view>
+      <view class="hr"></view>
+      <view class="account">
+        <view class="title"></view>
+        <view class="num">
+          <input name="teacher" placeholder="请输入教师" placeholder-style="color:#999999;" />
+        </view>
+      </view>
+      <view class="hr"></view>
+      <button class="btn" form-type='submit' type="primary">检索</button>
+    </view>
+  </form>
+<block wx:if="{{courses.length>0}}">
+  <view wx:for="{{courses}}">
+      <view class="weui-panel weui-panel_access">
+        <view class="weui-panel__bd">
+          <view class="tr">
+            <text class="item">{{item.name}}\n{{item.week}}\n{{item.jc}}\n{{item.coursecontent}}</text>
+          </view>
+        </view>
+      </view>
+  </view>
+</block>

@@ -1,11 +1,4 @@
 <!--pages/iborrowed/iborrowed.wxml-->
-<view class="cu-custom" style="height:{{CustomBar}}px;">
-  <view class="cu-bar fixed bg-white" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
-    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
-      <text class='icon-back'></text> 我的借书
-    </navigator>
-  </view>
-</view>
 <block wx:if="{{content.length>0}}">
   <view wx:for="{{content}}" class="card-content">
     <view class="weui-panel weui-panel_access">

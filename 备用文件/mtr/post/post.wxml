@@ -1,11 +1,4 @@
 <!--pages/mtr/post/post.wxml-->
-<view class="cu-custom" style="height:{{CustomBar}}px;">
-  <view class="cu-bar fixed bg-white" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
-    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
-      <text class='icon-back'></text> 发布
-    </navigator>
-  </view>
-</view>
 <form bindsubmit="post">
   <view class="cu-form-group margin-top">
     <view class='title'>分类：</view>

@@ -16,7 +16,7 @@
 }
 
 .kcb-item {
-  height:197rpx;
+  height: 197rpx;
   position: absolute;
   justify-content: center;
   display: flex;
@@ -26,16 +26,22 @@
 
 .smalltext {
   font-size: 8pt;
-  color: rgb(8, 8, 8);
+  color: rgba(48, 45, 45, 0.836);
+  padding-left: 2px;
+}
+
+.null-text {
+  font-size: 8pt;
+  color: rgba(48, 45, 45, 0.253);
   padding-left: 2px;
 }
 
 .schedule-header {
   display: flex;
   flex-direction: row;
-  margin-left: 35rpx;
-  background-color: #d2e6b3;
-  color: #7cba23;
+  margin-left: 50rpx;
+  background-color: rgba(168, 198, 255, 0.384);
+  color: #1269eb;
 }
 
 .top-text {
@@ -48,16 +54,16 @@
 }
 
 .scroll {
-  margin-top: 163rpx;
   height: 1000px;
 }
 
 .body-left-container {
-   background-color:#D2E6B3;
-   color:#7cba23;
+  background-color: rgba(168, 198, 255, 0.384);
+  color: #1269eb;
 }
+
 .body-left {
-  width: 35rpx;
+  width: 50rpx;
   height: 200rpx;
   font-size: 9pt;
   justify-content: center;

@@ -4,28 +4,23 @@
     "pages/logs/logs",
     "pages/login/login",
     "pages/me/me",
-    "pages/me/mymoments/mymoments",
-    "pages/me/mycomments/mycomments",
-    "pages/me/mymessages/mymessages",
     "pages/jwc/schedule/schedule",
     "pages/jwc/grade/grade",
     "pages/jwc/test/test",
     "pages/jwc/freeroom/freeroom",
+    "pages/jwc/cengke/cengke",
     "pages/others/guanwang/guanwang",
     "templates/footer/footer",
     "pages/library/searchbook/searchbook",
     "pages/library/iborrowed/iborrowed",
     "pages/library/searchbook/detail/detail",
     "pages/library/librarycard/librarycard",
-    "pages/mtr/mtr",
-    "pages/mtr/post/post",
-    "pages/mtr/detail/detail"
+    "pages/me/about/about"
   ],
   "window": {
-    "navigationBarTextStyle": "white",
-    "navigationBarBackgroundColor": "#39b54a",
-    "navigationBarTitleText": "NJUST-helper",
-    "navigationStyle": "custom"
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "NJUST-helper"
   },
   "tabBar": {
     "list": [
@@ -35,15 +30,11 @@
         "iconPath": "images/home.png"
       },
       {
-        "pagePath": "pages/mtr/mtr",
-        "text": "Hole",
-        "iconPath": "images/mtr.png"
-      },
-      {
         "pagePath": "pages/me/me",
         "text": "Me",
         "iconPath": "images/wode.png"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

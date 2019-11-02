@@ -1,3 +1,5 @@
 {
-  "usingComponents": {}
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTitleText": "图书详情",
+  "backgroundColor": "#fff"
 }

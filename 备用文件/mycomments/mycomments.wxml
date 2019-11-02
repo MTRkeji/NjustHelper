@@ -1,13 +1,6 @@
-<!--pages/me/mymessages/mymessages.wxml-->
-<view class="cu-custom" style="height:{{CustomBar}}px;">
-  <view class="cu-bar fixed bg-white" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
-    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
-      <text class='icon-back'></text> 回复
-    </navigator>
-  </view>
-</view>
+<!--pages/me/mycomments/mycomments.wxml-->
 <view class="cu-list menu menu-avatar">
-  <view class="cu-item" wx:for='{{messagelist}}'>
+  <view class="cu-item" wx:for='{{commentlist}}'>
     <view class="cu-avatar round lg" style="background-image:url({{item.avatar}});"></view>
     <view class='content'>
       <view class='text-grey'>{{item.nickname}}</view>
@@ -15,7 +8,7 @@
         <navigator url="../../mtr/detail/detail?id={{item.postid}}"><text selectable='{{true}}'>{{item.content}}</text></navigator>
       </view>
       <view class='text-gray text-sm'>
-        回复了你 {{item.createtime}}
+        评论了你 {{item.createtime}}
       </view>
     </view>
   </view>

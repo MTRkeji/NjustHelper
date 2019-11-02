@@ -1,6 +1,6 @@
 /* pages/jwc/freeroom/freeroom.wxss */
 .content{
-  margin-top: 40px;
+  margin-top: 10px;
 }
 .table {
   justify-content: center;
