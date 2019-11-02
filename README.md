@@ -4,12 +4,11 @@
 > 欢迎各位同学参与到开发维护中来
 
 ## 小程序体验
-微信搜索：MTR南理
-![](https://github.com/MTRkeji/NjustHelper/preview/Qrcode.jpg)
+微信搜索：MTR南理</br>
+![](preview/Qrcode.jpg)
 
 ## 代码结构
 njustapp：前端代码</br>
-njusthelper：后端代码
 
 ## 功能概要
 
@@ -31,4 +30,14 @@ njusthelper：后端代码
 <!-- - [ ] 寻物/寻卡(失物招领,并且针对校园卡单独分类) -->
 
 ## 预览
-// TODO
+![](preview/index1.png)
+![](preview/index2.png)
+![](preview/me.png)
+![](preview/course.png)
+![](preview/grade1.jpg)
+![](preview/grade2.jpg)
+![](preview/classroom.png)
+![](preview/cengke.png)
+![](preview/searchbook.png)
+![](preview/bookdetail.png)
+![](preview/others.png)
