@@ -5,7 +5,7 @@
 
 ## 小程序体验
 微信搜索：MTR南理
-![](http://www.baidu.com/img/bdlogo.gif)
+![](https://github.com/MTRkeji/NjustHelper/preview/Qrcode.jpg)
 
 ## 代码结构
 njustapp：前端代码</br>
